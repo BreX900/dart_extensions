@@ -1,5 +1,7 @@
 library pure_extensions;
 
+export 'package:time/time.dart';
+
 export 'src/dart/collections/iterable.dart';
 export 'src/dart/collections/list.dart';
 export 'src/dart/collections/map.dart';

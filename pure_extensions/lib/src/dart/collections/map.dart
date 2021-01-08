@@ -1,12 +1,6 @@
 import 'dart:convert';
 
-import 'package:meta/meta.dart';
-import 'package:pure_extensions/src/dart/collections/internal.dart';
-
 extension MapExtensions<K, V> on Map<K, V> {
-  Iterable<T> generateIterable<T>(T Function(K key, V value) generator) =>
-      MapUtility.generateIterable(entries, generator);
-
   void removeNullValues() => removeWhere((key, value) => value == null);
 
   String encodeToString() => jsonEncode(this);
@@ -21,31 +15,87 @@ extension MapExtensions<K, V> on Map<K, V> {
     return list;
   }
 
-  bool every(bool test(K key, V value)) => MapUtility.every(entries, test);
+  /// returns a List from entries
+  Iterable<T> generateIterable<T>(T Function(K key, V value) generator) {
+    return entries.map((entry) => generator(entry.key, entry.value));
+  }
 
-  bool any(bool test(K key, V value)) => MapUtility.any(entries, test);
+  /// Returns a new map with all entries that satisfy the predicate [test].
+  ///
+  /// [Iterable.where]
+  Map<K, V> where(bool Function(K key, V value) predicate) {
+    return Map.fromEntries(entries.where((entry) => predicate(entry.key, entry.value)));
+  }
 
-  K getKeyAfter(K key, [int after = 1]) => MapUtility.getElementAfter(keys, key, after);
-
-  K getKeyBefore(K key, [int before = 1]) => MapUtility.getElementBefore(keys, key, before);
-
+  /// Returns the first entry that satisfies the given predicate [test].
+  ///
+  /// [Iterable.firstWhere]
   MapEntry<K, V> firstWhere(
     bool Function(K key, V value) test, {
     MapEntry<K, V> Function() orElse,
   }) {
-    return entries.firstWhere((e) => test(e.key, e.value), orElse: orElse);
+    return entries.firstWhere((entry) => test(entry.key, entry.value), orElse: orElse);
   }
-}
 
-extension OrderMapExt<K extends num, V> on Map<K, V> {
-  @visibleForTesting
-  Iterable<MapEntry<K, V>> whereKeyIs({K less, K equals, K great}) {
-    final newList = <MapEntry<K, V>>[];
-    for (var entry in entries) {
-      if (less != null && entry.key < less) newList.add(entry);
-      if (less != null && entry.key == equals) newList.add(entry);
-      if (great != null && entry.key > great) newList.add(entry);
+  /// Returns the last entry that satisfies the given predicate [test].
+  ///
+  /// [Iterable.lastWhere]
+  MapEntry<K, V> lastWhere(
+    bool Function(K key, V value) test, {
+    MapEntry<K, V> Function() orElse,
+  }) {
+    return entries.lastWhere((entry) => test(entry.key, entry.value), orElse: orElse);
+  }
+
+  /// Returns the first entry if it exists otherwise null.
+  ///
+  /// [Iterable.first]
+  MapEntry<K, V> get tryFirst {
+    Iterator<MapEntry<K, V>> it = entries.iterator;
+    if (!it.moveNext()) {
+      return null;
     }
-    return newList;
+    return it.current;
+  }
+
+  /// Returns the last entry if it exists otherwise null.
+  ///
+  /// [Iterable.last]
+  MapEntry<K, V> get tryLast {
+    MapEntry<K, V> result;
+    for (final entry in entries) {
+      result = entry;
+    }
+    return result;
+  }
+
+  /// Reduces a map to a single value by iteratively combining entries
+  /// of the collection using the provided function.
+  ///
+  /// [Iterable.reduce]
+  MapEntry<K, V> reduce(MapEntry<K, V> combine(MapEntry<K, V> value, MapEntry<K, V> entry)) {
+    return entries.reduce(combine);
+  }
+
+  /// Checks whether every entry of this map satisfies [test].
+  ///
+  /// [Iterable.every]
+  bool every(bool Function(K key, V value) test) {
+    return entries.every((entry) => test(entry.key, entry.value));
+  }
+
+  /// Checks whether any entry of this map satisfies [test].
+  ///
+  /// [Iterable.any]
+  bool any(bool Function(K key, V value) test) {
+    return entries.any((entry) => test(entry.key, entry.value));
+  }
+
+  /// Reduces a map to a single value by iteratively combining elements
+  /// of the map using the provided function.
+  ///
+  /// [Iterable.fold]
+  T fold<T>(T initialValue, T combine(T previousValue, MapEntry<K, V> entry)) {
+    return entries.fold(initialValue, combine);
   }
 }

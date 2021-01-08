@@ -1,83 +1,23 @@
 import 'dart:async';
 
 extension IterableExtensions<T> on Iterable<T> {
+  /// returns null or if it is empty returns true.
   Iterable<T> get nullIfEmpty => isEmpty ? null : this;
-
-  Map<int, T> judgeElements(int Function(T) judges) {
-    final res = <int, T>{};
-    for (var element in this) {
-      res[judges(element)] = element;
-    }
-    return res;
-  }
-
-  SeparatedResult<T> separate(int Function(T) separator) {
-    final less = <T>[];
-    final equals = <T>[];
-    final great = <T>[];
-    for (var value in this) {
-      final res = separator(value);
-      if (res == 0) {
-        equals.add(value);
-      } else if (res < 0) {
-        less.add(value);
-      } else {
-        great.add(value);
-      }
-    }
-    return SeparatedResult._(less, equals, great);
-  }
-
-  SeparatedResult<T> separateByContains(Iterable<T> iterable) {
-    final great = <T>[];
-    final equals = <T>[];
-    for (var value in this) {
-      (iterable.contains(value) ? equals.add : great.add)(value);
-    }
-    return SeparatedResult._(iterable.where((value) => !contains(value)).toList(), equals, great);
-  }
-
-  Iterable<T> whereNotContains(Iterable<T> badElements) {
-    return where((item) => !badElements.contains(item));
-  }
 
   Iterable<T> whereNotNull() => where((value) => value != null);
 
+  /// replace the old elements contained in the map with new ones.
   Iterable<T> replaces(Map<T, T> replacements) {
     return map((item) => replacements[item] ?? item);
   }
 
-  T get tryFirst {
-    try {
-      return first;
-    } on StateError {
-      return null;
-    }
+  /// Returns a iterable without [badElements]
+  Iterable<T> without(Iterable<T> badElements) {
+    return where((item) => !badElements.contains(item));
   }
 
-  T get tryLast {
-    try {
-      return last;
-    } on StateError {
-      return null;
-    }
-  }
-
-  V tryFirstWhereType<V>() => firstWhere((element) => element is V, orElse: () => null) as V;
-
-  Iterable<N> doubleMap<N>(N Function(T, T) converter) {
-    final it = iterator;
-    final list = <N>[];
-    while (it.moveNext()) {
-      final key = it.current;
-      if (!it.moveNext()) return list;
-      final value = it.current;
-      list.add(converter(key, value));
-    }
-    return list;
-  }
-
-  Iterable<T> joinBuilder(T Function(int) builder) {
+  /// Concatenates the elements given by function.
+  Iterable<T> joinBy(T Function(int) builder) {
     if (isEmpty) return [];
 
     final iterator = this.iterator;
@@ -97,41 +37,48 @@ extension IterableExtensions<T> on Iterable<T> {
     return newList;
   }
 
-  Iterable<T> joinElement(T element) => joinBuilder((index) => element);
+  /// Concatenates the elements.
+  Iterable<T> joinElement(T element) => joinBy((index) => element);
 
+  /// Returns the first entry if it exists otherwise null.
+  ///
+  /// [Iterable.first]
+  T get tryFirst {
+    try {
+      return first;
+    } on StateError {
+      return null;
+    }
+  }
+
+  /// Returns the last entry if it exists otherwise null.
+  ///
+  /// [Iterable.last]
+  T get tryLast {
+    try {
+      return last;
+    } on StateError {
+      return null;
+    }
+  }
+
+  /// Returns true if the specified value is equal to at least one element of the given list;
+  /// false otherwise
   bool containsAll(Iterable<T> other) {
     if (identical(other, this)) return true;
     if (other.length != length) return false;
     return other.every(contains);
   }
 
-  // Map<String, dynamic> deserialize() {
-  //   final iterator = this.iterator;
-  //   final map = <String, dynamic>{};
-  //   while (iterator.moveNext()) {
-  //     final key = iterator.current as String;
-  //     map[key] = iterator.moveNext() ? iterator.current : null;
-  //   }
-  //   return map;
-  // }
-
-  Map<K, V> generateMap<K, V>(MapEntry<K, V> Function(T) generator) {
-    return map(generator).toMap();
+  /// Splits a list into sub-lists stored in an object, based on the result of calling a
+  /// function on each element, and grouping the results according to values returned.
+  Map<K, List<T>> groupBy<K>(K Function(T element) fn) {
+    return map((e) => MapEntry(fn(e), e)).toMapList();
   }
 
-  /// In favour of [IterableMapEntryExt.toMapList]
-  @deprecated
-  Map<K, List<V>> generateMapList<K, V>(MapEntry<K, V> Function(T element) generator) {
-    final map = <K, List<V>>{};
-    for (var element in this) {
-      final entry = generator(element);
-      var list = map[entry.key];
-      if (list == null) {
-        map[entry.key] = list = <V>[];
-      }
-      list.add(entry.value);
-    }
-    return map;
+  /// Generate the map by collection.
+  Map<K, V> generateMap<K, V>(MapEntry<K, V> Function(T) generator) {
+    return map(generator).toMap();
   }
 
   Map<int, List<T>> generateBook({int valuesPerPage, int numberOfPages}) {
@@ -148,21 +95,10 @@ extension IterableExtensions<T> on Iterable<T> {
   }
 }
 
-class SeparatedResult<T> {
-  final List<T> less;
-  final List<T> equals;
-  final List<T> great;
-
-  SeparatedResult._(this.less, this.equals, this.great);
-
-  List<T> get lessAndEquals => [...less, ...equals];
-  List<T> get equalsAndGreat => [...equals, ...great];
-  List<T> get greatAndLess => [...great, ...less];
-}
-
 extension IterableMapEntryExt<K, V> on Iterable<MapEntry<K, V>> {
   Map<K, V> toMap() => Map.fromEntries(this);
 
+  /// Grouping the results in list according to key.
   Map<K, List<V>> toMapList() {
     final map = <K, List<V>>{};
     for (var entry in this) {
@@ -171,12 +107,21 @@ extension IterableMapEntryExt<K, V> on Iterable<MapEntry<K, V>> {
     return map;
   }
 
-  Iterable<V> get values => map((entry) => entry.value);
+  /// Returns only the keys.
+  ///
+  /// [Map.keys]
   Iterable<K> get keys => map((entry) => entry.key);
+
+  /// Returns only the values.
+  ///
+  /// [Map.values]
+  Iterable<V> get values => map((entry) => entry.value);
 }
 
 extension IterableExtFuture<T> on Iterable<Future<T>> {
+  /// [Future.wait]
   Future<List<T>> waitFutures() => Future.wait(this);
 
+  /// [Future.any]
   Future<T> anyFutures() => Future.any(this);
 }

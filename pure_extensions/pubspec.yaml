@@ -18,3 +18,5 @@ dependencies:
   built_value: ^7.1.0
   built_collection: ^4.3.2
   rxdart: ^0.24.1
+
+  time: ^1.4.0

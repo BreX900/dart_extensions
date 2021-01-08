@@ -1,6 +1,7 @@
 import 'package:built_value/serializer.dart';
 import 'package:pure_extensions/src/dart/primitives/GeoPoint.dart';
 
+/// Serializer for [GeoPoint] Type
 class GeoPointSerializer implements StructuredSerializer<GeoPoint> {
   @override
   final Iterable<Type> types = const [GeoPoint];

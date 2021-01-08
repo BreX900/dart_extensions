@@ -1,6 +1,12 @@
 import 'package:built_collection/built_collection.dart';
 
 extension IterableBuiltExtensions<T> on Iterable<T> {
+  /// Splits a list into sub-lists stored in an object, based on the result of calling a
+  /// function on each element, and grouping the results according to values returned.
+  BuiltMap<K, BuiltList<T>> builtGroupBy<K>(K Function(T element) fn) {
+    return map((e) => MapEntry(fn(e), e)).toBuiltMapList();
+  }
+
   BuiltMap<int, BuiltList<T>> generateBuiltBook({int valuesPerPage, int numberOfPages}) {
     if (valuesPerPage == null && numberOfPages == null) return BuiltMap.of({0: this});
     valuesPerPage ??= this.length ~/ numberOfPages;
