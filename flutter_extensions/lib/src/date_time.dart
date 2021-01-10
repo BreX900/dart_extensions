@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:pure_extensions/pure_extensions.dart';
 
 extension DateTimeFlutterExtensions on DateTime {
-  TimeOfDay toTimeOfDay(DateTime dateTime) => TimeOfDay.fromDateTime(dateTime);
+  /// Convert it ot [TimeOfDay]
+  TimeOfDay toTimeOfDay() => TimeOfDay.fromDateTime(this);
 
+  /// Copy with [timeOfDay]
   DateTime copyWithTimeOfDay(TimeOfDay timeOfDay) {
     return copyWith(hour: timeOfDay.hour, minute: timeOfDay.minute);
   }

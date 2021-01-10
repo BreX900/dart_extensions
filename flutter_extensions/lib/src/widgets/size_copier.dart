@@ -2,40 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
-class GlobalKeyDrainer<T extends State<StatefulWidget>> extends StatefulWidget {
-  final Widget Function(BuildContext, GlobalKey<T>) builder;
-
-  const GlobalKeyDrainer({Key key, @required this.builder}) : super(key: key);
-
-  @override
-  _GlobalKeyDrainerState<T> createState() => _GlobalKeyDrainerState<T>();
-
-  static GlobalKey<T> of<T extends State<StatefulWidget>>(BuildContext context) {
-    return context.findAncestorStateOfType<_GlobalKeyDrainerState<T>>()._originalKey;
-  }
-}
-
-class _GlobalKeyDrainerState<T extends State<StatefulWidget>> extends State<GlobalKeyDrainer<T>> {
-  GlobalKey<T> _originalKey;
-
-  @override
-  void initState() {
-    super.initState();
-    _originalKey = GlobalKey<T>();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return widget.builder(context, _originalKey);
-  }
-}
-
+/// Provides the size of another widget
 class SizeCopierController extends ChangeNotifier {
   Size _size;
 
   SizeCopierController({Size initialSize = Size.zero}) : _size = initialSize;
 
   Size get size => _size;
+
   set size(Size size) {
     if (_size == size) return;
     _size = size;
@@ -64,6 +38,7 @@ abstract class SizeCopierBinders {
   }
 }
 
+/// Copy the widget size into `SizeCopierController`
 class SizeCopier extends StatefulWidget {
   final Widget child;
 
@@ -103,6 +78,7 @@ class SizeCopierState extends State<SizeCopier> {
   }
 }
 
+/// Read the widget size into `SizeCopierController` and build the child
 class SizeCopy extends StatefulWidget {
   final Widget Function(BuildContext, Size) builder;
 
@@ -171,7 +147,5 @@ class _SizeCopyState extends State<SizeCopy> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return widget.builder(context, _size);
-  }
+  Widget build(BuildContext context) => widget.builder(context, _size);
 }

@@ -1,8 +1,13 @@
 import 'package:flutter/widgets.dart';
 
-/// it is same [AspectRatio]
+/// Build the widget with the dimension from an aspect ratio
+///
+/// Is same [AspectRatio]
 class AspectRatioBuilder extends StatelessWidget {
+  /// [AspectRatio.aspectRatio]
   final double aspectRatio;
+
+  /// Builder
   final Widget Function(BuildContext context, Size size) builder;
 
   const AspectRatioBuilder({

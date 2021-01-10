@@ -22,8 +22,10 @@ extension IterableBuiltExtensions<T> on Iterable<T> {
 }
 
 extension MapEntriesBuiltExtensions<K, V> on Iterable<MapEntry<K, V>> {
+  /// Convert the collection of entries into a [BuiltMap]
   BuiltMap<K, V> toBuiltMap() => Map.fromEntries(this).build();
 
+  /// Grouping the results in list according to key.
   BuiltMap<K, BuiltList<V>> toBuiltMapList() {
     final map = <K, ListBuilder<V>>{};
     for (var entry in this) {

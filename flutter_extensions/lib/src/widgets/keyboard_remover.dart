@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 /// );
 ///
 class KeyboardRemover extends StatefulWidget {
+  /// The child
   final Widget child;
 
   const KeyboardRemover({Key key, @required this.child})

@@ -1,28 +1,56 @@
 # Flutter Extensions
 
-Adds several extensions
+| Widgets | Description |
+| --- | --- |
+| AspectRatioBuilder | Build the widget with the dimension from an aspect ratio |
+| FixedIndexedStack | Build the child only when the index is selected |
+| InkStack | Add [InkWell] on image |
+| KeyboardRemover | Close the keyboard when use press on the screen |
+| SizeCopier | Copy the widget size into `SizeCopierController` |
+| SizeCopy | Read the widget size into `SizeCopierController` and build the child |
+
+| Enums |
+| --- |
+| TargetPlatform |
+
+### BuildContext
+| Command | Description |
+| ------- | ----------- |
+| theme | The [ThemeData] instance from the closest context. |
+| defaultTextStyle | The [DefaultTextStyle] instance from the closest context. |
+| iconTheme | The [IconThemeData] instance from the closest context. |
+| localizations | The [Localizations] instance from the closest context. |
+| locale | The [Locale] instance from the closest context. |
+| navigator | The [Navigator] instance from the closest context. |
+| tryRead | Returns the read value if it exists otherwise null. |
+| tryWatch | Returns the watch value if it exists otherwise null. |
 
 ### DateTime - Time
 
 | Command | Description |
 | ------- | ----------- |
-| DateTime.toTimeOfDay | |
-| DateTime.copyWithTimeOfDay | |
+| DateTime.toTimeOfDay | Convert it ot [TimeOfDay] |
+| DateTime.copyWithTimeOfDay | Copy with [timeOfDay] |
 
-## Flutter
-
+### Size
 | Command | Description |
 | ------- | ----------- |
-| TargetPlatformExt.isMobile | returns bool |
-| TargetPlatformExt.isDesktop | returns bool |
+| copyWith | Copy with new values. |
+
+### InputDecoration
+| Command | Description |
+| ------- | ----------- |
 | InputDecoration.completeWith(...) | returns a copy of `InputDecoration` by completing it with the attributes |
+
+### Table
+| Command | Description |
+| ------- | ----------- |
 | DataRow.copyWith(...) | returns a copy of `DataRow` with the new attributes |
 | DataRow.completeWith(...) | returns a copy of `DataRow` by completing it with the attributes |
 | DataCell.copyWith(...) | returns a copy of `DataCell` with the new attributes |
 | DataCell.completeWith(...) | returns a copy of `DataCell` by completing it with the attributes |
 
-
-### Widgets
+## Widgets
 
 #### Listenable - ChangeNotifier
 
@@ -47,14 +75,5 @@ Not repeat data or `AsyncSnapshot`
 | ValueStreamConsumer | Construct the `Widget` based on the data and notify change data |
 | ValueStreamBuilder | Construct the `Widget` based on the data |
 | ValueStreamListener | Notify change data |
-
-#### Basic
-
-| Widget | Description |
-| ------- | ----------- |
-| FixedIndexedStack | Build the child only when the index is selected |
-| SizeCopier | Update a `SizeCopierController` with the size of the child |
-| SizeCopy | Create a SizedWidget taking inspiration from `SizeCopierController` |
-| KeyboardRemover | Close the keyboard when use press on the screen |
 
 

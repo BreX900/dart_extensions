@@ -1,12 +1,13 @@
 name: pure_extensions
-description: A new Flutter project.
-version: 0.0.1
-author:
-homepage:
+description: It adds utility extensions to the dart classes and adds some utility classes.
+version: 2.0.2
+author: BreX900
+homepage: https://github.com/BreX900/dart_extensions/tree/master/pure_extensions
+
+# flutter pub publish --dry-run
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
-
 
 dependencies:
   tinycolor: ^1.0.3

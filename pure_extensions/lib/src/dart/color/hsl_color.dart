@@ -1,7 +1,6 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
-import 'package:tinycolor/util.dart';
+import 'util.dart';
 
 class HslColor {
   final double h;
@@ -9,7 +8,7 @@ class HslColor {
   final double l;
   final double a;
 
-  HslColor({@required this.h, @required this.s, @required this.l, this.a = 0.0});
+  HslColor({this.h, this.s, this.l, this.a = 0.0});
 
   Color toColor() {
     double r;
@@ -40,14 +39,26 @@ class HslColor {
     return p;
   }
 
+  /// Lighten the color a given amount, from 0 to 100.
+  /// Providing 100 will always return white.
   HslColor lighten([int amount = 10]) => copyWith(l: clamp01(l + amount / 100));
 
+  /// Darken the color a given amount, from 0 to 100.
+  /// Providing 100 will always return black.
   HslColor darken([int amount = 10]) => copyWith(l: clamp01(l - amount / 100));
 
+  /// Desaturate the color a given amount, from 0 to 100.
+  /// Providing 100 will is the same as calling greyscale.
   HslColor desaturate([int amount = 10]) => copyWith(s: clamp01(s - amount / 100));
 
+  /// Saturate the color a given amount, from 0 to 100.
   HslColor saturate([int amount = 10]) => copyWith(s: clamp01(s + amount / 100));
 
+  /// Completely desaturates a color into greyscale. Same as calling desaturate(100).
+  HslColor greyscale() => desaturate(100);
+
+  /// Spin the hue a given amount, from -360 to 360.
+  /// Calling with 0, 360, or -360 will do nothing (since it sets the hue back to what it was before).
   HslColor spin(double amount) {
     final hue = (h + amount) % 360;
     return copyWith(h: hue < 0 ? 360 + hue : hue);
@@ -63,5 +74,3 @@ class HslColor {
     return "HSL(h: $h, s: $s, l: $l, a: $a)";
   }
 }
-
-

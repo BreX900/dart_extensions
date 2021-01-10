@@ -2,6 +2,13 @@
 
 Adds several extensions
 
+| class | Description |
+| --- | --- |
+| GeoPoint | Defines a geographical point. |
+| GeoBounds | A latitude/longitude aligned rectangle. |
+| CompositeMapSubscription | Acts as a map for multiple subscriptions that can be canceled at once. |
+| ReadableFile | Implement a multi platform interface to be able to read a file. |
+
 ### Color
 
 Extensions color code we thank "TinyColor"
@@ -33,9 +40,23 @@ They are extended with the methods of the 'math' package
 | groupBy | Splits a list into sub-lists stored in an object, based on the result. |
 | generateMap | Generate the map by collection. |
 
-##### Iterable<MapEntry<K, V>>
+##### Iterable<num/int/double/BigInt/Rational>
 | Command | Description |
 | --- | --- |
+| sumAll | Calculate the sum of all numbers in the collection |
+| subtractAll | Calculate the subtraction of all numbers in the collection |
+| divideAll | Calculate the division of all numbers in the collection |
+| multiplyAll | Calculate the multiplication of all numbers in the collection |
+| sum | Sum [number] to all items in the collection |
+| subtract | Subtract [number] to all items in the collection |
+| divide | Divide [number] to all items in the collection |
+| multiply | Multiply [number] to all items in the collection |
+| average | Calculate the average of all numbers in the collection |
+
+##### Iterable<MapEntry<K, V>> (BUILT)
+| Command | Description |
+| --- | --- |
+| toMap | Convert the collection of entries into a [Map]. |
 | toMapList | Grouping the results in list according to key. |
 | keys | Returns only the keys. |
 | values | Returns only the values. |
@@ -45,6 +66,15 @@ They are extended with the methods of the 'math' package
 | --- | --- |
 | waitFutures | same as [Future.wait] method |
 | anyFutures | same as [Future.any] method |
+
+##### Iterable<GeoPoint>
+| Command | Description |
+| --- | --- |
+| center | Calculate a center. |
+| northeast | Calculate the northeast corner. |
+| southwest | Calculate the southwest corner. |
+| internalBounds | Calculate the internal corners. |
+| externalBounds | Calculate the external corners. |
 
 ### Map<K, V> (BUILT)
 
@@ -73,19 +103,22 @@ See time package
 
 | Command | Description |
 | ------- | ----------- |
-| distinctRuntimeType | Stream.distinct] by [T.runtimeType] |
-| listenValueChanges | Hear how the specified value changes over time from its previous value |
-
-### Classes
-
-| class | Description |
-| --- | --- |
-| GeoPoint | Defines a geographical point |
-| CompositeMapSubscription | Acts as a map for multiple subscriptions that can be canceled at once |
+| distinctRuntimeType | Stream.distinct] by [T.runtimeType]. |
+| listenValueChanges | Hear how the specified value changes over time from its previous value. |
 
 ## Built
 
 | Class | Description |
 | --- | --- |
 | GeoPointSerializer | Serializer for [GeoPoint] Type |
+| LocaleSerializer | Serializer for the [Locale] type |
+| ByPassSerializer | Serializer that does not serialize and deserialize the specified type [T] |
 
+##### Serializers
+
+| Command | Description |
+| --- | --- |
+| serializeAll | Serialize the collection of objects |
+| serializeAllWith | Serialize the collection of objects using [Serializer]. |
+| deserializeAll | Deserialize the collection of objects. |
+| deserializeAllWith | Deserialize the collection of objects using [Serializer]. |
