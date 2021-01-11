@@ -8,6 +8,7 @@ Adds several extensions
 | GeoBounds | A latitude/longitude aligned rectangle. |
 | CompositeMapSubscription | Acts as a map for multiple subscriptions that can be canceled at once. |
 | ReadableFile | Implement a multi platform interface to be able to read a file. |
+| DurationBuilder | Builder for [Duration] |
 
 
 ### - **Color**
@@ -112,6 +113,23 @@ See time package
 | Command | Description |
 | ------- | ----------- |
 | DateTime.copyWithPosition |  |
+
+
+### - **Duration**
+
+See time package
+
+Command | Description
+------- | -----------
+days | Human days representation (0 -> ...)
+hours | Human hours representation (0 -> 24)
+minutes | Human minutes representation (0 -> 59)
+seconds | Human seconds representation (0 -> 59)
+milliseconds | Human milliseconds representation (0 -> 999)
+microseconds | Human microseconds representation (0 -> 999)
+copyWith | Copy this with new values
+toBuilder | Converts this in builder
+rebuild | Update this by [DurationBuilder]
 
 
 ### - **Stream< T >**

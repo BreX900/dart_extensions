@@ -1,3 +1,7 @@
+## [2.0.3]
+- Added more extension for `Duration` (human extensions, copyWith, built)
+- Added `DurationBuilder` for build `Duration`
+
 ## [2.0.2]
 - Export `GeoPoint`
 
