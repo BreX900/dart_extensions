@@ -1,4 +1,4 @@
-## Dart Extensions
+# **Dart Extensions**
 
 Adds several extensions
 
@@ -9,11 +9,13 @@ Adds several extensions
 | CompositeMapSubscription | Acts as a map for multiple subscriptions that can be canceled at once. |
 | ReadableFile | Implement a multi platform interface to be able to read a file. |
 
-### Color
+
+### **Color**
 
 Extensions color code we thank "TinyColor"
 
-### String
+
+### **String**
 
 | Command | Description |
 | ------- | ----------- |
@@ -22,10 +24,12 @@ Extensions color code we thank "TinyColor"
 | ifBlank(() => 'text') | if string is empty or contains only space returns 'text' otherwise returns string |
 more methods... please complete this list...
 
-### num
+
+### **num**
 They are extended with the methods of the 'math' package
 
-### Iterable<T> (BUILT)
+
+### **Iterable<T> (BUILT)**
 
 | Command | Description |
 | ------- | ----------- |
@@ -40,7 +44,9 @@ They are extended with the methods of the 'math' package
 | groupBy | Splits a list into sub-lists stored in an object, based on the result. |
 | generateMap | Generate the map by collection. |
 
-##### Iterable<num/int/double/BigInt/Rational>
+
+##### **Iterable<num/int/double/BigInt/Rational>**
+
 | Command | Description |
 | --- | --- |
 | sumAll | Calculate the sum of all numbers in the collection |
@@ -53,7 +59,9 @@ They are extended with the methods of the 'math' package
 | multiply | Multiply [number] to all items in the collection |
 | average | Calculate the average of all numbers in the collection |
 
-##### Iterable<MapEntry<K, V>> (BUILT)
+
+##### **Iterable<MapEntry<K, V>> (BUILT)**
+
 | Command | Description |
 | --- | --- |
 | toMap | Convert the collection of entries into a [Map]. |
@@ -61,13 +69,17 @@ They are extended with the methods of the 'math' package
 | keys | Returns only the keys. |
 | values | Returns only the values. |
 
-##### Iterable<Future<T>
+
+##### **Iterable<Future<T>**
+  
 | Command | Description |
 | --- | --- |
 | waitFutures | same as [Future.wait] method |
 | anyFutures | same as [Future.any] method |
 
-##### Iterable<GeoPoint>
+
+##### **Iterable<GeoPoint>**
+  
 | Command | Description |
 | --- | --- |
 | center | Calculate a center. |
@@ -76,7 +88,8 @@ They are extended with the methods of the 'math' package
 | internalBounds | Calculate the internal corners. |
 | externalBounds | Calculate the external corners. |
 
-### Map<K, V> (BUILT)
+
+### **Map<K, V> (BUILT)**
 
 | Command | Description |
 | ------- | ----------- |
@@ -91,7 +104,8 @@ They are extended with the methods of the 'math' package
 | any | Checks whether any entry of this map satisfies [test]. |
 | fold | Reduces a map to a single value by iteratively combining entries. |
 
-### DateTime
+
+### **DateTime**
 
 See time package
 
@@ -99,14 +113,17 @@ See time package
 | ------- | ----------- |
 | DateTime.copyWithPosition |  |
 
-### Stream<T>
+
+### **Stream<T>**
+
 
 | Command | Description |
 | ------- | ----------- |
 | distinctRuntimeType | Stream.distinct] by [T.runtimeType]. |
 | listenValueChanges | Hear how the specified value changes over time from its previous value. |
 
-## Built
+
+## **Built**
 
 | Class | Description |
 | --- | --- |
