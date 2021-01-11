@@ -10,12 +10,12 @@ Adds several extensions
 | ReadableFile | Implement a multi platform interface to be able to read a file. |
 
 
-### **Color**
+### - **Color**
 
 Extensions color code we thank "TinyColor"
 
 
-### **String**
+### - **String**
 
 | Command | Description |
 | ------- | ----------- |
@@ -25,11 +25,11 @@ Extensions color code we thank "TinyColor"
 more methods... please complete this list...
 
 
-### **num**
+### - **num**
 They are extended with the methods of the 'math' package
 
 
-### **Iterable<T> (BUILT)**
+### - **Iterable< T > (BUILT)**
 
 | Command | Description |
 | ------- | ----------- |
@@ -45,7 +45,7 @@ They are extended with the methods of the 'math' package
 | generateMap | Generate the map by collection. |
 
 
-##### **Iterable<num/int/double/BigInt/Rational>**
+##### - **Iterable< num/int/double/BigInt/Rational >**
 
 | Command | Description |
 | --- | --- |
@@ -60,7 +60,7 @@ They are extended with the methods of the 'math' package
 | average | Calculate the average of all numbers in the collection |
 
 
-##### **Iterable<MapEntry<K, V>> (BUILT)**
+##### - **Iterable< MapEntry< K, V > > (BUILT)**
 
 | Command | Description |
 | --- | --- |
@@ -70,7 +70,7 @@ They are extended with the methods of the 'math' package
 | values | Returns only the values. |
 
 
-##### **Iterable<Future<T>**
+##### - **Iterable< Future< T > >**
   
 | Command | Description |
 | --- | --- |
@@ -78,7 +78,7 @@ They are extended with the methods of the 'math' package
 | anyFutures | same as [Future.any] method |
 
 
-##### **Iterable<GeoPoint>**
+##### - **Iterable< GeoPoint >**
   
 | Command | Description |
 | --- | --- |
@@ -89,7 +89,7 @@ They are extended with the methods of the 'math' package
 | externalBounds | Calculate the external corners. |
 
 
-### **Map<K, V> (BUILT)**
+### - **Map< K, V > (BUILT)**
 
 | Command | Description |
 | ------- | ----------- |
@@ -105,7 +105,7 @@ They are extended with the methods of the 'math' package
 | fold | Reduces a map to a single value by iteratively combining entries. |
 
 
-### **DateTime**
+### - **DateTime**
 
 See time package
 
@@ -114,7 +114,7 @@ See time package
 | DateTime.copyWithPosition |  |
 
 
-### **Stream<T>**
+### - **Stream< T >**
 
 
 | Command | Description |
@@ -131,7 +131,7 @@ See time package
 | LocaleSerializer | Serializer for the [Locale] type |
 | ByPassSerializer | Serializer that does not serialize and deserialize the specified type [T] |
 
-##### Serializers
+#### - Serializers
 
 | Command | Description |
 | --- | --- |
