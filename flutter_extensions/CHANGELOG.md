@@ -1,3 +1,6 @@
+## [2.1.0]
+- Update `pute_extension` dependency
+
 ## [2.0.0]
 - Now many extensions are on the pure_extensions package
 
