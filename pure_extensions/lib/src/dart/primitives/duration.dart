@@ -37,7 +37,7 @@ extension DurationDartExtension on Duration {
   }
 
   /// Converts this in builder
-  DurationBuilder toBuilder() => DurationBuilder.from(this);
+  DurationBuilder toBuilder() => DurationBuilder.of(this);
 
   /// Update this by [DurationBuilder]
   Duration rebuild(void Function(DurationBuilder b) updates) {
@@ -56,59 +56,46 @@ class DurationBuilder {
 
   int get days => _days;
   set days(int days) {
-    assert(days >= 0, 'Not valid days: $days');
-    _days = days;
+    _days = days ?? 0;
   }
 
   int get hours => _hours;
   set hours(int hours) {
-    assert(hours != null && hours >= 0 && hours < Duration.hoursPerDay, 'Not valid hours: $hours');
-    _hours = hours;
+    _hours = hours ?? 0;
   }
 
   int get minutes => _minutes;
   set minutes(int minutes) {
-    assert(
-      minutes != null && minutes >= 0 && minutes < Duration.minutesPerHour,
-      'Not valid minutes: $minutes',
-    );
-    _minutes = minutes;
+    _minutes = minutes ?? 0;
   }
 
   int get seconds => _seconds;
   set seconds(int seconds) {
-    assert(
-      seconds != null && seconds >= 0 && seconds < Duration.secondsPerMinute,
-      'Not valid seconds: $seconds',
-    );
-    _seconds = seconds;
+    _seconds = seconds ?? 0;
   }
 
   int get milliseconds => _milliseconds;
   set milliseconds(int milliseconds) {
-    assert(
-      milliseconds != null && milliseconds >= 0 && milliseconds < Duration.millisecondsPerSecond,
-      'Not valid milliseconds: $milliseconds',
-    );
-    _milliseconds = milliseconds;
+    _milliseconds = milliseconds ?? 0;
   }
 
   int get microseconds => _microseconds;
   set microseconds(int microseconds) {
-    assert(
-      microseconds != null &&
-          microseconds >= 0 &&
-          microseconds < Duration.microsecondsPerMillisecond,
-      'Not valid microseconds: $microseconds',
-    );
-    _microseconds = microseconds;
+    _microseconds = microseconds ?? 0;
   }
+
+  DurationBuilder([void Function(DurationBuilder b) updates]) {
+    update(updates);
+  }
+
+  factory DurationBuilder.of(Duration duration) => DurationBuilder()..replace(duration);
 
   void update(void Function(DurationBuilder b) updates) {
     if (updates != null) updates(this);
   }
 
   void replace(Duration duration) {
+    assert(duration != null);
     days = duration.days;
     hours = duration.hours;
     minutes = duration.minutes;
@@ -116,35 +103,6 @@ class DurationBuilder {
     milliseconds = duration.milliseconds;
     microseconds = duration.microseconds;
   }
-
-  DurationBuilder([void Function(DurationBuilder b) updates]) {
-    update(updates);
-  }
-
-  DurationBuilder.of({
-    int days = 0,
-    int hours = 0,
-    int minutes = 0,
-    int seconds = 0,
-    int milliseconds = 0,
-    int microseconds = 0,
-  }) {
-    this.days = days;
-    this.hours = hours;
-    this.minutes = minutes;
-    this.seconds = seconds;
-    this.milliseconds = milliseconds;
-    this.microseconds = microseconds;
-  }
-
-  factory DurationBuilder.from(Duration duration) => DurationBuilder.of(
-        days: duration.days,
-        hours: duration.hours,
-        minutes: duration.minutes,
-        seconds: duration.seconds,
-        milliseconds: duration.milliseconds,
-        microseconds: duration.microseconds,
-      );
 
   Duration build() {
     return Duration(

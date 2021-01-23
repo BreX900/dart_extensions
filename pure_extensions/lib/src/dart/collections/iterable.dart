@@ -315,3 +315,7 @@ extension IterableGeoPointDartExtension on Iterable<GeoPoint> {
     );
   }
 }
+
+extension IterableIterableDartExt<T> on Iterable<Iterable<T>> {
+  Iterable<T> flat() => expand((element) => element);
+}

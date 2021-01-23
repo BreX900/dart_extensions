@@ -1,3 +1,13 @@
+### Not Released
+- Added `CustomUriBuilder` for parsing uri in built value
+
+## [2.1.0]
+- Added on `String` methods: `toNum`, `toInt`, `toDouble`, `toUri` with try and without
+- Added `Uri` extensions and `UriBuilder`
+- Added `DateTime` extensions and `DateTimeBuilder`
+- Removed `tinyColor` dependency and extension
+- Removed all `dart:ui` import
+
 ## [2.0.3]
 - Added more extension for `Duration` (human extensions, copyWith, built)
 - Added `DurationBuilder` for build `Duration`

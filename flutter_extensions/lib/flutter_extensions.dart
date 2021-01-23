@@ -5,6 +5,8 @@ export 'package:pure_extensions/pure_extensions.dart';
 export 'src/color_scheme.dart';
 export 'src/context.dart';
 export 'src/date_time.dart';
+export 'src/extensions/color/color_extension.dart';
+export 'src/extensions/color/hsl_color.dart';
 export 'src/extensions/size.dart';
 export 'src/field.dart';
 export 'src/regexp.dart';

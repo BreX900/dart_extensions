@@ -25,11 +25,9 @@ extension StringDartExtensions on String {
 
   String nullIfEmpty() => isEmpty ? null : this;
 
-  Map<String, dynamic> decodeToMap() =>
-      jsonDecode(this) as Map<String, dynamic>;
+  Map<String, dynamic> decodeToMap() => jsonDecode(this) as Map<String, dynamic>;
 
-  List<Map<String, dynamic>> decodeToList() =>
-      jsonDecode(this) as List<Map<String, dynamic>>;
+  List<Map<String, dynamic>> decodeToList() => jsonDecode(this) as List<Map<String, dynamic>>;
 
   List<String> divide([int startAt = 0, int divideAt, int endAt]) {
     endAt ??= length;
@@ -71,8 +69,16 @@ extension StringDartExtensions on String {
     return '${trimBy('/')}/${paths.map((e) => e.trimBy('/')).join('/')}';
   }
 
-  Rational toRational() => Rational.parse(this);
+  num toNum() => num.parse(this);
+  num toTryNum() => num.tryParse(this);
 
+  int toInt({int radix}) => int.parse(this, radix: radix);
+  int toTryInt({int radix}) => int.tryParse(this, radix: radix);
+
+  double toDouble() => double.parse(this);
+  double toTryDouble() => double.tryParse(this);
+
+  Rational toRational() => Rational.parse(this);
   Rational tryToRational() {
     try {
       return Rational.parse(this);
@@ -80,4 +86,10 @@ extension StringDartExtensions on String {
       return null;
     }
   }
+
+  Uri toUri([int start = 0, int end]) => Uri.parse(this, start, end);
+  Uri toTryUri([int start = 0, int end]) => Uri.tryParse(this, start, end);
+
+  DateTime toDateTime() => DateTime.parse(this);
+  DateTime toTryDateTime() => DateTime.tryParse(this);
 }

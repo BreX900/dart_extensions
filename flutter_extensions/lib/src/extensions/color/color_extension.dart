@@ -1,7 +1,7 @@
 import 'dart:math' as Math;
 import 'dart:ui';
 
-import 'package:meta/meta.dart';
+import 'package:flutter/foundation.dart';
 
 import 'hsl_color.dart';
 import 'util.dart';
