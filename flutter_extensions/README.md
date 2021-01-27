@@ -52,10 +52,14 @@
 
 ## Widgets
 
+| Widget | Description |
+| ------ | ----------- |
+| FillSingleChildScrollView | Allows you to use flex widgets within a scroll view |
+
 #### Listenable - ChangeNotifier
 
 | Widget | Description |
-| ------- | ----------- |
+| ------ | ----------- |
 | ChangeableProvider | ... |
 | ChangeableBuilder | listen to a `Listenable` and construct the ui based on the changes |
 | ChangeableListener | ... |

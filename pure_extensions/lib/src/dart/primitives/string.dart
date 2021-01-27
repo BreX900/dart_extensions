@@ -56,19 +56,6 @@ extension StringDartExtensions on String {
     return string;
   }
 
-  String joinPath(String path) {
-    if (this.endsWith('/')) {
-      return '${this}${path.startsWith('/') ? path.substring(1) : path}';
-    } else {
-      return '${this}${path.startsWith('/') ? path : '/$path'}';
-    }
-  }
-
-  @deprecated
-  String joinPaths(Iterable<String> paths) {
-    return '${trimBy('/')}/${paths.map((e) => e.trimBy('/')).join('/')}';
-  }
-
   num toNum() => num.parse(this);
   num toTryNum() => num.tryParse(this);
 

@@ -3,11 +3,10 @@ import 'package:built_value/serializer.dart';
 import 'package:rational/rational.dart';
 
 class RationalSerializer implements PrimitiveSerializer<Rational> {
-  @override
-  final Iterable<Type> types = BuiltList([Rational]);
+  ///
+  final int fractionDigits;
 
-  @override
-  final String wireName = '$Rational';
+  RationalSerializer({this.fractionDigits});
 
   @override
   Rational deserialize(
@@ -24,6 +23,16 @@ class RationalSerializer implements PrimitiveSerializer<Rational> {
     Rational object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return object.toDecimalString();
+    if (fractionDigits != null) {
+      return object.toStringAsFixed(fractionDigits);
+    } else {
+      return object.toDecimalString();
+    }
   }
+
+  @override
+  final Iterable<Type> types = BuiltList([Rational]);
+
+  @override
+  final String wireName = '$Rational';
 }

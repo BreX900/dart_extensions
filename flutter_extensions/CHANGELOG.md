@@ -1,5 +1,10 @@
+## [2.1.1]
+- Added animations tween: `DoubleTween`, `TransformTween`, `AdapterTween`, `RotationTween`, `OffsetTween`, `PathTween`
+- Added transitions widgets: `PaddingTransition`
+- Added widgets: `FillSingleChildScrollView`
+
 ## [2.1.0]
-- Update `pute_extension` dependency
+- Update `pure_extension` dependency
 
 ## [2.0.0]
 - Now many extensions are on the pure_extensions package

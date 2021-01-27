@@ -11,7 +11,7 @@ environment:
 
 dependencies:
   rational: ^0.3.8
-  basic_utils: ^2.6.3
+  basic_utils: ^2.7.1
   path: ^1.7.0
   meta: ^1.2.4
 

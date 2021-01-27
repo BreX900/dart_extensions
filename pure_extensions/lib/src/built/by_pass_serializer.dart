@@ -3,10 +3,10 @@ import 'package:built_value/serializer.dart';
 /// Serializer that does not serialize and deserialize the specified type [T]
 class ByPassSerializer<T> extends PrimitiveSerializer<T> {
   @override
-  Iterable<Type> get types => [T];
+  final Iterable<Type> types = [T];
 
   @override
-  String get wireName => '$T';
+  final String wireName = '$T';
 
   @override
   Object serialize(
