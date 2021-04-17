@@ -2,6 +2,7 @@ library flutter_extensions;
 
 export 'package:pure_extensions/pure_extensions.dart';
 
+export 'src/animations.dart';
 export 'src/color_scheme.dart';
 export 'src/context.dart';
 export 'src/date_time.dart';
@@ -15,6 +16,7 @@ export 'src/utility/button_style_builder.dart';
 export 'src/widgets/FixedIndexedStack.dart';
 export 'src/widgets/aspect_ratio_builder.dart';
 export 'src/widgets/drawers.dart';
+export 'src/widgets/fill_single_child_scroll_view.dart';
 export 'src/widgets/ink_stack.dart';
 export 'src/widgets/keyboard_remover.dart';
 export 'src/widgets/listenable/listenable_consumer.dart';

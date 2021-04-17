@@ -105,14 +105,20 @@ class _StringDateTimeSerializer extends BaseRedirectSerializer<DateTime>
       : super(serializer ?? DateTimeSerializer());
 
   @override
-  Object serialize(Serializers serializers, DateTime dateTime,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    DateTime dateTime, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return '${super.serialize(serializers, dateTime, specifiedType: specifiedType)}';
   }
 
   @override
-  DateTime deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  DateTime deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return super.deserialize(serializers, int.parse(serialized), specifiedType: specifiedType);
   }
 }
@@ -123,8 +129,11 @@ class _StringDoubleSerializer extends BaseRedirectSerializer<double>
       : super(serializer ?? DoubleSerializer());
 
   @override
-  Object serialize(Serializers serializers, double aDouble,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    double aDouble, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final serialized = super.serialize(serializers, aDouble, specifiedType: specifiedType);
     if (serialized is double) {
       return '$aDouble';
@@ -134,8 +143,11 @@ class _StringDoubleSerializer extends BaseRedirectSerializer<double>
   }
 
   @override
-  double deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  double deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     if (serialized == DoubleSerializer.nan ||
         serialized == DoubleSerializer.negativeInfinity ||
         serialized == DoubleSerializer.infinity) {
@@ -152,14 +164,20 @@ class _StringDurationSerializer extends BaseRedirectSerializer<Duration>
       : super(serializer ?? DurationSerializer());
 
   @override
-  Object serialize(Serializers serializers, Duration object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    Duration object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return '${super.serialize(serializers, object, specifiedType: specifiedType)}';
   }
 
   @override
-  Duration deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  Duration deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return super.deserialize(serializers, int.parse(serialized), specifiedType: specifiedType);
   }
 }
@@ -168,14 +186,20 @@ class _StringIntSerializer extends BaseRedirectSerializer<int> implements Primit
   _StringIntSerializer([Serializer<int> serializer]) : super(serializer ?? IntSerializer());
 
   @override
-  Object serialize(Serializers serializers, int object,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    int object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return '${super.serialize(serializers, object, specifiedType: specifiedType)}';
   }
 
   @override
-  int deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  int deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     return super.deserialize(serializers, int.parse(serialized), specifiedType: specifiedType);
   }
 }
@@ -184,8 +208,11 @@ class _StringNumSerializer extends BaseRedirectSerializer<num> implements Primit
   _StringNumSerializer([Serializer<num> serializer]) : super(serializer ?? DoubleSerializer());
 
   @override
-  Object serialize(Serializers serializers, num aDouble,
-      {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(
+    Serializers serializers,
+    num aDouble, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     final serialized = super.serialize(serializers, aDouble, specifiedType: specifiedType);
     if (serialized is num) {
       return '$aDouble';
@@ -195,8 +222,11 @@ class _StringNumSerializer extends BaseRedirectSerializer<num> implements Primit
   }
 
   @override
-  num deserialize(Serializers serializers, Object serialized,
-      {FullType specifiedType = FullType.unspecified}) {
+  num deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
     if (serialized == DoubleSerializer.nan ||
         serialized == DoubleSerializer.negativeInfinity ||
         serialized == DoubleSerializer.infinity) {

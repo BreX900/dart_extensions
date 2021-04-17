@@ -1,5 +1,12 @@
-### Not Released
+## [2.1.2]
+- Added `asStream` and `asBroadcast`
+- Added `onTrackedErrorResume` and `onTrackedErrorReturnWith`
+
+## [2.1.1]
 - Added `CustomUriBuilder` for parsing uri in built value
+- Added on `Iterable` methods: `toMap`, `tryElementAt`
+- Added `List.removeAll`
+- Removed `ReadableFile` in favour of `XFile` in `cross_file` package
 
 ## [2.1.0]
 - Added on `String` methods: `toNum`, `toInt`, `toDouble`, `toUri` with try and without

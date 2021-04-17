@@ -15,6 +15,9 @@ extension BuiltListExt<T> on BuiltList<T> {
 }
 
 extension ListBuilderExt<T> on ListBuilder<T> {
+  // Todo
+  void removeAll(Iterable<T> elements) => elements.forEach(remove);
+
   void removeWhereNull() => removeWhere((value) => value == null);
 
   void addOrRemove(bool addOrRemove, T value) {
@@ -31,6 +34,9 @@ extension ListBuilderExt<T> on ListBuilder<T> {
 }
 
 extension SetBuilderExt<T> on SetBuilder<T> {
+  // Todo
+  void removeAll(Iterable<T> elements) => elements.forEach(remove);
+
   void removeWhereNull() => removeWhere((value) => value == null);
 
   void addOrRemove(bool addOrRemove, T value) {

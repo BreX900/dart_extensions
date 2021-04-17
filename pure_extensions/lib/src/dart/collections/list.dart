@@ -18,6 +18,9 @@ extension ListExt<T> on List<T> {
     return null;
   }
 
+  // Todo
+  void removeAll(Iterable<T> elements) => elements.forEach(remove);
+
   String serialize() => jsonEncode(this);
 
   void removeWhereNull() => removeWhere((value) => value == null);

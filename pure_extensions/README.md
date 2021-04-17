@@ -139,6 +139,11 @@ See time package
 
 | Command | Description |
 | ------- | ----------- |
+| asStream | returns itself with the [Stream] type. |
+| asBroadcast | returns a broadcast stream without wrapping it unnecessarily. |
+| onTrackedErrorResume | It is similar to [Rx.OnErrorExtensions.onErrorResume] but with [StackTrace]. |
+| onTrackedErrorReturnWith | It is similar to [Rx.OnErrorExtensions.onErrorReturnWith] but with [StackTrace]. |
+| distinctRuntimeType | Stream.distinct] by [T.runtimeType]. |
 | distinctRuntimeType | Stream.distinct] by [T.runtimeType]. |
 | listenValueChanges | Hear how the specified value changes over time from its previous value. |
 

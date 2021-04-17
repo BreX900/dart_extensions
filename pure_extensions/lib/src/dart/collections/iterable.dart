@@ -44,6 +44,14 @@ extension IterableExtensions<T> on Iterable<T> {
   /// Concatenates the elements.
   Iterable<T> joinElement(T element) => joinBy((index) => element);
 
+  T tryElementAt(int index) {
+    try {
+      return elementAt(index);
+    } on IndexError {
+      return null;
+    }
+  }
+
   /// Returns the first entry if it exists otherwise null.
   ///
   /// [Iterable.first]
@@ -84,6 +92,8 @@ extension IterableExtensions<T> on Iterable<T> {
   Map<K, V> generateMap<K, V>(MapEntry<K, V> Function(T) generator) {
     return map(generator).toMap();
   }
+
+  Map<int, T> toMap() => toList().asMap();
 
   Map<int, List<T>> generateBook({int valuesPerPage, int numberOfPages}) {
     if (valuesPerPage == null && numberOfPages == null) return {0: this};
