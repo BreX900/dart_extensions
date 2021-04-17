@@ -1,4 +1,4 @@
-## Not Released
+## [2.1.2]
 - Added `asStream` and `asBroadcast`
 - Added `onTrackedErrorResume` and `onTrackedErrorReturnWith`
 
