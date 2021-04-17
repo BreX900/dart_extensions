@@ -12,4 +12,5 @@ export 'src/dart/primitives/duration.dart';
 export 'src/dart/primitives/geo_point.dart';
 export 'src/dart/primitives/numbers.dart';
 export 'src/dart/primitives/string.dart';
-export 'src/dart/stream.dart';
+export 'src/dart/stream/on_tracked_error_resume.dart';
+export 'src/dart/stream/stream.dart';

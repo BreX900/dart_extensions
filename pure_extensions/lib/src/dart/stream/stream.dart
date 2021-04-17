@@ -65,6 +65,12 @@ extension StreamExtDart<T> on Stream<T> {
         print(error);
         print(stackTrace);
       });
+
+  /// Returns itself with the [Stream] type useful when you don't want the [ValueStream] type.
+  Stream<T> asStream() => this;
+
+  /// Returns a broadcast stream without wrapping it unnecessarily.
+  Stream<T> asBroadcast() => isBroadcast ? this : asBroadcastStream();
 }
 
 extension FutureDartExt<T> on Future<T> {

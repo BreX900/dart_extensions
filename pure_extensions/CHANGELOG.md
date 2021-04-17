@@ -1,3 +1,7 @@
+## Not Released
+- Added `asStream` and `asBroadcast`
+- Added `onTrackedErrorResume` and `onTrackedErrorReturnWith`
+
 ## [2.1.1]
 - Added `CustomUriBuilder` for parsing uri in built value
 - Added on `Iterable` methods: `toMap`, `tryElementAt`
