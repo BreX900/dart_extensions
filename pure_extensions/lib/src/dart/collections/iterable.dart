@@ -1,14 +1,18 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:pure_extensions/src/dart/collections/iterators/join_element.dart';
+import 'package:pure_extensions/src/dart/collections/iterators/without_null.dart';
 import 'package:pure_extensions/src/dart/primitives/geo_point.dart';
 import 'package:rational/rational.dart';
 
+extension IterableNullExtensions<T> on Iterable<T?> {
+  Iterable<T> withoutNull() => WithoutNullIterable(this);
+}
+
 extension IterableExtensions<T> on Iterable<T> {
   /// returns null or if it is empty returns true.
-  Iterable<T> get nullIfEmpty => isEmpty ? null : this;
-
-  Iterable<T> whereNotNull() => where((value) => value != null);
+  Iterable<T>? get nullIfEmpty => isEmpty ? null : this;
 
   /// replace the old elements contained in the map with new ones.
   Iterable<T> replaces(Map<T, T> replacements) {
@@ -21,30 +25,17 @@ extension IterableExtensions<T> on Iterable<T> {
   }
 
   /// Concatenates the elements given by function.
-  Iterable<T> joinBy(T Function(int) builder) {
-    if (isEmpty) return [];
-
-    final iterator = this.iterator;
-    iterator.moveNext();
-    final newList = <T>[]
-      ..length = (length * 2) - 1
-      ..[0] = iterator.current;
-
-    var i = 1;
-    while (iterator.moveNext()) {
-      newList[i] = builder(i);
-      i += 1;
-      newList[i] = iterator.current;
-      i += 1;
+  Iterable<T> joinBy(T Function(int index) generator) {
+    if (length <= 1) {
+      return this;
     }
-
-    return newList;
+    return JoinElementIterable(this, generator);
   }
 
   /// Concatenates the elements.
   Iterable<T> joinElement(T element) => joinBy((index) => element);
 
-  T tryElementAt(int index) {
+  T? tryElementAt(int index) {
     try {
       return elementAt(index);
     } on IndexError {
@@ -55,7 +46,7 @@ extension IterableExtensions<T> on Iterable<T> {
   /// Returns the first entry if it exists otherwise null.
   ///
   /// [Iterable.first]
-  T get tryFirst {
+  T? get tryFirst {
     try {
       return first;
     } on StateError {
@@ -66,7 +57,7 @@ extension IterableExtensions<T> on Iterable<T> {
   /// Returns the last entry if it exists otherwise null.
   ///
   /// [Iterable.last]
-  T get tryLast {
+  T? get tryLast {
     try {
       return last;
     } on StateError {
@@ -95,9 +86,9 @@ extension IterableExtensions<T> on Iterable<T> {
 
   Map<int, T> toMap() => toList().asMap();
 
-  Map<int, List<T>> generateBook({int valuesPerPage, int numberOfPages}) {
-    if (valuesPerPage == null && numberOfPages == null) return {0: this};
-    valuesPerPage ??= this.length ~/ numberOfPages;
+  Map<int, List<T>> generateBook({int? valuesPerPage, int? numberOfPages}) {
+    if (valuesPerPage == null && numberOfPages == null) return {0: this as List<T>};
+    valuesPerPage ??= this.length ~/ numberOfPages!;
     var book = <int, List<T>>{};
     int pageCount = 0;
     var list = this;
@@ -112,14 +103,14 @@ extension IterableExtensions<T> on Iterable<T> {
 extension IterableNumDartExtension<T extends num> on Iterable<T> {
   /// Calculate the sum of all numbers in the collection
   T sumAll() {
-    if (isEmpty) return T is double ? 0.0 : 0;
-    return reduce((previousValue, element) => previousValue + element);
+    if (isEmpty) return T is double ? 0.0 as T : 0 as T;
+    return reduce((previousValue, element) => previousValue + element as T);
   }
 
   /// Calculate the subtraction of all numbers in the collection
   T subtractAll() {
-    if (isEmpty) return T is double ? 0.0 : 0;
-    return reduce((previousValue, element) => previousValue - element);
+    if (isEmpty) return T is double ? 0.0 as T : 0 as T;
+    return reduce((previousValue, element) => previousValue - element as T);
   }
 
   /// Calculate the division of all numbers in the collection
@@ -129,18 +120,18 @@ extension IterableNumDartExtension<T extends num> on Iterable<T> {
 
   /// Calculate the multiplication of all numbers in the collection
   T multiplyAll() {
-    if (isEmpty) return T is double ? 0.0 : 0;
-    return reduce((previousValue, element) => previousValue * element);
+    if (isEmpty) return T is double ? 0.0 as T : 0 as T;
+    return reduce((previousValue, element) => previousValue * element as T);
   }
 
   /// Sum [number] to all items in the collection
   Iterable<T> sum(T number) {
-    return map((element) => element + number);
+    return map((element) => element + number as T);
   }
 
   /// Subtract [number] to all items in the collection
   Iterable<T> subtract(T number) {
-    return map((element) => element - number);
+    return map((element) => element - number as T);
   }
 
   /// Divide [number] to all items in the collection
@@ -150,7 +141,7 @@ extension IterableNumDartExtension<T extends num> on Iterable<T> {
 
   /// Multiply [number] to all items in the collection
   Iterable<T> multiply(T number) {
-    return map((element) => element * number);
+    return map((element) => element * number as T);
   }
 
   /// Calculate the average of all numbers in the collection
@@ -161,13 +152,13 @@ extension IterableBigIntExtension<T extends BigInt> on Iterable<T> {
   /// [IterableNumDartExtension.sumAll]
   BigInt sumAll() {
     if (isEmpty) return BigInt.zero;
-    return reduce((previousValue, element) => previousValue + element);
+    return reduce((previousValue, element) => previousValue + element as T);
   }
 
   /// [IterableNumDartExtension.subtractAll]
   BigInt subtractAll() {
     if (isEmpty) return BigInt.zero;
-    return reduce((previousValue, element) => previousValue - element);
+    return reduce((previousValue, element) => previousValue - element as T);
   }
 
   /// [IterableNumDartExtension.divideAll]
@@ -178,17 +169,17 @@ extension IterableBigIntExtension<T extends BigInt> on Iterable<T> {
   /// [IterableNumDartExtension.multiplyAll]
   BigInt multiplyAll() {
     if (isEmpty) return BigInt.zero;
-    return reduce((previousValue, element) => previousValue * element);
+    return reduce((previousValue, element) => previousValue * element as T);
   }
 
   /// [IterableNumDartExtension.sum]
   Iterable<T> sum(T number) {
-    return map((element) => element + number);
+    return map((element) => element + number as T);
   }
 
   /// [IterableNumDartExtension.subtract]
   Iterable<T> subtract(T number) {
-    return map((element) => element - number);
+    return map((element) => element - number as T);
   }
 
   /// [IterableNumDartExtension.divide]
@@ -199,7 +190,7 @@ extension IterableBigIntExtension<T extends BigInt> on Iterable<T> {
 
   /// [IterableNumDartExtension.multiply]
   Iterable<T> multiply(T number) {
-    return map((element) => element * number);
+    return map((element) => element * number as T);
   }
 
   /// [IterableNumDartExtension.average]
@@ -210,13 +201,13 @@ extension IterableRationalExtension<T extends Rational> on Iterable<T> {
   /// [IterableNumDartExtension.sumAll]
   Rational sumAll() {
     if (isEmpty) return Rational.zero;
-    return reduce((previousValue, element) => previousValue + element);
+    return reduce((previousValue, element) => previousValue + element as T);
   }
 
   /// [IterableNumDartExtension.subtractAll]
   Rational subtractAll() {
     if (isEmpty) return Rational.zero;
-    return reduce((previousValue, element) => previousValue - element);
+    return reduce((previousValue, element) => previousValue - element as T);
   }
 
   /// [IterableNumDartExtension.divideAll]
@@ -227,17 +218,17 @@ extension IterableRationalExtension<T extends Rational> on Iterable<T> {
   /// [IterableNumDartExtension.multiplyAll]
   Rational multiplyAll() {
     if (isEmpty) return Rational.zero;
-    return reduce((previousValue, element) => previousValue * element);
+    return reduce((previousValue, element) => previousValue * element as T);
   }
 
   /// [IterableNumDartExtension.sum]
   Iterable<T> sum(T number) {
-    return map((element) => element + number);
+    return map((element) => element + number as T);
   }
 
   /// [IterableNumDartExtension.subtract]
   Iterable<T> subtract(T number) {
-    return map((element) => element - number);
+    return map((element) => element - number as T);
   }
 
   /// [IterableNumDartExtension.divide]
@@ -247,7 +238,7 @@ extension IterableRationalExtension<T extends Rational> on Iterable<T> {
 
   /// [IterableNumDartExtension.multiply]
   Iterable<T> multiply(T number) {
-    return map((element) => element * number);
+    return map((element) => element * number as T);
   }
 
   /// [IterableNumDartExtension.average]
@@ -309,11 +300,11 @@ extension IterableGeoPointDartExtension on Iterable<GeoPoint> {
   }
 
   /// Calculate the internal corners.
-  GeoBounds internalBounds({GeoPoint center}) {
+  GeoBounds internalBounds({GeoPoint? center}) {
     center ??= this.center();
     return GeoBounds(
-      northeast: where((p) => p >= center).southwest(),
-      southwest: where((p) => p <= center).northeast(),
+      northeast: where((p) => p >= center!).southwest(),
+      southwest: where((p) => p <= center!).northeast(),
     );
   }
 

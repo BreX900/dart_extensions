@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:meta/meta.dart';
 import 'package:pure_extensions/src/dart/primitives/numbers.dart';
 
 /// Defines a geographical point
@@ -8,15 +7,11 @@ class GeoPoint {
   final double latitude;
   final double longitude;
 
-  const GeoPoint(this.latitude, this.longitude)
-      : assert(latitude != null),
-        assert(longitude != null);
+  const GeoPoint(this.latitude, this.longitude);
 
   static const double earthRadius = 6371000.0;
 
   double distance(GeoPoint other, {double radius = GeoPoint.earthRadius}) {
-    assert(other != null);
-    assert(radius != null);
     final sDLat = sin((other.latitude.toRad() - latitude.toRad()) / 2);
     final sDLng = sin((other.longitude.toRad() - longitude.toRad()) / 2);
     final a = sDLat * sDLat + sDLng * sDLng * cos(latitude.toRad()) * cos(other.latitude.toRad());
@@ -52,7 +47,7 @@ class GeoPoint {
     return GeoPoint(latitude - other.latitude, longitude - other.longitude);
   }
 
-  GeoPoint copyWith({double latitude, double longitude}) {
+  GeoPoint copyWith({double? latitude, double? longitude}) {
     return GeoPoint(latitude ?? this.latitude, longitude ?? this.longitude);
   }
 
@@ -87,9 +82,7 @@ class GeoBounds {
   final GeoPoint northeast;
   final GeoPoint southwest;
 
-  const GeoBounds({@required this.northeast, @required this.southwest})
-      : assert(northeast != null),
-        assert(southwest != null);
+  const GeoBounds({required this.northeast, required this.southwest});
 
   /// Returns whether this rectangle contains the given [LatLng].
   bool contains(GeoPoint point) {
@@ -110,7 +103,7 @@ class GeoBounds {
 
   List<GeoPoint> toList() => [northeast, southwest];
 
-  GeoBounds copyWith({GeoPoint northeast, GeoPoint southwest}) {
+  GeoBounds copyWith({GeoPoint? northeast, GeoPoint? southwest}) {
     return GeoBounds(
       northeast: northeast ?? this.northeast,
       southwest: southwest ?? this.southwest,

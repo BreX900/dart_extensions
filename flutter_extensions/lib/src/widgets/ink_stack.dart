@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 /// Add [InkWell] on image
 class InkStack extends StatelessWidget {
   /// [InkResponse.onTap]
-  final GestureTapCallback onTap;
+  final GestureTapCallback? onTap;
 
   /// [InkResponse.onDoubleTap]
-  final GestureTapCallback onDoubleTap;
+  final GestureTapCallback? onDoubleTap;
 
   /// [InkResponse.onLongPress]
-  final GestureLongPressCallback onLongPress;
+  final GestureLongPressCallback? onLongPress;
 
   /// They are the widgets background the ink well animation
   final List<Widget> background;
@@ -18,7 +18,7 @@ class InkStack extends StatelessWidget {
   final List<Widget> foreground;
 
   const InkStack({
-    Key key,
+    Key? key,
     this.onTap,
     this.onDoubleTap,
     this.onLongPress,

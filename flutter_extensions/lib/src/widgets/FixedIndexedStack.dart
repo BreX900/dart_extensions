@@ -9,7 +9,7 @@ class FixedIndexedStack extends StatefulWidget {
   final AlignmentGeometry alignment;
 
   /// see [Stack.textDirection]
-  final TextDirection textDirection;
+  final TextDirection? textDirection;
 
   /// see [Stack.fit]
   final StackFit sizing;
@@ -18,7 +18,7 @@ class FixedIndexedStack extends StatefulWidget {
   final List<Widget> children;
 
   const FixedIndexedStack({
-    Key key,
+    Key? key,
     this.index = 0,
     this.alignment = AlignmentDirectional.topStart,
     this.textDirection,
@@ -31,7 +31,7 @@ class FixedIndexedStack extends StatefulWidget {
 }
 
 class _FixedIndexedStackState extends State<FixedIndexedStack> {
-  List<Widget> _children;
+  late List<Widget> _children;
 
   @override
   void initState() {

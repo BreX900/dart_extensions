@@ -42,7 +42,7 @@ abstract class SizeCopierBinders {
 class SizeCopier extends StatefulWidget {
   final Widget child;
 
-  SizeCopier({Key key, @required this.child}) : super(key: key);
+  SizeCopier({Key? key, required this.child}) : super(key: key);
 
   @override
   SizeCopierState createState() => SizeCopierState();
@@ -56,7 +56,7 @@ class SizeCopierState extends State<SizeCopier> {
   }
 
   void _copySize() {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
+    SchedulerBinding.instance!.addPostFrameCallback((_) {
       final box = context.findRenderObject() as RenderBox;
       Provider.of<SizeCopierController>(context, listen: false).size = box.size;
     });
@@ -83,10 +83,10 @@ class SizeCopy extends StatefulWidget {
   final Widget Function(BuildContext, Size) builder;
 
   SizeCopy({
-    Key key,
+    Key? key,
     BoxConstraints Function(Size) binder = SizeCopierBinders.identical,
-    Widget Function(BuildContext, Widget) builder,
-    Widget child,
+    Widget Function(BuildContext, Widget)? builder,
+    Widget? child,
   }) : this.builder(
           key: key,
           builder: (context, size) {
@@ -96,19 +96,15 @@ class SizeCopy extends StatefulWidget {
           },
         );
 
-  const SizeCopy.builder({
-    Key key,
-    @required this.builder,
-  })  : assert(builder != null),
-        super(key: key);
+  const SizeCopy.builder({Key? key, required this.builder}) : super(key: key);
 
   @override
   _SizeCopyState createState() => _SizeCopyState();
 }
 
 class _SizeCopyState extends State<SizeCopy> {
-  SizeCopierController _controller;
-  Size _size;
+  late SizeCopierController _controller = SizeCopierController();
+  late Size _size;
 
   @override
   void didChangeDependencies() {
@@ -128,13 +124,11 @@ class _SizeCopyState extends State<SizeCopy> {
   }
 
   void _addListener() {
-    if (_controller == null) return;
     _controller.addListener(_updateSize);
     _size = _controller.size;
   }
 
   void _removeListener() {
-    if (_controller == null) return;
     _controller.removeListener(_updateSize);
   }
 

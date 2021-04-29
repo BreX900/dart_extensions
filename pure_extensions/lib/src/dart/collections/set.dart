@@ -9,6 +9,5 @@ extension SetExt<T> on Set<T> {
     }
   }
 
-  // Todo
   void removeAll(Iterable<T> elements) => elements.forEach(remove);
 }

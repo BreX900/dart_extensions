@@ -1,7 +1,7 @@
 import 'package:time/time.dart';
 
 extension DateTimeExtDart on DateTime {
-  DateTime copyWithPosition({int leading, int middle, int trailing}) {
+  DateTime copyWithPosition({int? leading, int? middle, int? trailing}) {
     return copyWith(
       year: leading,
       month: leading,
@@ -25,67 +25,26 @@ extension DateTimeExtDart on DateTime {
 
 /// Builder for [DateTime]
 class DateTimeBuilder {
-  int _year;
-  int _month;
-  int _day;
-  int _hour;
-  int _minute;
-  int _second;
-  int _millisecond;
-  int _microsecond;
+  int year = 0;
+  int month = 1;
+  int day = 1;
+  int hour = 0;
+  int minute = 0;
+  int second = 0;
+  int millisecond = 0;
+  int microsecond = 0;
 
-  int get year => _year;
-  set year(int value) {
-    _year = value ?? 0;
-  }
-
-  int get month => _month;
-  set month(int value) {
-    _month = value ?? 0;
-  }
-
-  int get day => _day;
-  set day(int value) {
-    _day = value ?? 0;
-  }
-
-  int get hour => _hour;
-  set hour(int value) {
-    _hour = value ?? 0;
-  }
-
-  int get minute => _minute;
-  set minute(int value) {
-    _minute = value ?? 0;
-  }
-
-  int get second => _second;
-  set second(int value) {
-    _second = value ?? 0;
-  }
-
-  int get millisecond => _millisecond;
-  set millisecond(int value) {
-    _millisecond = value ?? 0;
-  }
-
-  int get microsecond => _microsecond;
-  set microsecond(int value) {
-    _microsecond = value ?? 0;
-  }
-
-  DateTimeBuilder([void Function(DateTimeBuilder b) updates]) {
+  DateTimeBuilder([void Function(DateTimeBuilder b)? updates]) {
     update(updates);
   }
 
   factory DateTimeBuilder.of(DateTime duration) => DateTimeBuilder()..replace(duration);
 
-  void update(void Function(DateTimeBuilder b) updates) {
+  void update(void Function(DateTimeBuilder b)? updates) {
     if (updates != null) updates(this);
   }
 
   void replace(DateTime dateTime) {
-    assert(dateTime != null);
     year = dateTime.year;
     month = dateTime.month;
     day = dateTime.day;

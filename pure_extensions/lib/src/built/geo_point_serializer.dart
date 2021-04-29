@@ -9,12 +9,12 @@ class GeoPointSerializer implements StructuredSerializer<GeoPoint> {
   final String wireName = 'GeoPoint';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
     Serializers serializers,
     GeoPoint object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = <Object>[
+    final result = <Object?>[
       'latitude',
       serializers.serialize(object.latitude, specifiedType: const FullType(double)),
       'longitude',
@@ -27,15 +27,15 @@ class GeoPointSerializer implements StructuredSerializer<GeoPoint> {
   @override
   GeoPoint deserialize(
     Serializers serializers,
-    Iterable<Object> serialized, {
+    Iterable<Object?> serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    double latitude;
-    double longitude;
+    late double latitude;
+    late double longitude;
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current as String?;
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {

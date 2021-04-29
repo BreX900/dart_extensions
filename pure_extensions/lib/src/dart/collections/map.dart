@@ -32,7 +32,7 @@ extension MapExtensions<K, V> on Map<K, V> {
   /// [Iterable.firstWhere]
   MapEntry<K, V> firstWhere(
     bool Function(K key, V value) test, {
-    MapEntry<K, V> Function() orElse,
+    MapEntry<K, V> Function()? orElse,
   }) {
     return entries.firstWhere((entry) => test(entry.key, entry.value), orElse: orElse);
   }
@@ -42,7 +42,7 @@ extension MapExtensions<K, V> on Map<K, V> {
   /// [Iterable.lastWhere]
   MapEntry<K, V> lastWhere(
     bool Function(K key, V value) test, {
-    MapEntry<K, V> Function() orElse,
+    MapEntry<K, V> Function()? orElse,
   }) {
     return entries.lastWhere((entry) => test(entry.key, entry.value), orElse: orElse);
   }
@@ -50,7 +50,7 @@ extension MapExtensions<K, V> on Map<K, V> {
   /// Returns the first entry if it exists otherwise null.
   ///
   /// [Iterable.first]
-  MapEntry<K, V> get tryFirst {
+  MapEntry<K, V>? get tryFirst {
     Iterator<MapEntry<K, V>> it = entries.iterator;
     if (!it.moveNext()) {
       return null;
@@ -61,8 +61,8 @@ extension MapExtensions<K, V> on Map<K, V> {
   /// Returns the last entry if it exists otherwise null.
   ///
   /// [Iterable.last]
-  MapEntry<K, V> get tryLast {
-    MapEntry<K, V> result;
+  MapEntry<K, V>? get tryLast {
+    MapEntry<K, V>? result;
     for (final entry in entries) {
       result = entry;
     }

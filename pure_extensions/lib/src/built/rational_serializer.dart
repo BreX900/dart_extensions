@@ -4,7 +4,7 @@ import 'package:rational/rational.dart';
 
 class RationalSerializer implements PrimitiveSerializer<Rational> {
   ///
-  final int fractionDigits;
+  final int? fractionDigits;
 
   RationalSerializer({this.fractionDigits});
 
@@ -24,7 +24,7 @@ class RationalSerializer implements PrimitiveSerializer<Rational> {
     FullType specifiedType = FullType.unspecified,
   }) {
     if (fractionDigits != null) {
-      return object.toStringAsFixed(fractionDigits);
+      return object.toStringAsFixed(fractionDigits!);
     } else {
       return object.toDecimalString();
     }

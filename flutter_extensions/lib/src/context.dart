@@ -3,8 +3,7 @@ import 'package:provider/provider.dart';
 
 extension BuildContextDartExtensions on BuildContext {
   /// The [ThemeData] instance from the closest context.
-  ThemeData theme({bool shadowThemeOnly = false}) =>
-      Theme.of(this, shadowThemeOnly: shadowThemeOnly);
+  ThemeData theme() => Theme.of(this);
 
   /// The [DefaultTextStyle] instance from the closest context.
   DefaultTextStyle defaultTextStyle() => DefaultTextStyle.of(this);
@@ -13,18 +12,18 @@ extension BuildContextDartExtensions on BuildContext {
   IconThemeData iconTheme() => IconTheme.of(this);
 
   /// The [Localizations] instance from the closest context.
-  T localizations<T>() => Localizations.of<T>(this, T);
+  T? localizations<T>() => Localizations.of<T>(this, T);
 
   /// The [Locale] instance from the closest context.
-  Locale locale({bool nullOk = false}) => Localizations.localeOf(this, nullOk: nullOk);
+  Locale locale({bool nullOk = false}) => Localizations.localeOf(this);
 
   /// The [Navigator] instance from the closest context.
   NavigatorState navigator({bool rootNavigator = false, bool nullOk = false}) {
-    return Navigator.of(this, rootNavigator: rootNavigator, nullOk: nullOk);
+    return Navigator.of(this, rootNavigator: rootNavigator);
   }
 
   /// Returns the read value if it exists otherwise null.
-  T tryRead<T>() {
+  T? maybeRead<T>() {
     try {
       return read<T>();
     } on ProviderNotFoundException {
@@ -33,7 +32,7 @@ extension BuildContextDartExtensions on BuildContext {
   }
 
   /// Returns the watch value if it exists otherwise null.
-  T tryWatch<T>() {
+  T? maybeWatch<T>() {
     try {
       return watch<T>();
     } on ProviderNotFoundException {

@@ -1,3 +1,8 @@
+## [3.0.0]
+- Migrate to null-safety
+- Removed RxStream(Listener/Builder/Consumer)
+- Improved ValueStream(Listener/Builder/Consumer)
+
 ## [2.1.1]
 - Added animations tween: `DoubleTween`, `TransformTween`, `AdapterTween`, `RotationTween`, `OffsetTween`, `PathTween`
 - Added transitions widgets: `PaddingTransition`

@@ -12,7 +12,7 @@ extension DateTimeFlutterExtensions on DateTime {
 }
 
 extension DurationFlutterExtension on Duration {
-  DateTime toDateTime({DateTime from, bool isUtc = false}) {
+  DateTime toDateTime({DateTime? from, bool isUtc = false}) {
     from ??= DateTime(0, 1, 1, 0, 0, 0, 0, 0);
     return from.add(this);
   }

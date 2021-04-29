@@ -1,3 +1,7 @@
+## [3.0.0]
+- Migrate to null-safety
+- added `withoutNull` in nullable iterable
+
 ## [2.1.2]
 - Added `asStream` and `asBroadcast`
 - Added `onTrackedErrorResume` and `onTrackedErrorReturnWith`

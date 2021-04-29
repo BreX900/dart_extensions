@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart';
 
-mixin WidgetsBindingObserverOnState<W extends StatefulWidget> on State<W> implements WidgetsBindingObserver {
-  WidgetsBinding get widgetsBinding => WidgetsBinding.instance;
+mixin WidgetsBindingObserverOnState<W extends StatefulWidget> on State<W>
+    implements WidgetsBindingObserver {
+  WidgetsBinding get widgetsBinding => WidgetsBinding.instance!;
 
   @override
   void initState() {
@@ -17,10 +18,10 @@ mixin WidgetsBindingObserverOnState<W extends StatefulWidget> on State<W> implem
 }
 
 class PhysicalSizeBuilder extends StatefulWidget {
-  final bool Function(Size previous, Size current) buildWhen;
+  final bool Function(Size previous, Size current)? buildWhen;
   final Widget Function(BuildContext context, Size size) builder;
 
-  const PhysicalSizeBuilder({Key key, this.buildWhen, @required this.builder}) : super(key: key);
+  const PhysicalSizeBuilder({Key? key, this.buildWhen, required this.builder}) : super(key: key);
 
   @override
   _PhysicalSizeBuilderState createState() => _PhysicalSizeBuilderState();
@@ -28,7 +29,7 @@ class PhysicalSizeBuilder extends StatefulWidget {
 
 class _PhysicalSizeBuilderState extends State<PhysicalSizeBuilder>
     with WidgetsBindingObserver, WidgetsBindingObserverOnState {
-  Size _size;
+  late Size _size;
   Size get currentSize => widgetsBinding.window.physicalSize;
 
   @override
@@ -39,7 +40,7 @@ class _PhysicalSizeBuilderState extends State<PhysicalSizeBuilder>
 
   @override
   void didChangeMetrics() {
-    if (widget.buildWhen == null || widget.buildWhen(_size, currentSize)) {
+    if (widget.buildWhen == null || widget.buildWhen!(_size, currentSize)) {
       setState(() {
         _size = currentSize;
       });
@@ -47,16 +48,15 @@ class _PhysicalSizeBuilderState extends State<PhysicalSizeBuilder>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return widget.builder(context, _size);
-  }
+  Widget build(BuildContext context) => widget.builder(context, _size);
 }
 
 class DrawerBarBuilder extends StatefulWidget {
   final double widthLimit;
   final Widget Function(BuildContext context, bool isBarDimension) builder;
 
-  const DrawerBarBuilder({Key key, this.widthLimit = 500, @required this.builder}) : super(key: key);
+  const DrawerBarBuilder({Key? key, this.widthLimit = 500, required this.builder})
+      : super(key: key);
 
   @override
   _DrawerBarBuilderState createState() => _DrawerBarBuilderState();
@@ -64,9 +64,10 @@ class DrawerBarBuilder extends StatefulWidget {
 
 class _DrawerBarBuilderState extends State<DrawerBarBuilder>
     with WidgetsBindingObserver, WidgetsBindingObserverOnState {
-  bool _isBarDimension;
+  late bool _isBarDimension;
 
-  bool get isPhysicalWidthBarDimension => widgetsBinding.window.physicalSize.width <= widget.widthLimit;
+  bool get isPhysicalWidthBarDimension =>
+      widgetsBinding.window.physicalSize.width <= widget.widthLimit;
 
   @override
   void initState() {
@@ -88,7 +89,5 @@ class _DrawerBarBuilderState extends State<DrawerBarBuilder>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return widget.builder(context, _isBarDimension);
-  }
+  Widget build(BuildContext context) => widget.builder(context, _isBarDimension);
 }

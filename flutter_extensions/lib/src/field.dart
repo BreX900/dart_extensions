@@ -2,45 +2,44 @@ import 'package:flutter/material.dart';
 
 extension InputDecorationExt on InputDecoration {
   InputDecoration completeWith({
-    Widget icon,
-    String labelText,
-    TextStyle labelStyle,
-    String helperText,
-    TextStyle helperStyle,
-    int helperMaxLines,
-    String hintText,
-    TextStyle hintStyle,
-    int hintMaxLines,
-    String errorText,
-    TextStyle errorStyle,
-    int errorMaxLines,
-    FloatingLabelBehavior floatingLabelBehavior,
-    bool isDense,
-    EdgeInsetsGeometry contentPadding,
-    Widget prefixIcon,
-    Widget prefix,
-    String prefixText,
-    TextStyle prefixStyle,
-    Widget suffixIcon,
-    Widget suffix,
-    String suffixText,
-    TextStyle suffixStyle,
-    Widget counter,
-    String counterText,
-    TextStyle counterStyle,
-    bool filled,
-    Color fillColor,
-    Color focusColor,
-    Color hoverColor,
-    InputBorder errorBorder,
-    InputBorder focusedBorder,
-    InputBorder focusedErrorBorder,
-    InputBorder disabledBorder,
-    InputBorder enabledBorder,
-    InputBorder border,
-    bool enabled,
-    String semanticCounterText,
-    bool alignLabelWithHint,
+    Widget? icon,
+    String? labelText,
+    TextStyle? labelStyle,
+    String? helperText,
+    TextStyle? helperStyle,
+    int? helperMaxLines,
+    String? hintText,
+    TextStyle? hintStyle,
+    int? hintMaxLines,
+    String? errorText,
+    TextStyle? errorStyle,
+    int? errorMaxLines,
+    FloatingLabelBehavior? floatingLabelBehavior,
+    bool? isDense,
+    EdgeInsetsGeometry? contentPadding,
+    Widget? prefixIcon,
+    Widget? prefix,
+    String? prefixText,
+    TextStyle? prefixStyle,
+    Widget? suffixIcon,
+    Widget? suffix,
+    String? suffixText,
+    TextStyle? suffixStyle,
+    Widget? counter,
+    String? counterText,
+    TextStyle? counterStyle,
+    bool? filled,
+    Color? fillColor,
+    Color? focusColor,
+    Color? hoverColor,
+    InputBorder? errorBorder,
+    InputBorder? focusedBorder,
+    InputBorder? focusedErrorBorder,
+    InputBorder? disabledBorder,
+    InputBorder? enabledBorder,
+    InputBorder? border,
+    String? semanticCounterText,
+    bool? alignLabelWithHint,
   }) {
     return InputDecoration(
       icon: this.icon ?? icon,
@@ -79,7 +78,7 @@ extension InputDecorationExt on InputDecoration {
       disabledBorder: this.disabledBorder ?? disabledBorder,
       enabledBorder: this.enabledBorder ?? enabledBorder,
       border: this.border ?? border,
-      enabled: this.enabled ?? enabled,
+      enabled: this.enabled,
       semanticCounterText: this.semanticCounterText ?? semanticCounterText,
       alignLabelWithHint: this.alignLabelWithHint ?? alignLabelWithHint,
     );
@@ -88,10 +87,10 @@ extension InputDecorationExt on InputDecoration {
 
 extension DataRowExt on DataRow {
   DataRow copyWith({
-    LocalKey key,
-    bool selected,
-    ValueChanged<bool> onSelectChanged,
-    List<DataCell> cells,
+    LocalKey? key,
+    bool? selected,
+    ValueChanged<bool?>? onSelectChanged,
+    List<DataCell>? cells,
   }) {
     return DataRow(
       key: key ?? this.key,
@@ -102,22 +101,20 @@ extension DataRowExt on DataRow {
   }
 
   DataRow completeWith({
-    LocalKey key,
-    bool selected,
-    ValueChanged<bool> onSelectChanged,
-    List<DataCell> cells,
+    LocalKey? key,
+    ValueChanged<bool?>? onSelectChanged,
   }) {
     return DataRow(
       key: this.key ?? key,
-      selected: this.selected ?? selected,
+      selected: this.selected,
       onSelectChanged: this.onSelectChanged ?? onSelectChanged,
-      cells: this.cells ?? cells,
+      cells: this.cells,
     );
   }
 }
 
 extension DataCellExt on DataCell {
-  DataCell copyWith({bool placeholder, bool showEditIcon, VoidCallback onTap}) {
+  DataCell copyWith({bool? placeholder, bool? showEditIcon, VoidCallback? onTap}) {
     return DataCell(
       child,
       placeholder: placeholder ?? this.placeholder,
@@ -126,11 +123,11 @@ extension DataCellExt on DataCell {
     );
   }
 
-  DataCell completeWith({bool placeholder, bool showEditIcon, VoidCallback onTap}) {
+  DataCell completeWith({VoidCallback? onTap}) {
     return DataCell(
       child,
-      placeholder: this.placeholder ?? placeholder,
-      showEditIcon: this.showEditIcon ?? showEditIcon,
+      placeholder: this.placeholder,
+      showEditIcon: this.showEditIcon,
       onTap: this.onTap ?? onTap,
     );
   }

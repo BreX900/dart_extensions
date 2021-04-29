@@ -8,7 +8,7 @@ class HslColor {
   final double l;
   final double a;
 
-  HslColor({this.h, this.s, this.l, this.a = 0.0});
+  HslColor({required this.h, required this.s, required this.l, this.a = 0.0});
 
   Color toColor() {
     double r;
@@ -66,7 +66,7 @@ class HslColor {
 
   HslColor complement() => copyWith(h: (h + 180) % 360);
 
-  HslColor copyWith({double h, double s, double l, double a}) {
+  HslColor copyWith({double? h, double? s, double? l, double? a}) {
     return HslColor(h: h ?? this.h, s: s ?? this.s, l: l ?? this.l, a: a ?? this.a);
   }
 
