@@ -11,12 +11,12 @@ abstract class MyCustomQuery implements Built<MyCustomQuery, MyCustomQueryBuilde
 
   MyCustomQuery._();
 
-  factory MyCustomQuery([void Function(MyCustomQueryBuilder b) updates]) = _$MyCustomQuery;
+  factory MyCustomQuery([void Function(MyCustomQueryBuilder b)? updates]) = _$MyCustomQuery;
 
-  String get string;
-  int get integer;
-  BuiltList<String> get stringList;
-  BuiltList<int> get intList;
+  String? get string;
+  int? get integer;
+  BuiltList<String>? get stringList;
+  BuiltList<int>? get intList;
 }
 
 @BuiltValue()
@@ -25,9 +25,9 @@ abstract class MyCustomUri implements Built<MyCustomUri, MyCustomUriBuilder>, Cu
 
   MyCustomUri._();
 
-  MyCustomQuery get queryParameters;
+  MyCustomQuery? get queryParameters;
 
-  factory MyCustomUri([void Function(MyCustomUriBuilder b) updates]) = _$MyCustomUri;
+  factory MyCustomUri([void Function(MyCustomUriBuilder b)? updates]) = _$MyCustomUri;
 }
 
 @SerializersFor([

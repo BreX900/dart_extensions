@@ -17,7 +17,7 @@ class _$CustomUriSerializer
   final String wireName = 'CustomUri';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, CustomUri<Object, Object> object,
       {FullType specifiedType = FullType.unspecified}) {
     final isUnderspecified =
@@ -28,53 +28,59 @@ class _$CustomUriSerializer
     final parameterQP =
         isUnderspecified ? FullType.object : specifiedType.parameters[1];
 
-    final result = <Object>[];
-    if (object.scheme != null) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.scheme;
+    if (value != null) {
       result
         ..add('scheme')
-        ..add(serializers.serialize(object.scheme,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.userInfo != null) {
+    value = object.userInfo;
+    if (value != null) {
       result
         ..add('userInfo')
-        ..add(serializers.serialize(object.userInfo,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.host != null) {
+    value = object.host;
+    if (value != null) {
       result
         ..add('host')
-        ..add(serializers.serialize(object.host,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.port != null) {
+    value = object.port;
+    if (value != null) {
       result
         ..add('port')
-        ..add(serializers.serialize(object.port,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.path != null) {
+    value = object.path;
+    if (value != null) {
       result
         ..add('path')
-        ..add(serializers.serialize(object.path,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.pathSegments != null) {
+    value = object.pathSegments;
+    if (value != null) {
       result
         ..add('pathSegments')
-        ..add(serializers.serialize(object.pathSegments,
-            specifiedType: parameterPS));
+        ..add(serializers.serialize(value, specifiedType: parameterPS));
     }
-    if (object.queryParameters != null) {
+    value = object.queryParameters;
+    if (value != null) {
       result
         ..add('queryParameters')
-        ..add(serializers.serialize(object.queryParameters,
-            specifiedType: parameterQP));
+        ..add(serializers.serialize(value, specifiedType: parameterQP));
     }
-    if (object.fragment != null) {
+    value = object.fragment;
+    if (value != null) {
       result
         ..add('fragment')
-        ..add(serializers.serialize(object.fragment,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
@@ -82,7 +88,7 @@ class _$CustomUriSerializer
 
   @override
   CustomUri<Object, Object> deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final isUnderspecified =
         specifiedType.isUnspecified || specifiedType.parameters.isEmpty;
@@ -94,13 +100,14 @@ class _$CustomUriSerializer
 
     final result = isUnderspecified
         ? new CustomUriBuilder<Object, Object>()
-        : serializers.newBuilder(specifiedType) as CustomUriBuilder;
+        : serializers.newBuilder(specifiedType)
+            as CustomUriBuilder<Object, Object>;
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'scheme':
           result.scheme = serializers.deserialize(value,
@@ -144,23 +151,23 @@ class _$CustomUriSerializer
 class _$CustomUri<PS extends Object, QP extends Object>
     extends CustomUri<PS, QP> {
   @override
-  final String scheme;
+  final String? scheme;
   @override
-  final String userInfo;
+  final String? userInfo;
   @override
-  final String host;
+  final String? host;
   @override
-  final int port;
+  final int? port;
   @override
-  final String path;
+  final String? path;
   @override
-  final PS pathSegments;
+  final PS? pathSegments;
   @override
-  final QP queryParameters;
+  final QP? queryParameters;
   @override
-  final String fragment;
+  final String? fragment;
 
-  factory _$CustomUri([void Function(CustomUriBuilder<PS, QP>) updates]) =>
+  factory _$CustomUri([void Function(CustomUriBuilder<PS, QP>)? updates]) =>
       (new CustomUriBuilder<PS, QP>()..update(updates)).build();
 
   _$CustomUri._(
@@ -236,53 +243,54 @@ class _$CustomUri<PS extends Object, QP extends Object>
 
 class CustomUriBuilder<PS extends Object, QP extends Object>
     implements Builder<CustomUri<PS, QP>, CustomUriBuilder<PS, QP>> {
-  _$CustomUri<PS, QP> _$v;
+  _$CustomUri<PS, QP>? _$v;
 
-  String _scheme;
-  String get scheme => _$this._scheme;
-  set scheme(String scheme) => _$this._scheme = scheme;
+  String? _scheme;
+  String? get scheme => _$this._scheme;
+  set scheme(String? scheme) => _$this._scheme = scheme;
 
-  String _userInfo;
-  String get userInfo => _$this._userInfo;
-  set userInfo(String userInfo) => _$this._userInfo = userInfo;
+  String? _userInfo;
+  String? get userInfo => _$this._userInfo;
+  set userInfo(String? userInfo) => _$this._userInfo = userInfo;
 
-  String _host;
-  String get host => _$this._host;
-  set host(String host) => _$this._host = host;
+  String? _host;
+  String? get host => _$this._host;
+  set host(String? host) => _$this._host = host;
 
-  int _port;
-  int get port => _$this._port;
-  set port(int port) => _$this._port = port;
+  int? _port;
+  int? get port => _$this._port;
+  set port(int? port) => _$this._port = port;
 
-  String _path;
-  String get path => _$this._path;
-  set path(String path) => _$this._path = path;
+  String? _path;
+  String? get path => _$this._path;
+  set path(String? path) => _$this._path = path;
 
-  PS _pathSegments;
-  PS get pathSegments => _$this._pathSegments;
-  set pathSegments(PS pathSegments) => _$this._pathSegments = pathSegments;
+  PS? _pathSegments;
+  PS? get pathSegments => _$this._pathSegments;
+  set pathSegments(PS? pathSegments) => _$this._pathSegments = pathSegments;
 
-  QP _queryParameters;
-  QP get queryParameters => _$this._queryParameters;
-  set queryParameters(QP queryParameters) =>
+  QP? _queryParameters;
+  QP? get queryParameters => _$this._queryParameters;
+  set queryParameters(QP? queryParameters) =>
       _$this._queryParameters = queryParameters;
 
-  String _fragment;
-  String get fragment => _$this._fragment;
-  set fragment(String fragment) => _$this._fragment = fragment;
+  String? _fragment;
+  String? get fragment => _$this._fragment;
+  set fragment(String? fragment) => _$this._fragment = fragment;
 
   CustomUriBuilder();
 
   CustomUriBuilder<PS, QP> get _$this {
-    if (_$v != null) {
-      _scheme = _$v.scheme;
-      _userInfo = _$v.userInfo;
-      _host = _$v.host;
-      _port = _$v.port;
-      _path = _$v.path;
-      _pathSegments = _$v.pathSegments;
-      _queryParameters = _$v.queryParameters;
-      _fragment = _$v.fragment;
+    final $v = _$v;
+    if ($v != null) {
+      _scheme = $v.scheme;
+      _userInfo = $v.userInfo;
+      _host = $v.host;
+      _port = $v.port;
+      _path = $v.path;
+      _pathSegments = $v.pathSegments;
+      _queryParameters = $v.queryParameters;
+      _fragment = $v.fragment;
       _$v = null;
     }
     return this;
@@ -290,14 +298,12 @@ class CustomUriBuilder<PS extends Object, QP extends Object>
 
   @override
   void replace(CustomUri<PS, QP> other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CustomUri<PS, QP>;
   }
 
   @override
-  void update(void Function(CustomUriBuilder<PS, QP>) updates) {
+  void update(void Function(CustomUriBuilder<PS, QP>)? updates) {
     if (updates != null) updates(this);
   }
 

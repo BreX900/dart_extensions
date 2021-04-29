@@ -5,7 +5,7 @@ import 'package:rxdart/src/utils/forwarding_sink.dart';
 import 'package:rxdart/src/utils/forwarding_stream.dart';
 
 class _OnTrackedErrorStreamSink<S> implements ForwardingSink<S, S> {
-  final Stream<S> Function(Object error, StackTrace stackTrace) _recoveryFn;
+  final Stream<S> Function(Object error, StackTrace? stackTrace) _recoveryFn;
   var _inRecovery = false;
   final List<StreamSubscription<S>> _recoverySubscriptions = [];
 
@@ -19,12 +19,12 @@ class _OnTrackedErrorStreamSink<S> implements ForwardingSink<S, S> {
   }
 
   @override
-  void addError(EventSink<S> sink, dynamic e, [StackTrace st]) {
+  void addError(EventSink<S> sink, Object e, [StackTrace? st]) {
     _inRecovery = true;
 
     final recoveryStream = _recoveryFn(e, st);
+    late StreamSubscription<S> subscription;
 
-    StreamSubscription<S> subscription;
     subscription = recoveryStream.listen(
       sink.add,
       onError: sink.addError,
@@ -47,18 +47,14 @@ class _OnTrackedErrorStreamSink<S> implements ForwardingSink<S, S> {
   FutureOr onCancel(EventSink<S> sink) {
     return _recoverySubscriptions.isEmpty
         ? null
-        : Future.wait<dynamic>(
-            _recoverySubscriptions
-                .map((subscription) => subscription?.cancel())
-                .where((future) => future != null),
-          );
+        : Future.wait<dynamic>(_recoverySubscriptions.map((subscription) => subscription.cancel()));
   }
 
   @override
   void onListen(EventSink<S> sink) {}
 
   @override
-  void onPause(EventSink<S> sink, [Future resumeSignal]) =>
+  void onPause(EventSink<S> sink, [Future? resumeSignal]) =>
       _recoverySubscriptions.forEach((subscription) => subscription.pause(resumeSignal));
 
   @override
@@ -68,7 +64,7 @@ class _OnTrackedErrorStreamSink<S> implements ForwardingSink<S, S> {
 
 /// It is similar to [OnErrorResumeStreamTransformer] but with [StackTrace]
 class OnTrackedErrorResumeStreamTransformer<S> extends StreamTransformerBase<S, S> {
-  final Stream<S> Function(Object error, StackTrace stackTrace) recoveryFn;
+  final Stream<S> Function(Object error, StackTrace? stackTrace) recoveryFn;
 
   OnTrackedErrorResumeStreamTransformer(this.recoveryFn);
 
@@ -80,11 +76,10 @@ class OnTrackedErrorResumeStreamTransformer<S> extends StreamTransformerBase<S, 
 extension OnTrackedErrorExtensions<T> on Stream<T> {
   /// It is similar to [OnErrorExtensions.onErrorResume] but with [StackTrace]
   Stream<T> onTrackedErrorResume(
-          Stream<T> Function(Object error, StackTrace stackTrace) recoveryFn) =>
+          Stream<T> Function(Object error, StackTrace? stackTrace) recoveryFn) =>
       transform(OnTrackedErrorResumeStreamTransformer<T>(recoveryFn));
 
   /// It is similar to [OnErrorExtensions.onErrorReturnWith] but with [StackTrace]
-  Stream<T> onTrackedErrorReturnWith(T Function(Object error, StackTrace stackTrace) returnFn) =>
-      transform(OnTrackedErrorResumeStreamTransformer<T>(
-          (Object e, StackTrace st) => Stream.value(returnFn(e, st))));
+  Stream<T> onTrackedErrorReturnWith(T Function(Object error, StackTrace? stackTrace) returnFn) =>
+      transform(OnTrackedErrorResumeStreamTransformer<T>((e, st) => Stream.value(returnFn(e, st))));
 }

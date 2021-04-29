@@ -3,49 +3,49 @@ import 'package:flutter/rendering.dart';
 
 class ButtonStyleBuilder {
   /// [ButtonStyle.textStyle]
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
 
   /// [ButtonStyle.backgroundColor]
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   /// [ButtonStyle.foregroundColor]
-  final Color foregroundColor;
+  final Color? foregroundColor;
 
   /// [ButtonStyle.overlayColor]
-  final Color overlayColor;
+  final Color? overlayColor;
 
   /// [ButtonStyle.shadowColor]
-  final Color shadowColor;
+  final Color? shadowColor;
 
   /// [ButtonStyle.elevation]
-  final double elevation;
+  final double? elevation;
 
   /// [ButtonStyle.padding]
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
 
   /// [ButtonStyle.minimumSize]
-  final Size minimumSize;
+  final Size? minimumSize;
 
   /// [ButtonStyle.side]
-  final BorderSide side;
+  final BorderSide? side;
 
   /// [ButtonStyle.shape]
-  final OutlinedBorder shape;
+  final OutlinedBorder? shape;
 
   /// [ButtonStyle.mouseCursor]
-  final MouseCursor mouseCursor;
+  final MouseCursor? mouseCursor;
 
   /// [ButtonStyle.visualDensity]
-  final VisualDensity visualDensity;
+  final VisualDensity? visualDensity;
 
   /// [ButtonStyle.tapTargetSize]
-  final MaterialTapTargetSize tapTargetSize;
+  final MaterialTapTargetSize? tapTargetSize;
 
   /// [ButtonStyle.animationDuration]
-  final Duration animationDuration;
+  final Duration? animationDuration;
 
   /// [ButtonStyle.enableFeedback]
-  final bool enableFeedback;
+  final bool? enableFeedback;
 
   const ButtonStyleBuilder({
     this.textStyle,
@@ -66,21 +66,21 @@ class ButtonStyleBuilder {
   });
 
   ButtonStyleBuilder copyWith({
-    TextStyle textStyle,
-    Color backgroundColor,
-    Color foregroundColor,
-    Color overlayColor,
-    Color shadowColor,
-    double elevation,
-    EdgeInsetsGeometry padding,
-    Size minimumSize,
-    BorderSide side,
-    OutlinedBorder shape,
-    MouseCursor mouseCursor,
-    VisualDensity visualDensity,
-    MaterialTapTargetSize tapTargetSize,
-    Duration animationDuration,
-    bool enableFeedback,
+    TextStyle? textStyle,
+    Color? backgroundColor,
+    Color? foregroundColor,
+    Color? overlayColor,
+    Color? shadowColor,
+    double? elevation,
+    EdgeInsetsGeometry? padding,
+    Size? minimumSize,
+    BorderSide? side,
+    OutlinedBorder? shape,
+    MouseCursor? mouseCursor,
+    VisualDensity? visualDensity,
+    MaterialTapTargetSize? tapTargetSize,
+    Duration? animationDuration,
+    bool? enableFeedback,
   }) {
     return new ButtonStyleBuilder(
       textStyle: textStyle ?? this.textStyle,
@@ -123,19 +123,19 @@ class ButtonStyleBuilder {
 }
 
 extension ElevatedButtonThemeDataFlutterExtension on ElevatedButtonThemeData {
-  ElevatedButtonThemeData copyWith({ButtonStyle style}) {
+  ElevatedButtonThemeData copyWith({ButtonStyle? style}) {
     return ElevatedButtonThemeData(style: style ?? this.style);
   }
 }
 
 extension TextButtonThemeDataFlutterExtension on TextButtonThemeData {
-  ElevatedButtonThemeData copyWith({ButtonStyle style}) {
+  ElevatedButtonThemeData copyWith({ButtonStyle? style}) {
     return ElevatedButtonThemeData(style: style ?? this.style);
   }
 }
 
 extension OutlinedButtonThemeDataFlutterExtension on OutlinedButtonThemeData {
-  ElevatedButtonThemeData copyWith({ButtonStyle style}) {
+  ElevatedButtonThemeData copyWith({ButtonStyle? style}) {
     return ElevatedButtonThemeData(style: style ?? this.style);
   }
 }

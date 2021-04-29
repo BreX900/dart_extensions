@@ -7,7 +7,7 @@ import 'package:flutter/rendering.dart';
 /// Allows you to use flex widgets within a scroll view
 class FillSingleChildScrollView extends StatelessWidget {
   /// [SingleChildScrollView.controller]
-  final ScrollController controller;
+  final ScrollController? controller;
 
   /// [SingleChildScrollView.scrollDirection]
   final Axis scrollDirection;
@@ -16,13 +16,13 @@ class FillSingleChildScrollView extends StatelessWidget {
   final bool reverse;
 
   /// [SingleChildScrollView.padding]
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
 
   /// [SingleChildScrollView.primary]
-  final bool primary;
+  final bool? primary;
 
   /// [SingleChildScrollView.physics]
-  final ScrollPhysics physics;
+  final ScrollPhysics? physics;
 
   /// [SingleChildScrollView.dragStartBehavior]
   final DragStartBehavior dragStartBehavior;
@@ -31,13 +31,13 @@ class FillSingleChildScrollView extends StatelessWidget {
   final Clip clipBehavior;
 
   /// [SingleChildScrollView.restorationId]
-  final String restorationId;
+  final String? restorationId;
 
   /// [SingleChildScrollView.child]
   final Widget child;
 
   const FillSingleChildScrollView({
-    Key key,
+    Key? key,
     this.controller,
     this.scrollDirection = Axis.vertical,
     this.reverse = false,
@@ -47,7 +47,7 @@ class FillSingleChildScrollView extends StatelessWidget {
     this.dragStartBehavior = DragStartBehavior.start,
     this.clipBehavior = Clip.hardEdge,
     this.restorationId,
-    @required this.child,
+    required this.child,
   }) : super(key: key);
 
   @override
@@ -56,7 +56,7 @@ class FillSingleChildScrollView extends StatelessWidget {
       builder: (context, box) {
         final current = padding != null
             ? Padding(
-                padding: padding,
+                padding: padding!,
                 child: child,
               )
             : child;

@@ -14,7 +14,7 @@ class ByPassSerializer<T> extends PrimitiveSerializer<T> {
     T object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return object;
+    return object!;
   }
 
   @override
@@ -23,6 +23,6 @@ class ByPassSerializer<T> extends PrimitiveSerializer<T> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return serialized;
+    return serialized as T;
   }
 }

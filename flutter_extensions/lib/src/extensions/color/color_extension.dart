@@ -1,8 +1,6 @@
 import 'dart:math' as Math;
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
-
 import 'hsl_color.dart';
 import 'util.dart';
 
@@ -68,7 +66,7 @@ extension TinyColorExtension on Color {
   Color shade([int amount = 10]) => mix(input: Color.fromRGBO(0, 0, 0, 1.0));
 
   /// Blends the color with another color a given amount, from 0 - 100, default 50.
-  Color mix({@required Color input, int amount = 50}) {
+  Color mix({required Color input, int amount = 50}) {
     final int p = (amount / 100).round();
     return Color.fromARGB(
       (input.alpha - alpha) * p + alpha,

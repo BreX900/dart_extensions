@@ -10,26 +10,26 @@ import 'package:built_value/src/int_serializer.dart';
 abstract class RawSerializer {
   RawSerializer._();
 
-  static PrimitiveSerializer<bool> boolean([Serializer<bool> serializer]) =>
+  static PrimitiveSerializer<bool> boolean([Serializer<bool>? serializer]) =>
       _StringBoolSerializer(serializer);
-  static PrimitiveSerializer<DateTime> dateTime([Serializer<DateTime> serializer]) =>
+  static PrimitiveSerializer<DateTime> dateTime([Serializer<DateTime>? serializer]) =>
       _StringDateTimeSerializer(serializer);
-  static PrimitiveSerializer<double> decimal([Serializer<double> serializer]) =>
+  static PrimitiveSerializer<double> decimal([Serializer<double>? serializer]) =>
       _StringDoubleSerializer(serializer);
-  static PrimitiveSerializer<Duration> duration([Serializer<Duration> serializer]) =>
+  static PrimitiveSerializer<Duration> duration([Serializer<Duration>? serializer]) =>
       _StringDurationSerializer(serializer);
-  static PrimitiveSerializer<int> integer([Serializer<int> serializer]) =>
+  static PrimitiveSerializer<int> integer([Serializer<int>? serializer]) =>
       _StringIntSerializer(serializer);
-  static PrimitiveSerializer<num> number([Serializer<num> serializer]) =>
+  static PrimitiveSerializer<num> number([Serializer<num>? serializer]) =>
       _StringNumSerializer(serializer);
 
   static BuiltList<Serializer> getAll({
-    Serializer<bool> boolean,
-    Serializer<DateTime> dateTime,
-    Serializer<double> decimal,
-    Serializer<Duration> duration,
-    Serializer<int> integer,
-    Serializer<num> number,
+    Serializer<bool>? boolean,
+    Serializer<DateTime>? dateTime,
+    Serializer<double>? decimal,
+    Serializer<Duration>? duration,
+    Serializer<int>? integer,
+    Serializer<num>? number,
   }) =>
       BuiltList.of([
         _StringBoolSerializer(boolean),
@@ -48,9 +48,9 @@ mixin RedirectSerializer<T> {
 
   String get wireName => serializer.wireName;
 
-  Object serialize(Serializers serializers, T object,
+  Object? serialize(Serializers serializers, T object,
       {FullType specifiedType = FullType.unspecified}) {
-    final serializer = this.serializer;
+    final Serializer<T> serializer = this.serializer;
     if (serializer is PrimitiveSerializer<T>) {
       return serializer.serialize(serializers, object, specifiedType: specifiedType);
     } else if (serializer is StructuredSerializer<T>) {
@@ -62,13 +62,14 @@ mixin RedirectSerializer<T> {
 
   T deserialize(Serializers serializers, Object serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final serializer = this.serializer;
+    final Serializer<T> serializer = this.serializer;
     if (serializer is PrimitiveSerializer<T>) {
       return serializer.deserialize(serializers, serialized, specifiedType: specifiedType);
     } else if (serializer is StructuredSerializer<T>) {
-      return serializer.deserialize(serializers, serialized, specifiedType: specifiedType);
+      return serializer.deserialize(serializers, serialized as Iterable<dynamic>,
+          specifiedType: specifiedType);
     } else {
-      return serialized;
+      return serialized as T;
     }
   }
 }
@@ -81,7 +82,7 @@ abstract class BaseRedirectSerializer<T> with RedirectSerializer<T> {
 
 class _StringBoolSerializer extends BaseRedirectSerializer<bool>
     implements PrimitiveSerializer<bool> {
-  _StringBoolSerializer([Serializer<bool> serializer]) : super(serializer ?? BoolSerializer());
+  _StringBoolSerializer([Serializer<bool>? serializer]) : super(serializer ?? BoolSerializer());
   @override
   Object serialize(Serializers serializers, bool boolean,
       {FullType specifiedType = FullType.unspecified}) {
@@ -91,17 +92,13 @@ class _StringBoolSerializer extends BaseRedirectSerializer<bool>
   @override
   bool deserialize(Serializers serializers, Object serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final vl = bool.fromEnvironment(serialized, defaultValue: null);
-    if (vl == null) {
-      throw 'Not support $serialized';
-    }
-    return vl;
+    return bool.fromEnvironment(serialized as String, defaultValue: false);
   }
 }
 
 class _StringDateTimeSerializer extends BaseRedirectSerializer<DateTime>
     implements PrimitiveSerializer<DateTime> {
-  _StringDateTimeSerializer([Serializer<DateTime> serializer])
+  _StringDateTimeSerializer([Serializer<DateTime>? serializer])
       : super(serializer ?? DateTimeSerializer());
 
   @override
@@ -119,13 +116,14 @@ class _StringDateTimeSerializer extends BaseRedirectSerializer<DateTime>
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return super.deserialize(serializers, int.parse(serialized), specifiedType: specifiedType);
+    return super
+        .deserialize(serializers, int.parse(serialized as String), specifiedType: specifiedType);
   }
 }
 
 class _StringDoubleSerializer extends BaseRedirectSerializer<double>
     implements PrimitiveSerializer<double> {
-  _StringDoubleSerializer([Serializer<double> serializer])
+  _StringDoubleSerializer([Serializer<double>? serializer])
       : super(serializer ?? DoubleSerializer());
 
   @override
@@ -138,7 +136,7 @@ class _StringDoubleSerializer extends BaseRedirectSerializer<double>
     if (serialized is double) {
       return '$aDouble';
     } else {
-      return serialized;
+      return serialized!;
     }
   }
 
@@ -153,14 +151,14 @@ class _StringDoubleSerializer extends BaseRedirectSerializer<double>
         serialized == DoubleSerializer.infinity) {
       return super.deserialize(serializers, serialized, specifiedType: specifiedType);
     } else {
-      return double.parse(serialized);
+      return double.parse(serialized as String);
     }
   }
 }
 
 class _StringDurationSerializer extends BaseRedirectSerializer<Duration>
     implements PrimitiveSerializer<Duration> {
-  _StringDurationSerializer([Serializer<Duration> serializer])
+  _StringDurationSerializer([Serializer<Duration>? serializer])
       : super(serializer ?? DurationSerializer());
 
   @override
@@ -178,12 +176,13 @@ class _StringDurationSerializer extends BaseRedirectSerializer<Duration>
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return super.deserialize(serializers, int.parse(serialized), specifiedType: specifiedType);
+    return super
+        .deserialize(serializers, int.parse(serialized as String), specifiedType: specifiedType);
   }
 }
 
 class _StringIntSerializer extends BaseRedirectSerializer<int> implements PrimitiveSerializer<int> {
-  _StringIntSerializer([Serializer<int> serializer]) : super(serializer ?? IntSerializer());
+  _StringIntSerializer([Serializer<int>? serializer]) : super(serializer ?? IntSerializer());
 
   @override
   Object serialize(
@@ -200,12 +199,13 @@ class _StringIntSerializer extends BaseRedirectSerializer<int> implements Primit
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return super.deserialize(serializers, int.parse(serialized), specifiedType: specifiedType);
+    return super
+        .deserialize(serializers, int.parse(serialized as String), specifiedType: specifiedType);
   }
 }
 
 class _StringNumSerializer extends BaseRedirectSerializer<num> implements PrimitiveSerializer<num> {
-  _StringNumSerializer([Serializer<num> serializer]) : super(serializer ?? DoubleSerializer());
+  _StringNumSerializer([Serializer<num>? serializer]) : super(serializer ?? DoubleSerializer());
 
   @override
   Object serialize(
@@ -217,7 +217,7 @@ class _StringNumSerializer extends BaseRedirectSerializer<num> implements Primit
     if (serialized is num) {
       return '$aDouble';
     } else {
-      return serialized;
+      return serialized!;
     }
   }
 
@@ -232,7 +232,7 @@ class _StringNumSerializer extends BaseRedirectSerializer<num> implements Primit
         serialized == DoubleSerializer.infinity) {
       return super.deserialize(serializers, serialized, specifiedType: specifiedType);
     } else {
-      return num.parse(serialized);
+      return num.parse(serialized as String);
     }
   }
 }
@@ -244,12 +244,12 @@ class SerializersToSerializer<T> extends PrimitiveSerializer<T> {
 
   @override
   T deserialize(Serializers _, Object serialized, {FullType specifiedType = FullType.unspecified}) {
-    return serializers.deserialize(serialized, specifiedType: FullType(T));
+    return serializers.deserialize(serialized, specifiedType: FullType(T)) as T;
   }
 
   @override
   Object serialize(Serializers _, T object, {FullType specifiedType = FullType.unspecified}) {
-    return serializers.serialize(object, specifiedType: FullType(T));
+    return serializers.serialize(object!, specifiedType: FullType(T))!;
   }
 
   @override

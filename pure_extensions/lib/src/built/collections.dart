@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:built_collection/built_collection.dart';
 
 extension BuiltListExt<T> on BuiltList<T> {
-  T random({Random random}) {
+  T random({Random? random}) {
     if (random != null) {
       return this[random.nextInt(length)];
     } else {
@@ -15,7 +15,6 @@ extension BuiltListExt<T> on BuiltList<T> {
 }
 
 extension ListBuilderExt<T> on ListBuilder<T> {
-  // Todo
   void removeAll(Iterable<T> elements) => elements.forEach(remove);
 
   void removeWhereNull() => removeWhere((value) => value == null);
@@ -24,7 +23,7 @@ extension ListBuilderExt<T> on ListBuilder<T> {
     if (addOrRemove) {
       add(value);
     } else {
-      remove(value);
+      remove(value!);
     }
   }
 
@@ -34,7 +33,6 @@ extension ListBuilderExt<T> on ListBuilder<T> {
 }
 
 extension SetBuilderExt<T> on SetBuilder<T> {
-  // Todo
   void removeAll(Iterable<T> elements) => elements.forEach(remove);
 
   void removeWhereNull() => removeWhere((value) => value == null);
@@ -43,7 +41,7 @@ extension SetBuilderExt<T> on SetBuilder<T> {
     if (addOrRemove) {
       add(value);
     } else {
-      remove(value);
+      remove(value!);
     }
   }
 }
@@ -66,7 +64,7 @@ extension BuiltMapExt<K, V> on BuiltMap<K, V> {
   /// [Iterable.firstWhere]
   MapEntry<K, V> firstWhere(
     bool Function(K key, V value) test, {
-    MapEntry<K, V> Function() orElse,
+    MapEntry<K, V> Function()? orElse,
   }) {
     return entries.firstWhere((entry) => test(entry.key, entry.value), orElse: orElse);
   }
@@ -76,7 +74,7 @@ extension BuiltMapExt<K, V> on BuiltMap<K, V> {
   /// [Iterable.lastWhere]
   MapEntry<K, V> lastWhere(
     bool Function(K key, V value) test, {
-    MapEntry<K, V> Function() orElse,
+    MapEntry<K, V> Function()? orElse,
   }) {
     return entries.lastWhere((entry) => test(entry.key, entry.value), orElse: orElse);
   }
@@ -84,7 +82,7 @@ extension BuiltMapExt<K, V> on BuiltMap<K, V> {
   /// Returns the first entry if it exists otherwise null.
   ///
   /// [Iterable.first]
-  MapEntry<K, V> get tryFirst {
+  MapEntry<K, V>? get tryFirst {
     Iterator<MapEntry<K, V>> it = entries.iterator;
     if (!it.moveNext()) {
       return null;
@@ -95,8 +93,8 @@ extension BuiltMapExt<K, V> on BuiltMap<K, V> {
   /// Returns the last entry if it exists otherwise null.
   ///
   /// [Iterable.last]
-  MapEntry<K, V> get tryLast {
-    MapEntry<K, V> result;
+  MapEntry<K, V>? get tryLast {
+    MapEntry<K, V>? result;
     for (final entry in entries) {
       result = entry;
     }

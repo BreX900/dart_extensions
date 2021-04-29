@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 extension ColorSchemeExt on ColorScheme {
   ThemeData toTheme({
-    TextTheme textTheme,
-    ButtonThemeData buttonTheme,
-    SnackBarThemeData snackBarTheme,
-    VisualDensity visualDensity,
+    TextTheme? textTheme,
+    ButtonThemeData? buttonTheme,
+    SnackBarThemeData? snackBarTheme,
+    VisualDensity? visualDensity,
   }) {
     final bool isDark = brightness == Brightness.dark;
 
@@ -36,7 +36,7 @@ extension ColorSchemeExt on ColorScheme {
 
       /// Extra
       buttonColor: secondary,
-      buttonTheme: buttonTheme ?? SnackBarThemeData(),
+      buttonTheme: buttonTheme ?? SnackBarThemeData() as ButtonThemeData?,
       snackBarTheme: snackBarTheme,
       visualDensity: visualDensity,
     );

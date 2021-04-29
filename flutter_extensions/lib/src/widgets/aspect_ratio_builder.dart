@@ -11,12 +11,10 @@ class AspectRatioBuilder extends StatelessWidget {
   final Widget Function(BuildContext context, Size size) builder;
 
   const AspectRatioBuilder({
-    Key key,
-    @required this.aspectRatio,
-    @required this.builder,
-  })  : assert(aspectRatio != null),
-        assert(builder != null),
-        super(key: key);
+    Key? key,
+    required this.aspectRatio,
+    required this.builder,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

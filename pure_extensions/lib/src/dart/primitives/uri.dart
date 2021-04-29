@@ -13,17 +13,17 @@ extension UriDartExtension on Uri {
 }
 
 class UriBuilder {
-  String scheme;
-  String userInfo;
-  String host;
-  int port;
+  String? scheme;
+  String? userInfo;
+  String? host;
+  int? port;
   List<dynamic> _path = [];
   Map<String, dynamic> _query = <String, dynamic>{};
-  String fragment;
+  String? fragment;
 
   List<dynamic> get pathSegments => this._path;
   set pathSegments(Iterable<dynamic> pathSegments) {
-    this._path = pathSegments?.toList() ?? <dynamic>[];
+    this._path = pathSegments.toList();
   }
 
   set path(String path) {
@@ -44,7 +44,7 @@ class UriBuilder {
 
   Map<String, dynamic /*dynamic|Iterable<dynamic>*/ > get queryParameters => this._query;
   set queryParameters(Map<String, dynamic /*dynamic|Iterable<dynamic>*/ > queryParameters) {
-    this._query = queryParameters ?? <dynamic, dynamic>{};
+    this._query = queryParameters;
   }
 
   void addRawQueryParameter(dynamic key, dynamic value) {
@@ -57,18 +57,17 @@ class UriBuilder {
     }));
   }
 
-  void update(void Function(UriBuilder b) updates) {
+  void update(void Function(UriBuilder b)? updates) {
     if (updates != null) updates(this);
   }
 
-  UriBuilder([void Function(UriBuilder b) updates]) {
+  UriBuilder([void Function(UriBuilder b)? updates]) {
     update(updates);
   }
 
   factory UriBuilder.of(Uri uri) => UriBuilder()..replace(uri);
 
   void replace(Uri uri) {
-    assert(uri != null);
     scheme = uri.scheme;
     userInfo = uri.userInfo;
     host = uri.host;

@@ -1,6 +1,5 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:meta/meta.dart';
 import 'package:pure_extensions/src/built/raw_serializer.dart';
 import 'package:pure_extensions/src/dart/primitives/uri.dart';
 
@@ -32,20 +31,16 @@ part 'uri.g.dart';
 /// }
 abstract class CustomUriRule {
   /// [Uri.scheme]
-  @nullable
-  String get scheme;
+  String? get scheme;
 
   /// [Uri.userInfo]
-  @nullable
-  String get userInfo;
+  String? get userInfo;
 
   /// [Uri.host]
-  @nullable
-  String get host;
+  String? get host;
 
   /// [Uri.port]
-  @nullable
-  int get port;
+  int? get port;
 
   /// You can call a [pathSegments] attribute to construct your built value for the path
   /// Use the 'wirename' with the index to refer to the segment index
@@ -55,8 +50,7 @@ abstract class CustomUriRule {
   // MyQueryParameters get queryParameters;
 
   /// [Uri.fragment]
-  @nullable
-  String get fragment;
+  String? get fragment;
 }
 
 @BuiltValue()
@@ -66,33 +60,25 @@ abstract class CustomUri<PS extends Object, QP extends Object>
 
   CustomUri._();
 
-  factory CustomUri([void Function(CustomUriBuilder<PS, QP> b) updates]) = _$CustomUri<PS, QP>;
+  factory CustomUri([void Function(CustomUriBuilder<PS, QP> b)? updates]) = _$CustomUri<PS, QP>;
 
-  @nullable
-  String get scheme;
+  String? get scheme;
 
-  @nullable
-  String get userInfo;
+  String? get userInfo;
 
-  @nullable
-  String get host;
+  String? get host;
 
-  @nullable
-  int get port;
+  int? get port;
 
-  @nullable
-  String get path;
+  String? get path;
 
   /// [CustomUriRule.pathSegments]
-  @nullable
-  PS get pathSegments;
+  PS? get pathSegments;
 
   /// [CustomUriRule.queryParameters]
-  @nullable
-  QP get queryParameters;
+  QP? get queryParameters;
 
-  @nullable
-  String get fragment;
+  String? get fragment;
 }
 
 /// It allows you to construct a built value from a Uri.
@@ -128,10 +114,7 @@ class CustomUriSerializer<T extends CustomUriRule> extends PrimitiveSerializer<T
     Serializer<CustomUriRule> serializer,
     Iterable<Serializer> rawSerializers,
     Iterable<FullType> singleTypes,
-  )   : assert(serializer != null),
-        assert(rawSerializers != null),
-        assert(singleTypes != null),
-        serializer = serializer as StructuredSerializer<CustomUriRule>,
+  )   : serializer = serializer as StructuredSerializer<CustomUriRule>,
         rawSerializers = [...RawSerializer.getAll(), ...rawSerializers],
         singleTypes = [
           const FullType(String),
@@ -146,14 +129,14 @@ class CustomUriSerializer<T extends CustomUriRule> extends PrimitiveSerializer<T
 
   /// Serialize to [String] and deserialize from [String]
   CustomUriSerializer.string({
-    @required Serializer<CustomUriRule> serializer,
+    required Serializer<CustomUriRule> serializer,
     Iterable<Serializer> rawSerializers = const <Serializer>[],
     Iterable<FullType> singleTypes = const <FullType>[],
   }) : this._(_Type.string, serializer, rawSerializers, singleTypes);
 
   /// Serialize to [Uri] and deserialize from [Uri]
   CustomUriSerializer.uri({
-    @required Serializer<CustomUriRule> serializer,
+    required Serializer<CustomUriRule> serializer,
     Iterable<Serializer> rawSerializers = const <Serializer>[],
     Iterable<FullType> singleTypes = const <FullType>[],
   }) : this._(_Type.uri, serializer, rawSerializers, singleTypes);
@@ -170,8 +153,8 @@ class CustomUriSerializer<T extends CustomUriRule> extends PrimitiveSerializer<T
   // static final String queryParametersAll = 'queryParametersAll';
   static const String fragment = 'fragment';
 
-  Serializers _serializers;
-  Serializers _customSerializers;
+  Serializers? _serializers;
+  late Serializers _customSerializers;
 
   void updateSerializers(Serializers serializers) {
     if (_serializers != serializers) {
@@ -217,7 +200,7 @@ class CustomUriSerializer<T extends CustomUriRule> extends PrimitiveSerializer<T
       _customSerializers,
       customSerialized,
       specifiedType: specifiedType,
-    );
+    ) as T;
   }
 
   @override
@@ -238,20 +221,20 @@ class CustomUriSerializer<T extends CustomUriRule> extends PrimitiveSerializer<T
     final b = UriBuilder();
 
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current as String?;
       final value = (iterator..moveNext()).current;
       switch (key) {
         case scheme:
-          b.scheme = value as String;
+          b.scheme = value as String?;
           break;
         case userInfo:
-          b.scheme = value as String;
+          b.scheme = value as String?;
           break;
         case host:
-          b.host = value as String;
+          b.host = value as String?;
           break;
         case port:
-          b.port = value != null ? int.parse(value) : null;
+          b.port = value != null ? int.parse(value as String) : null;
           break;
         case pathSegments:
           final iterator = (value as Iterable).iterator;
@@ -287,10 +270,10 @@ enum _Type { string, uri }
 class _CustomUriSerializerPlugin extends SerializerPlugin {
   final Iterable<FullType> singleTypes;
 
-  _CustomUriSerializerPlugin({@required this.singleTypes});
+  _CustomUriSerializerPlugin({required this.singleTypes});
 
   @override
-  Object beforeDeserialize(Object object, FullType specifiedType) {
+  Object? beforeDeserialize(Object? object, FullType specifiedType) {
     if (singleTypes.contains(specifiedType)) {
       if (object is Iterable) {
         return object.single;
@@ -300,11 +283,11 @@ class _CustomUriSerializerPlugin extends SerializerPlugin {
   }
 
   @override
-  Object afterDeserialize(Object object, FullType specifiedType) => object;
+  Object? afterDeserialize(Object? object, FullType specifiedType) => object;
 
   @override
-  Object beforeSerialize(Object object, FullType specifiedType) => object;
+  Object? beforeSerialize(Object? object, FullType specifiedType) => object;
 
   @override
-  Object afterSerialize(Object object, FullType specifiedType) => object;
+  Object? afterSerialize(Object? object, FullType specifiedType) => object;
 }

@@ -2,7 +2,7 @@ import 'dart:convert' show jsonEncode;
 import 'dart:math' show Random;
 
 extension ListExt<T> on List<T> {
-  static List<E> nullGenerator<E>(E Function(int) builder, {int itemCount}) {
+  static List<E> nullGenerator<E>(E Function(int) builder, {int? itemCount}) {
     final newList = <E>[];
     E element;
     for (var i = 0; itemCount != null ? i < itemCount : true; i++) {
@@ -13,7 +13,7 @@ extension ListExt<T> on List<T> {
     return newList;
   }
 
-  static List<T> createListIfNotNull<T>(T newValue) {
+  static List<T>? createListIfNotNull<T>(T newValue) {
     if (newValue != null) return [newValue];
     return null;
   }
@@ -33,11 +33,11 @@ extension ListExt<T> on List<T> {
     }
   }
 
-  List<T> dynamicSublist([int start = 0, int end]) {
+  List<T> dynamicSublist([int start = 0, int? end]) {
     return sublist(start, end == null ? length : (end < 0 ? length - end : end));
   }
 
-  T random({Random random}) {
+  T random({Random? random}) {
     if (random != null) {
       return this[random.nextInt(length)];
     } else {

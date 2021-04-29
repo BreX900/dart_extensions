@@ -19,12 +19,12 @@ extension DurationDartExtension on Duration {
 
   /// Copy this with new values
   Duration copyWith({
-    int days,
-    int hours,
-    int minutes,
-    int seconds,
-    int milliseconds,
-    int microseconds,
+    int? days,
+    int? hours,
+    int? minutes,
+    int? seconds,
+    int? milliseconds,
+    int? microseconds,
   }) {
     return Duration(
       days: days ?? this.days,
@@ -47,55 +47,24 @@ extension DurationDartExtension on Duration {
 
 /// Builder for [Duration]
 class DurationBuilder {
-  int _days = 0;
-  int _hours = 0;
-  int _minutes = 0;
-  int _seconds = 0;
-  int _milliseconds = 0;
-  int _microseconds = 0;
+  int days = 0;
+  int hours = 0;
+  int minutes = 0;
+  int seconds = 0;
+  int milliseconds = 0;
+  int microseconds = 0;
 
-  int get days => _days;
-  set days(int days) {
-    _days = days ?? 0;
-  }
-
-  int get hours => _hours;
-  set hours(int hours) {
-    _hours = hours ?? 0;
-  }
-
-  int get minutes => _minutes;
-  set minutes(int minutes) {
-    _minutes = minutes ?? 0;
-  }
-
-  int get seconds => _seconds;
-  set seconds(int seconds) {
-    _seconds = seconds ?? 0;
-  }
-
-  int get milliseconds => _milliseconds;
-  set milliseconds(int milliseconds) {
-    _milliseconds = milliseconds ?? 0;
-  }
-
-  int get microseconds => _microseconds;
-  set microseconds(int microseconds) {
-    _microseconds = microseconds ?? 0;
-  }
-
-  DurationBuilder([void Function(DurationBuilder b) updates]) {
+  DurationBuilder([void Function(DurationBuilder b)? updates]) {
     update(updates);
   }
 
   factory DurationBuilder.of(Duration duration) => DurationBuilder()..replace(duration);
 
-  void update(void Function(DurationBuilder b) updates) {
+  void update(void Function(DurationBuilder b)? updates) {
     if (updates != null) updates(this);
   }
 
   void replace(Duration duration) {
-    assert(duration != null);
     days = duration.days;
     hours = duration.hours;
     minutes = duration.minutes;

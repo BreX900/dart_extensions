@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
 extension StreamExtDart<T> on Stream<T> {
@@ -10,32 +9,26 @@ extension StreamExtDart<T> on Stream<T> {
   /// Listen for changes in the value specified by [lens] and call [onStart].
   /// [onData] is called, with the previous value and the current value, after a [debounceTime]
   /// and only if the value has changed does it return a result which is passed to [onFinish].
-  StreamSubscription<dynamic> listenValueChanges<V, R>({
+  StreamSubscription<dynamic> listenValueChanges<R>({
     Duration debounceTime = const Duration(),
-    @required V Function(T event) lens,
-    bool Function(V previous, V current) equals,
-    void Function(V previous, V current) onStart,
-    @required Stream<R> Function(V previous, V current) onData,
-    void Function(V previous, V current, R result) onFinish,
+    bool Function(T previous, T current)? equals,
+    void Function(T previous, T current)? onStart,
+    required Stream<R> Function(T previous, T current) onData,
+    void Function(T previous, T current, R result)? onFinish,
   }) {
-    assert(lens != null, 'lens function is required');
-    assert(debounceTime != null, 'debounceTime can\'t be null');
-    assert(onData != null, 'onData function is required');
+    final _onStart = onStart ?? (T p, T c) {};
+    final _onFinish = onFinish ?? ((T p, T c, R r) => r);
 
-    final _onStart = onStart ?? (V p, V c) {};
-    final _onFinish = onFinish ?? (V p, V c, R r) => r;
-
-    return map(lens)
-        .distinct(equals)
+    return distinct(equals)
         .pairwise()
         .doOnData((vls) => _onStart(vls.first, vls.last))
         .debounceTime(debounceTime)
         .switchMap<List<dynamic>>((vls) {
       return onData(vls.first, vls.last).map((result) => <dynamic>[vls.first, vls.last, result]);
-    }).listen((list) => _onFinish(list[0] as V, list[1] as V, list[2] as R));
+    }).listen((list) => _onFinish(list[0] as T, list[1] as T, list[2] as R));
   }
 
-  Future<R> firstType<R>({R orElse()}) {
+  Future<R> firstType<R>({R orElse()?}) {
     final completer = Completer<R>();
     firstWhere((v) => v is T).then((v) => completer.complete(v as R),
         onError: (exception, stackTrace) {
@@ -48,7 +41,7 @@ extension StreamExtDart<T> on Stream<T> {
     return completer.future;
   }
 
-  Future<R> firstRuntimeType<R>({R orElse()}) {
+  Future<R> firstRuntimeType<R>({R orElse()?}) {
     final completer = Completer<R>();
     firstWhere((v) => v.runtimeType == T).then((v) => completer.complete(v as R),
         onError: (exception, stackTrace) {
@@ -111,7 +104,7 @@ class CompositeMapSubscription<K> {
   }
 
   /// Cancels subscription and removes it from this composite.
-  Future<dynamic> remove(K key) => _subscriptions.remove(key).cancel();
+  Future<dynamic> remove(K key) => _subscriptions.remove(key)!.cancel();
 
   /// Cancels all subscriptions added to this composite. Clears subscriptions collection.
   Future<void> clear() {
@@ -128,7 +121,7 @@ class CompositeMapSubscription<K> {
   }
 
   /// Pauses all subscriptions added to this composite.
-  void pauseAll([Future resumeSignal]) =>
+  void pauseAll([Future? resumeSignal]) =>
       _subscriptions.values.forEach((it) => it.pause(resumeSignal));
 
   /// Resumes all subscriptions added to this composite.
@@ -136,10 +129,10 @@ class CompositeMapSubscription<K> {
 
   StreamSubscription<T> putIfAbsent<T>(K key, StreamSubscription<T> Function() ifAbsent) {
     _check();
-    return _subscriptions.putIfAbsent(key, ifAbsent);
+    return _subscriptions.putIfAbsent(key, ifAbsent) as StreamSubscription<T>;
   }
 
-  StreamSubscription<T> get<T>(K key) => _subscriptions[key];
+  StreamSubscription<T?>? get<T>(K key) => _subscriptions[key] as StreamSubscription<T?>?;
 
   bool containsKey(K key) => _subscriptions.containsKey(key);
 

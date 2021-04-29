@@ -27,30 +27,45 @@ class _$MyCustomQuerySerializer implements StructuredSerializer<MyCustomQuery> {
   final String wireName = 'MyCustomQuery';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, MyCustomQuery object,
+  Iterable<Object?> serialize(Serializers serializers, MyCustomQuery object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
-      'string',
-      serializers.serialize(object.string,
-          specifiedType: const FullType(String)),
-      'integer',
-      serializers.serialize(object.integer, specifiedType: const FullType(int)),
-      'stringList',
-      serializers.serialize(object.stringList,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(String)])),
-      'intList',
-      serializers.serialize(object.intList,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(int)])),
-    ];
-
+    final result = <Object?>[];
+    Object? value;
+    value = object.string;
+    if (value != null) {
+      result
+        ..add('string')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.integer;
+    if (value != null) {
+      result
+        ..add('integer')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.stringList;
+    if (value != null) {
+      result
+        ..add('stringList')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    value = object.intList;
+    if (value != null) {
+      result
+        ..add('intList')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(int)])));
+    }
     return result;
   }
 
   @override
   MyCustomQuery deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new MyCustomQueryBuilder();
 
@@ -58,7 +73,7 @@ class _$MyCustomQuerySerializer implements StructuredSerializer<MyCustomQuery> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'string':
           result.string = serializers.deserialize(value,
@@ -70,14 +85,14 @@ class _$MyCustomQuerySerializer implements StructuredSerializer<MyCustomQuery> {
           break;
         case 'stringList':
           result.stringList.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
               as BuiltList<Object>);
           break;
         case 'intList':
           result.intList.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(BuiltList, const [const FullType(int)]))
+                      const FullType(BuiltList, const [const FullType(int)]))!
               as BuiltList<Object>);
           break;
       }
@@ -94,48 +109,56 @@ class _$MyCustomUriSerializer implements StructuredSerializer<MyCustomUri> {
   final String wireName = 'MyCustomUri';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, MyCustomUri object,
+  Iterable<Object?> serialize(Serializers serializers, MyCustomUri object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
-      'queryParameters',
-      serializers.serialize(object.queryParameters,
-          specifiedType: const FullType(MyCustomQuery)),
-    ];
-    if (object.scheme != null) {
+    final result = <Object?>[];
+    Object? value;
+    value = object.queryParameters;
+    if (value != null) {
+      result
+        ..add('queryParameters')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(MyCustomQuery)));
+    }
+    value = object.scheme;
+    if (value != null) {
       result
         ..add('scheme')
-        ..add(serializers.serialize(object.scheme,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.userInfo != null) {
+    value = object.userInfo;
+    if (value != null) {
       result
         ..add('userInfo')
-        ..add(serializers.serialize(object.userInfo,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.host != null) {
+    value = object.host;
+    if (value != null) {
       result
         ..add('host')
-        ..add(serializers.serialize(object.host,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    if (object.port != null) {
+    value = object.port;
+    if (value != null) {
       result
         ..add('port')
-        ..add(serializers.serialize(object.port,
-            specifiedType: const FullType(int)));
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    if (object.fragment != null) {
+    value = object.fragment;
+    if (value != null) {
       result
         ..add('fragment')
-        ..add(serializers.serialize(object.fragment,
+        ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
     return result;
   }
 
   @override
-  MyCustomUri deserialize(Serializers serializers, Iterable<Object> serialized,
+  MyCustomUri deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new MyCustomUriBuilder();
 
@@ -143,11 +166,11 @@ class _$MyCustomUriSerializer implements StructuredSerializer<MyCustomUri> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final dynamic value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'queryParameters':
           result.queryParameters.replace(serializers.deserialize(value,
-              specifiedType: const FullType(MyCustomQuery)) as MyCustomQuery);
+              specifiedType: const FullType(MyCustomQuery))! as MyCustomQuery);
           break;
         case 'scheme':
           result.scheme = serializers.deserialize(value,
@@ -178,32 +201,19 @@ class _$MyCustomUriSerializer implements StructuredSerializer<MyCustomUri> {
 
 class _$MyCustomQuery extends MyCustomQuery {
   @override
-  final String string;
+  final String? string;
   @override
-  final int integer;
+  final int? integer;
   @override
-  final BuiltList<String> stringList;
+  final BuiltList<String>? stringList;
   @override
-  final BuiltList<int> intList;
+  final BuiltList<int>? intList;
 
-  factory _$MyCustomQuery([void Function(MyCustomQueryBuilder) updates]) =>
+  factory _$MyCustomQuery([void Function(MyCustomQueryBuilder)? updates]) =>
       (new MyCustomQueryBuilder()..update(updates)).build();
 
   _$MyCustomQuery._({this.string, this.integer, this.stringList, this.intList})
-      : super._() {
-    if (string == null) {
-      throw new BuiltValueNullFieldError('MyCustomQuery', 'string');
-    }
-    if (integer == null) {
-      throw new BuiltValueNullFieldError('MyCustomQuery', 'integer');
-    }
-    if (stringList == null) {
-      throw new BuiltValueNullFieldError('MyCustomQuery', 'stringList');
-    }
-    if (intList == null) {
-      throw new BuiltValueNullFieldError('MyCustomQuery', 'intList');
-    }
-  }
+      : super._();
 
   @override
   MyCustomQuery rebuild(void Function(MyCustomQueryBuilder) updates) =>
@@ -243,34 +253,35 @@ class _$MyCustomQuery extends MyCustomQuery {
 
 class MyCustomQueryBuilder
     implements Builder<MyCustomQuery, MyCustomQueryBuilder> {
-  _$MyCustomQuery _$v;
+  _$MyCustomQuery? _$v;
 
-  String _string;
-  String get string => _$this._string;
-  set string(String string) => _$this._string = string;
+  String? _string;
+  String? get string => _$this._string;
+  set string(String? string) => _$this._string = string;
 
-  int _integer;
-  int get integer => _$this._integer;
-  set integer(int integer) => _$this._integer = integer;
+  int? _integer;
+  int? get integer => _$this._integer;
+  set integer(int? integer) => _$this._integer = integer;
 
-  ListBuilder<String> _stringList;
+  ListBuilder<String>? _stringList;
   ListBuilder<String> get stringList =>
       _$this._stringList ??= new ListBuilder<String>();
-  set stringList(ListBuilder<String> stringList) =>
+  set stringList(ListBuilder<String>? stringList) =>
       _$this._stringList = stringList;
 
-  ListBuilder<int> _intList;
+  ListBuilder<int>? _intList;
   ListBuilder<int> get intList => _$this._intList ??= new ListBuilder<int>();
-  set intList(ListBuilder<int> intList) => _$this._intList = intList;
+  set intList(ListBuilder<int>? intList) => _$this._intList = intList;
 
   MyCustomQueryBuilder();
 
   MyCustomQueryBuilder get _$this {
-    if (_$v != null) {
-      _string = _$v.string;
-      _integer = _$v.integer;
-      _stringList = _$v.stringList?.toBuilder();
-      _intList = _$v.intList?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _string = $v.string;
+      _integer = $v.integer;
+      _stringList = $v.stringList?.toBuilder();
+      _intList = $v.intList?.toBuilder();
       _$v = null;
     }
     return this;
@@ -278,14 +289,12 @@ class MyCustomQueryBuilder
 
   @override
   void replace(MyCustomQuery other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MyCustomQuery;
   }
 
   @override
-  void update(void Function(MyCustomQueryBuilder) updates) {
+  void update(void Function(MyCustomQueryBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -297,15 +306,15 @@ class MyCustomQueryBuilder
           new _$MyCustomQuery._(
               string: string,
               integer: integer,
-              stringList: stringList.build(),
-              intList: intList.build());
+              stringList: _stringList?.build(),
+              intList: _intList?.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'stringList';
-        stringList.build();
+        _stringList?.build();
         _$failedField = 'intList';
-        intList.build();
+        _intList?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'MyCustomQuery', _$failedField, e.toString());
@@ -319,19 +328,19 @@ class MyCustomQueryBuilder
 
 class _$MyCustomUri extends MyCustomUri {
   @override
-  final MyCustomQuery queryParameters;
+  final MyCustomQuery? queryParameters;
   @override
-  final String scheme;
+  final String? scheme;
   @override
-  final String userInfo;
+  final String? userInfo;
   @override
-  final String host;
+  final String? host;
   @override
-  final int port;
+  final int? port;
   @override
-  final String fragment;
+  final String? fragment;
 
-  factory _$MyCustomUri([void Function(MyCustomUriBuilder) updates]) =>
+  factory _$MyCustomUri([void Function(MyCustomUriBuilder)? updates]) =>
       (new MyCustomUriBuilder()..update(updates)).build();
 
   _$MyCustomUri._(
@@ -341,11 +350,7 @@ class _$MyCustomUri extends MyCustomUri {
       this.host,
       this.port,
       this.fragment})
-      : super._() {
-    if (queryParameters == null) {
-      throw new BuiltValueNullFieldError('MyCustomUri', 'queryParameters');
-    }
-  }
+      : super._();
 
   @override
   MyCustomUri rebuild(void Function(MyCustomUriBuilder) updates) =>
@@ -392,44 +397,45 @@ class _$MyCustomUri extends MyCustomUri {
 }
 
 class MyCustomUriBuilder implements Builder<MyCustomUri, MyCustomUriBuilder> {
-  _$MyCustomUri _$v;
+  _$MyCustomUri? _$v;
 
-  MyCustomQueryBuilder _queryParameters;
+  MyCustomQueryBuilder? _queryParameters;
   MyCustomQueryBuilder get queryParameters =>
       _$this._queryParameters ??= new MyCustomQueryBuilder();
-  set queryParameters(MyCustomQueryBuilder queryParameters) =>
+  set queryParameters(MyCustomQueryBuilder? queryParameters) =>
       _$this._queryParameters = queryParameters;
 
-  String _scheme;
-  String get scheme => _$this._scheme;
-  set scheme(String scheme) => _$this._scheme = scheme;
+  String? _scheme;
+  String? get scheme => _$this._scheme;
+  set scheme(String? scheme) => _$this._scheme = scheme;
 
-  String _userInfo;
-  String get userInfo => _$this._userInfo;
-  set userInfo(String userInfo) => _$this._userInfo = userInfo;
+  String? _userInfo;
+  String? get userInfo => _$this._userInfo;
+  set userInfo(String? userInfo) => _$this._userInfo = userInfo;
 
-  String _host;
-  String get host => _$this._host;
-  set host(String host) => _$this._host = host;
+  String? _host;
+  String? get host => _$this._host;
+  set host(String? host) => _$this._host = host;
 
-  int _port;
-  int get port => _$this._port;
-  set port(int port) => _$this._port = port;
+  int? _port;
+  int? get port => _$this._port;
+  set port(int? port) => _$this._port = port;
 
-  String _fragment;
-  String get fragment => _$this._fragment;
-  set fragment(String fragment) => _$this._fragment = fragment;
+  String? _fragment;
+  String? get fragment => _$this._fragment;
+  set fragment(String? fragment) => _$this._fragment = fragment;
 
   MyCustomUriBuilder();
 
   MyCustomUriBuilder get _$this {
-    if (_$v != null) {
-      _queryParameters = _$v.queryParameters?.toBuilder();
-      _scheme = _$v.scheme;
-      _userInfo = _$v.userInfo;
-      _host = _$v.host;
-      _port = _$v.port;
-      _fragment = _$v.fragment;
+    final $v = _$v;
+    if ($v != null) {
+      _queryParameters = $v.queryParameters?.toBuilder();
+      _scheme = $v.scheme;
+      _userInfo = $v.userInfo;
+      _host = $v.host;
+      _port = $v.port;
+      _fragment = $v.fragment;
       _$v = null;
     }
     return this;
@@ -437,14 +443,12 @@ class MyCustomUriBuilder implements Builder<MyCustomUri, MyCustomUriBuilder> {
 
   @override
   void replace(MyCustomUri other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$MyCustomUri;
   }
 
   @override
-  void update(void Function(MyCustomUriBuilder) updates) {
+  void update(void Function(MyCustomUriBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -454,17 +458,17 @@ class MyCustomUriBuilder implements Builder<MyCustomUri, MyCustomUriBuilder> {
     try {
       _$result = _$v ??
           new _$MyCustomUri._(
-              queryParameters: queryParameters.build(),
+              queryParameters: _queryParameters?.build(),
               scheme: scheme,
               userInfo: userInfo,
               host: host,
               port: port,
               fragment: fragment);
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'queryParameters';
-        queryParameters.build();
+        _queryParameters?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'MyCustomUri', _$failedField, e.toString());

@@ -10,16 +10,14 @@ class KeyboardRemover extends StatefulWidget {
   /// The child
   final Widget child;
 
-  const KeyboardRemover({Key key, @required this.child})
-      : assert(child != null),
-        super(key: key);
+  const KeyboardRemover({Key? key, required this.child}) : super(key: key);
 
   @override
   _KeyboardRemoverState createState() => _KeyboardRemoverState();
 }
 
 class _KeyboardRemoverState extends State<KeyboardRemover> {
-  FocusNode _focusPuller;
+  late FocusNode _focusPuller;
 
   final _focusNode = FocusNode();
 

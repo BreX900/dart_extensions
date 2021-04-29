@@ -21,14 +21,14 @@ extension StringPathExtension on String {
 
   bool get isRootRelativePath => pathExtensionContext.isRootRelative(this);
 
-  String joinPaths([
-    String part1,
-    String part2,
-    String part3,
-    String part4,
-    String part5,
-    String part6,
-    String part7,
+  String joinPaths(
+    String part1, [
+    String? part2,
+    String? part3,
+    String? part4,
+    String? part5,
+    String? part6,
+    String? part7,
   ]) {
     return pathExtensionContext.join(this, part1, part2, part3, part4, part5, part6, part7);
   }
@@ -39,7 +39,7 @@ extension StringPathExtension on String {
 
   String toNormalizePath() => pathExtensionContext.normalize(this);
 
-  String toRelativePath({String from}) => pathExtensionContext.relative(this, from: from);
+  String toRelativePath({required String from}) => pathExtensionContext.relative(this, from: from);
 
   bool isWithin(String parent, String child) => pathExtensionContext.isWithin(parent, child);
 

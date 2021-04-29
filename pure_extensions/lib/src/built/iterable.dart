@@ -7,9 +7,9 @@ extension IterableBuiltExtensions<T> on Iterable<T> {
     return map((e) => MapEntry(fn(e), e)).toBuiltMapList();
   }
 
-  BuiltMap<int, BuiltList<T>> generateBuiltBook({int valuesPerPage, int numberOfPages}) {
-    if (valuesPerPage == null && numberOfPages == null) return BuiltMap.of({0: this});
-    valuesPerPage ??= this.length ~/ numberOfPages;
+  BuiltMap<int, BuiltList<T>> generateBuiltBook({int? valuesPerPage, int? numberOfPages}) {
+    if (valuesPerPage == null && numberOfPages == null) return BuiltMap.of({0: this as BuiltList<T>});
+    valuesPerPage ??= this.length ~/ numberOfPages!;
     var book = MapBuilder<int, BuiltList<T>>();
     int pageCount = 0;
     var list = this;

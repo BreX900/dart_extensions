@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_extensions/src/widgets/listenable/listenable_consumer.dart';
 
 mixin ChangeableValueListenerBase<L extends Listenable, V> on ChangeableValueConsumerBase<L, V> {
-  bool Function(V p, V c) get listenWhen;
+  bool Function(V p, V c)? get listenWhen;
   void Function(BuildContext context, V value) get listener;
 }
 
@@ -10,7 +10,7 @@ mixin ChangeableValueListenerBaseState<W extends ChangeableValueListenerBase<L, 
     L extends Listenable, V> on ChangeableValueConsumerBaseState<W, L, V> {
   @override
   bool onUpdateValue(V previous, V current) {
-    if (widget.listenWhen == null || widget.listenWhen(previous, current)) {
+    if (widget.listenWhen == null || widget.listenWhen!(previous, current)) {
       widget.listener(context, current);
     }
     return super.onUpdateValue(previous, current);
@@ -18,7 +18,7 @@ mixin ChangeableValueListenerBaseState<W extends ChangeableValueListenerBase<L, 
 }
 
 mixin ChangeableValueBuilderBase<L extends Listenable, V> on ChangeableValueConsumerBase<L, V> {
-  bool Function(V p, V c) get buildWhen;
+  bool Function(V p, V c)? get buildWhen;
   Widget Function(BuildContext context, V value) get builder;
 }
 
@@ -27,7 +27,7 @@ mixin ChangeableValueBuilderBaseState<W extends ChangeableValueBuilderBase<L, V>
   @override
   bool onUpdateValue(V previous, V current) {
     final res = super.onUpdateValue(previous, current);
-    if (!res && (widget.buildWhen == null || widget.buildWhen(previous, current))) {
+    if (!res && (widget.buildWhen == null || widget.buildWhen!(previous, current))) {
       setState(() {
         value = current;
       });
@@ -44,32 +44,30 @@ abstract class ChangeableValueConsumerBase<T extends Listenable, V>
   final V Function(T listenable) selector;
 
   ChangeableValueConsumerBase({
-    Key key,
-    @required this.selector,
-    @required T listenable,
+    Key? key,
+    required this.selector,
+    required T? listenable,
   }) : super(key: key, listenable: listenable);
 }
 
 abstract class ChangeableValueConsumerBaseState<W extends ChangeableValueConsumerBase<T, V>,
     T extends Listenable, V> extends ChangeableConsumerBaseState<W, T> {
-  V value;
-  V getCurrentValue() => listenable != null ? widget.selector(listenable) : null;
+  late V value;
 
   @override
   void subscribe() {
     super.subscribe();
-    value = getCurrentValue();
+    value = widget.selector(listenable);
   }
 
   @override
   void unsubscribe() {
     super.unsubscribe();
-    value = null;
   }
 
   @override
   void onUpdate() {
-    final currentValue = getCurrentValue();
+    final currentValue = widget.selector(listenable);
     if (value != currentValue && onUpdateValue(value, currentValue)) return;
     value = currentValue;
   }
@@ -78,14 +76,14 @@ abstract class ChangeableValueConsumerBaseState<W extends ChangeableValueConsume
 }
 
 abstract class ChangeableConsumerBase<T extends Listenable> extends StatefulWidget {
-  final T listenable;
+  final T? listenable;
 
-  const ChangeableConsumerBase({Key key, @required this.listenable}) : super(key: key);
+  const ChangeableConsumerBase({Key? key, required this.listenable}) : super(key: key);
 }
 
 abstract class ChangeableConsumerBaseState<W extends ChangeableConsumerBase<T>,
     T extends Listenable> extends State<W> {
-  T _listenable;
+  late T _listenable;
   T get listenable => _listenable;
 
   @override
@@ -114,11 +112,11 @@ abstract class ChangeableConsumerBaseState<W extends ChangeableConsumerBase<T>,
   }
 
   void subscribe() {
-    if (_listenable != null) _listenable.addListener(onUpdate);
+    _listenable.addListener(onUpdate);
   }
 
   void unsubscribe() {
-    if (_listenable != null) _listenable.removeListener(onUpdate);
+    _listenable.removeListener(onUpdate);
   }
 
   void onUpdate();
