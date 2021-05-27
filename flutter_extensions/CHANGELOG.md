@@ -1,3 +1,6 @@
+## [3.1.0]
+- Update dependencies
+
 ## [3.0.0]
 - Migrate to null-safety
 - Removed RxStream(Listener/Builder/Consumer)
