@@ -153,7 +153,7 @@ See time package
 | Class | Description |
 | ----- | ----------- |
 | GeoPointSerializer | Serializer for [GeoPoint] Type |
-| LocaleSerializer | Serializer for the [Locale] type |
+| RationalSerializer | Serializer for the [Rational] type |
 | ByPassSerializer | Serializer that does not serialize and deserialize the specified type [T] |
 
 #### - Serializers

@@ -1,3 +1,7 @@
+## [3.1.0]
+- Update dependencies
+- Added `RationalSerializer` for decimal, int, double
+
 ## [3.0.0]
 - Migrate to null-safety
 - added `withoutNull` in nullable iterable
