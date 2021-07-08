@@ -1,3 +1,6 @@
+## [3.2.1]
+- Fix `ChangeableValueListener`
+
 ## [3.2.0]
 - Update dependencies
 - Improved Changeable widgets

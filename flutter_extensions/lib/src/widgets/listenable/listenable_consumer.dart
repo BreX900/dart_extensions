@@ -44,19 +44,21 @@ class ChangeableValueListener<T extends Listenable, V> extends SingleChildStatef
 class _ChangeableValueListenerState<T extends Listenable, V>
     extends SingleChildState<ChangeableValueListener<T, V>>
     with ChangeableConsumerStateMixin<ChangeableValueListener<T, V>, T> {
-  late V _value;
+  late V _previousValue;
 
   @override
   void initState() {
     super.initState();
-    _value = widget.selector(listenable);
+    _previousValue = widget.selector(listenable);
   }
 
   @override
   void onListenableChanges() {
-    final nextValue = widget.selector(listenable);
-    if (widget.listenWhen?.call(_value, nextValue) ?? true) widget.listener(context, _value);
-    _value = nextValue;
+    final currentValue = widget.selector(listenable);
+    if (widget.listenWhen?.call(_previousValue, currentValue) ?? true) {
+      widget.listener(context, currentValue);
+    }
+    _previousValue = currentValue;
   }
 
   @override
