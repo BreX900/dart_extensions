@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as m;
 import 'package:provider/provider.dart';
 
 extension BuildContextDartExtensions on BuildContext {
@@ -38,6 +39,26 @@ extension BuildContextDartExtensions on BuildContext {
     } on ProviderNotFoundException {
       return null;
     }
+  }
+
+  Future<T?> showDialog<T>({
+    bool barrierDismissible = true,
+    Color? barrierColor = Colors.black54,
+    String? barrierLabel,
+    bool useSafeArea = true,
+    bool useRootNavigator = true,
+    RouteSettings? routeSettings,
+    required WidgetBuilder builder,
+  }) {
+    return m.showDialog<T>(
+      context: this,
+      barrierDismissible: barrierDismissible,
+      barrierColor: barrierColor,
+      useSafeArea: useSafeArea,
+      useRootNavigator: useRootNavigator,
+      routeSettings: routeSettings,
+      builder: builder,
+    );
   }
 }
 

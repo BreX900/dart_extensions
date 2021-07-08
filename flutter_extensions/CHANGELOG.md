@@ -1,3 +1,8 @@
+## [3.2.0]
+- Update dependencies
+- Improved Changeable widgets
+- Added `BuildContext.showDialog`
+
 ## [3.1.0]
 - Update dependencies
 
@@ -12,7 +17,7 @@
 - Added widgets: `FillSingleChildScrollView`
 
 ## [2.1.0]
-- Update `pure_extension` dependency
+- Update `pure_extension` dependency    
 
 ## [2.0.0]
 - Now many extensions are on the pure_extensions package

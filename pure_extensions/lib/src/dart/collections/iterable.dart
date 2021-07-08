@@ -1,9 +1,7 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:pure_extensions/src/dart/collections/iterators/join_element.dart';
 import 'package:pure_extensions/src/dart/collections/iterators/without_null.dart';
-import 'package:pure_extensions/src/dart/primitives/geo_point.dart';
 import 'package:rational/rational.dart';
 
 extension IterableNullExtensions<T> on Iterable<T?> {
@@ -97,6 +95,22 @@ extension IterableExtensions<T> on Iterable<T> {
       list = list.skip(valuesPerPage);
     }
     return book;
+  }
+
+  /// Reduces a collection to a single value by iteratively combining previous and current
+  /// element of the collection with an existing value
+  V foldWithNext<V>(V initialValue, V Function(V previousValue, T current, T next) combiner) {
+    Iterator<T> iterator = this.iterator;
+    if (!iterator.moveNext()) {
+      throw StateError("No element");
+    }
+    var value = initialValue;
+    T current = iterator.current;
+    while (iterator.moveNext()) {
+      value = combiner(value, current, iterator.current);
+      current = iterator.current;
+    }
+    return value;
   }
 }
 
@@ -275,46 +289,6 @@ extension IterableExtFuture<T> on Iterable<Future<T>> {
 
   /// [Future.any]
   Future<T> anyFutures() => Future.any(this);
-}
-
-extension IterableGeoPointDartExtension on Iterable<GeoPoint> {
-  /// Calculate a center.
-  GeoPoint center() {
-    final eb = this.externalBounds();
-    final p = eb.northeast + eb.southwest;
-    return GeoPoint(p.latitude / 2, p.longitude / 2);
-  }
-
-  /// Calculate the northeast corner.
-  GeoPoint northeast() {
-    return reduce((p, c) {
-      return GeoPoint(max(p.latitude, c.latitude), max(p.longitude, c.longitude));
-    });
-  }
-
-  /// Calculate the southwest corner.
-  GeoPoint southwest() {
-    return reduce((p, c) {
-      return GeoPoint(min(p.latitude, c.latitude), min(p.longitude, c.longitude));
-    });
-  }
-
-  /// Calculate the internal corners.
-  GeoBounds internalBounds({GeoPoint? center}) {
-    center ??= this.center();
-    return GeoBounds(
-      northeast: where((p) => p >= center!).southwest(),
-      southwest: where((p) => p <= center!).northeast(),
-    );
-  }
-
-  /// Calculate the external corners.
-  GeoBounds externalBounds() {
-    return GeoBounds(
-      northeast: northeast(),
-      southwest: southwest(),
-    );
-  }
 }
 
 extension IterableIterableDartExt<T> on Iterable<Iterable<T>> {

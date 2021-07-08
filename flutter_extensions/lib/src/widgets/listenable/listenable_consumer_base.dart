@@ -1,88 +1,39 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_extensions/src/widgets/listenable/listenable_consumer.dart';
 
-mixin ChangeableValueListenerBase<L extends Listenable, V> on ChangeableValueConsumerBase<L, V> {
-  bool Function(V p, V c)? get listenWhen;
-  void Function(BuildContext context, V value) get listener;
+abstract class ChangeableValueConsumerRule<T extends Listenable, V>
+    implements ChangeableConsumerRule<T> {
+  T? get listenable;
+  V Function(T listeneble) get selector;
 }
 
-mixin ChangeableValueListenerBaseState<W extends ChangeableValueListenerBase<L, V>,
-    L extends Listenable, V> on ChangeableValueConsumerBaseState<W, L, V> {
+mixin ChangeableValueConsumerStateMixin<W extends ChangeableValueConsumerRule<T, V>,
+    T extends Listenable, V> on ChangeableConsumerStateMixin<W, T> {
+  late V _previous;
+  V get value => _previous;
+
   @override
-  bool onUpdateValue(V previous, V current) {
-    if (widget.listenWhen == null || widget.listenWhen!(previous, current)) {
-      widget.listener(context, current);
-    }
-    return super.onUpdateValue(previous, current);
-  }
-}
-
-mixin ChangeableValueBuilderBase<L extends Listenable, V> on ChangeableValueConsumerBase<L, V> {
-  bool Function(V p, V c)? get buildWhen;
-  Widget Function(BuildContext context, V value) get builder;
-}
-
-mixin ChangeableValueBuilderBaseState<W extends ChangeableValueBuilderBase<L, V>,
-    L extends Listenable, V> on ChangeableValueConsumerBaseState<W, L, V> {
-  @override
-  bool onUpdateValue(V previous, V current) {
-    final res = super.onUpdateValue(previous, current);
-    if (!res && (widget.buildWhen == null || widget.buildWhen!(previous, current))) {
-      setState(() {
-        value = current;
-      });
-    }
-    return true;
+  void initState() {
+    super.initState();
+    _previous = widget.selector(listenable);
   }
 
   @override
-  Widget build(BuildContext context) => widget.builder(context, value);
-}
-
-abstract class ChangeableValueConsumerBase<T extends Listenable, V>
-    extends ChangeableConsumerBase<T> {
-  final V Function(T listenable) selector;
-
-  ChangeableValueConsumerBase({
-    Key? key,
-    required this.selector,
-    required T? listenable,
-  }) : super(key: key, listenable: listenable);
-}
-
-abstract class ChangeableValueConsumerBaseState<W extends ChangeableValueConsumerBase<T, V>,
-    T extends Listenable, V> extends ChangeableConsumerBaseState<W, T> {
-  late V value;
-
-  @override
-  void subscribe() {
-    super.subscribe();
-    value = widget.selector(listenable);
+  void onListenableChanges() {
+    final current = widget.selector(listenable);
+    onValueChanges(_previous, current);
+    _previous = current;
   }
 
-  @override
-  void unsubscribe() {
-    super.unsubscribe();
-  }
-
-  @override
-  void onUpdate() {
-    final currentValue = widget.selector(listenable);
-    if (value != currentValue && onUpdateValue(value, currentValue)) return;
-    value = currentValue;
-  }
-
-  bool onUpdateValue(V previous, V current) => false;
+  void onValueChanges(V previous, V current);
 }
 
-abstract class ChangeableConsumerBase<T extends Listenable> extends StatefulWidget {
-  final T? listenable;
-
-  const ChangeableConsumerBase({Key? key, required this.listenable}) : super(key: key);
+abstract class ChangeableConsumerRule<T extends Listenable> implements StatefulWidget {
+  T? get listenable;
 }
 
-abstract class ChangeableConsumerBaseState<W extends ChangeableConsumerBase<T>,
-    T extends Listenable> extends State<W> {
+mixin ChangeableConsumerStateMixin<W extends ChangeableConsumerRule<T>, T extends Listenable>
+    on State<W> {
   late T _listenable;
   T get listenable => _listenable;
 
@@ -112,12 +63,12 @@ abstract class ChangeableConsumerBaseState<W extends ChangeableConsumerBase<T>,
   }
 
   void subscribe() {
-    _listenable.addListener(onUpdate);
+    _listenable.addListener(onListenableChanges);
   }
 
   void unsubscribe() {
-    _listenable.removeListener(onUpdate);
+    _listenable.removeListener(onListenableChanges);
   }
 
-  void onUpdate();
+  void onListenableChanges();
 }

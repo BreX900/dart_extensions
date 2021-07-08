@@ -71,7 +71,7 @@ class IntegerRationalSerializer extends RationalSerializer {
     final whole = splitted[0];
     final decimal = splitted[1];
     final fineDecimal = decimal.padRight(fractionDigits, '0').substring(0, fractionDigits);
-    return '$whole${fineDecimal}';
+    return '$whole$fineDecimal';
   }
 }
 
@@ -79,7 +79,8 @@ class DoubleRationalSerializer extends RationalSerializer {
   @override
   Rational deserialize(Serializers serializers, Object serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    return Rational.parse((serialized as double).toString());
+    final str = (serialized as double).toString();
+    return Rational.parse(str);
   }
 
   @override

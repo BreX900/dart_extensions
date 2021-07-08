@@ -1,3 +1,8 @@
+## [3.2.0]
+- Added `Future.delayed` and `Future.unawaited`
+- Update dependencies
+- Added `Iterable.foldWithNext`
+
 ## [3.1.0]
 - Update dependencies
 - Added `RationalSerializer` for decimal, int, double
