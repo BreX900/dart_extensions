@@ -5,25 +5,32 @@ import 'package:pure_extensions/src/dart/collections/iterators/without_null.dart
 import 'package:rational/rational.dart';
 
 extension IterableNullExtensions<T> on Iterable<T?> {
-  Iterable<T> withoutNull() => WithoutNullIterable(this);
+  /// Returns [Iterable] without null elements.
+  Iterable<T> whereNotNull() => WithoutNullIterable(this);
+
+  @Deprecated('In favour of whereNotNull')
+  Iterable<T> withoutNull() => whereNotNull();
 }
 
-extension IterableExtensions<T> on Iterable<T> {
+extension IterableExtensions<E> on Iterable<E> {
   /// returns null or if it is empty returns true.
-  Iterable<T>? get nullIfEmpty => isEmpty ? null : this;
+  Iterable<E>? get nullIfEmpty => isEmpty ? null : this;
 
   /// replace the old elements contained in the map with new ones.
-  Iterable<T> replaces(Map<T, T> replacements) {
+  Iterable<E> replaces(Map<E, E> replacements) {
     return map((item) => replacements[item] ?? item);
   }
 
-  /// Returns a iterable without [badElements]
-  Iterable<T> without(Iterable<T> badElements) {
-    return where((item) => !badElements.contains(item));
+  /// Returns a iterable without [elements]
+  Iterable<E> whereNotContains(Iterable<E> elements) {
+    return where((item) => !elements.contains(item));
   }
 
+  @Deprecated('In favour of whereNotContains')
+  Iterable<E> without(Iterable<E> badElements) => whereNotContains(badElements);
+
   /// Concatenates the elements given by function.
-  Iterable<T> joinBy(T Function(int index) generator) {
+  Iterable<E> joinBy(E Function(int index) generator) {
     if (length <= 1) {
       return this;
     }
@@ -31,9 +38,9 @@ extension IterableExtensions<T> on Iterable<T> {
   }
 
   /// Concatenates the elements.
-  Iterable<T> joinElement(T element) => joinBy((index) => element);
+  Iterable<E> joinElement(E element) => joinBy((index) => element);
 
-  T? tryElementAt(int index) {
+  E? tryElementAt(int index) {
     try {
       return elementAt(index);
     } on IndexError {
@@ -42,30 +49,93 @@ extension IterableExtensions<T> on Iterable<T> {
   }
 
   /// Returns the first entry if it exists otherwise null.
-  ///
   /// [Iterable.first]
-  T? get tryFirst {
-    try {
-      return first;
-    } on StateError {
+  E? get firstOrNull {
+    Iterator<E> it = iterator;
+    if (!it.moveNext()) {
       return null;
     }
+    return it.current;
   }
 
+  @Deprecated('In favour of firstOrNull')
+  E? get tryFirst => firstOrNull;
+
   /// Returns the last entry if it exists otherwise null.
-  ///
   /// [Iterable.last]
-  T? get tryLast {
-    try {
-      return last;
-    } on StateError {
+  E? get lastOrNull {
+    Iterator<E> it = iterator;
+    if (!it.moveNext()) {
       return null;
     }
+    E result;
+    do {
+      result = it.current;
+    } while (it.moveNext());
+    return result;
+  }
+
+  @Deprecated('In favour of lastOrNull')
+  E? get tryLast => lastOrNull;
+
+  /// Returns the single entry if it exists otherwise null.
+  /// [Iterable.single]
+  E? get singleOrNull {
+    Iterator<E> it = iterator;
+    if (!it.moveNext()) return null;
+    E result = it.current;
+    if (it.moveNext()) return null;
+    return result;
+  }
+
+  @Deprecated('In favour of singleOrNull')
+  E? get trySingle => singleOrNull;
+
+  /// Returns the first element that satisfies [test] otherwise null.
+  /// [Iterable.firstWhere]
+  E? tryFirstWhere(bool Function(E element) test) {
+    for (E element in this) {
+      if (test(element)) return element;
+    }
+    return null;
+  }
+
+  ///  Returns the last element that satisfies [test] otherwise null.
+  /// [Iterable.lastWhere]
+  E? tryLastWhere(bool Function(E element) test) {
+    late E result;
+    bool foundMatching = false;
+    for (E element in this) {
+      if (test(element)) {
+        result = element;
+        foundMatching = true;
+      }
+    }
+    if (foundMatching) return result;
+    return null;
+  }
+
+  /// Returns the single element that satisfies [test] otherwise null.
+  /// [Iterable.singleWhere]
+  E? trySingleWhere(bool Function(E element) test) {
+    late E result;
+    bool foundMatching = false;
+    for (E element in this) {
+      if (test(element)) {
+        if (foundMatching) {
+          return null;
+        }
+        result = element;
+        foundMatching = true;
+      }
+    }
+    if (foundMatching) return result;
+    return null;
   }
 
   /// Returns true if the specified value is equal to at least one element of the given list;
   /// false otherwise
-  bool containsAll(Iterable<T> other) {
+  bool containsAll(Iterable<E> other) {
     if (identical(other, this)) return true;
     if (other.length != length) return false;
     return other.every(contains);
@@ -73,21 +143,21 @@ extension IterableExtensions<T> on Iterable<T> {
 
   /// Splits a list into sub-lists stored in an object, based on the result of calling a
   /// function on each element, and grouping the results according to values returned.
-  Map<K, List<T>> groupBy<K>(K Function(T element) fn) {
+  Map<K, List<E>> groupBy<K>(K Function(E element) fn) {
     return map((e) => MapEntry(fn(e), e)).toMapList();
   }
 
   /// Generate the map by collection.
-  Map<K, V> generateMap<K, V>(MapEntry<K, V> Function(T) generator) {
+  Map<K, V> generateMap<K, V>(MapEntry<K, V> Function(E) generator) {
     return map(generator).toMap();
   }
 
-  Map<int, T> toMap() => toList().asMap();
+  Map<int, E> toMap() => toList().asMap();
 
-  Map<int, List<T>> generateBook({int? valuesPerPage, int? numberOfPages}) {
-    if (valuesPerPage == null && numberOfPages == null) return {0: this as List<T>};
+  Map<int, List<E>> generateBook({int? valuesPerPage, int? numberOfPages}) {
+    if (valuesPerPage == null && numberOfPages == null) return {0: this as List<E>};
     valuesPerPage ??= this.length ~/ numberOfPages!;
-    var book = <int, List<T>>{};
+    var book = <int, List<E>>{};
     int pageCount = 0;
     var list = this;
     while (list.isNotEmpty && (numberOfPages == null || pageCount < numberOfPages)) {
@@ -99,13 +169,13 @@ extension IterableExtensions<T> on Iterable<T> {
 
   /// Reduces a collection to a single value by iteratively combining previous and current
   /// element of the collection with an existing value
-  V foldWithNext<V>(V initialValue, V Function(V previousValue, T current, T next) combiner) {
-    Iterator<T> iterator = this.iterator;
+  V foldWithNext<V>(V initialValue, V Function(V previousValue, E current, E next) combiner) {
+    Iterator<E> iterator = this.iterator;
     if (!iterator.moveNext()) {
       throw StateError("No element");
     }
     var value = initialValue;
-    T current = iterator.current;
+    E current = iterator.current;
     while (iterator.moveNext()) {
       value = combiner(value, current, iterator.current);
       current = iterator.current;

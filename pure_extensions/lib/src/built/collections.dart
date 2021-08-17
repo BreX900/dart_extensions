@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
+import 'package:pure_extensions/src/dart/collections/iterable.dart';
 
 extension BuiltListExt<T> on BuiltList<T> {
   T random({Random? random}) {
@@ -56,11 +57,10 @@ extension BuiltMapExt<K, V> on BuiltMap<K, V> {
   ///
   /// [Iterable.where]
   BuiltMap<K, V> where(bool Function(K key, V value) predicate) {
-    return (toBuilder()..removeWhere((key, value) => !predicate(key, value))).build();
+    return rebuild((b) => b.removeWhere((key, value) => !predicate(key, value)));
   }
 
   /// Returns the first entry that satisfies the given predicate [test].
-  ///
   /// [Iterable.firstWhere]
   MapEntry<K, V> firstWhere(
     bool Function(K key, V value) test, {
@@ -70,7 +70,6 @@ extension BuiltMapExt<K, V> on BuiltMap<K, V> {
   }
 
   /// Returns the last entry that satisfies the given predicate [test].
-  ///
   /// [Iterable.lastWhere]
   MapEntry<K, V> lastWhere(
     bool Function(K key, V value) test, {
@@ -79,27 +78,42 @@ extension BuiltMapExt<K, V> on BuiltMap<K, V> {
     return entries.lastWhere((entry) => test(entry.key, entry.value), orElse: orElse);
   }
 
+  /// Returns the single element that satisfies [test].
+  /// [Iterable.lastWhere]
+  MapEntry<K, V> singleWhere(
+    bool Function(K key, V value) test, {
+    MapEntry<K, V> Function()? orElse,
+  }) {
+    return entries.singleWhere((entry) => test(entry.key, entry.value), orElse: orElse);
+  }
+
+  /// Returns the first entry that satisfies [test] otherwise null.
+  /// [Iterable.firstWhere]
+  MapEntry<K, V>? tryFirstWhere(bool Function(K key, V value) test) {
+    return entries.tryFirstWhere((entry) => test(entry.key, entry.value));
+  }
+
+  /// Returns the last entry that satisfies [test] otherwise null.
+  /// [Iterable.lastWhere]
+  MapEntry<K, V>? tryLastWhere(bool Function(K key, V value) test) {
+    return entries.tryLastWhere((entry) => test(entry.key, entry.value));
+  }
+
+  /// Returns the single element that satisfies [test].
+  /// [Iterable.singleWhere]
+  MapEntry<K, V>? trySingleWhere(bool Function(K key, V value) test) {
+    return entries.trySingleWhere((entry) => test(entry.key, entry.value));
+  }
+
   /// Returns the first entry if it exists otherwise null.
   ///
   /// [Iterable.first]
-  MapEntry<K, V>? get tryFirst {
-    Iterator<MapEntry<K, V>> it = entries.iterator;
-    if (!it.moveNext()) {
-      return null;
-    }
-    return it.current;
-  }
+  MapEntry<K, V>? get firstOrNull => entries.firstOrNull;
 
   /// Returns the last entry if it exists otherwise null.
   ///
   /// [Iterable.last]
-  MapEntry<K, V>? get tryLast {
-    MapEntry<K, V>? result;
-    for (final entry in entries) {
-      result = entry;
-    }
-    return result;
-  }
+  MapEntry<K, V>? get lastOrNull => entries.lastOrNull;
 
   /// Reduces a map to a single value by iteratively combining entries
   /// of the collection using the provided function.
@@ -132,6 +146,15 @@ extension BuiltMapExt<K, V> on BuiltMap<K, V> {
   }
 }
 
-extension MapBuilderExt<K, V> on MapBuilder<K, V> {
-  void removeNullValues() => removeWhere((key, value) => value == null);
+extension BuiltMapNullExtensions<K, V> on BuiltMap<K?, V?> {
+  /// Returns [BuiltMap] without null keys and values.
+  BuiltMap<K, V> whereNotNull() {
+    return BuiltMap<K, V>((b) {
+      forEach((key, value) {
+        if (key != null && value != null) {
+          b[key] = value;
+        }
+      });
+    });
+  }
 }

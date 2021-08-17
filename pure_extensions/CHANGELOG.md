@@ -1,3 +1,8 @@
+## [3.3.0]
+- Added `trySingleWhere` on Iterable
+- Added `singleWhere`, `tryFirstWhere`, `tryLastWhere`, `trySingleWhere` on Map/BuiltMap
+- Added `whereNotNull` on Map/BuiltMap
+
 ## [3.2.0]
 - Added `Future.delayed` and `Future.unawaited`
 - Update dependencies

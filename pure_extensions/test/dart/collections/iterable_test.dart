@@ -7,7 +7,7 @@ void main() {
       test('omit all null elements', () {
         final iterable = [0, null, 2, null];
 
-        final res = iterable.withoutNull();
+        final res = iterable.whereNotNull();
 
         expect(res.toList(), [0, 2]);
       });

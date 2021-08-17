@@ -1,20 +1,13 @@
 import 'dart:convert';
 
-import 'package:basic_utils/basic_utils.dart' as bu;
 import 'package:rational/rational.dart';
 
 extension StringDartExtensions on String {
-  /// helloWordGood => HELLO_WORD_GOOD
-  String toUpperUnderscore() => bu.StringUtils.camelCaseToUpperUnderscore(this);
-
   /// hello_word_good => Hello_word_good
-  String toUpperFirstCase() => this[0].toUpperCase() + substring(1);
-
-  /// hello_word_good => helloWordGood
-  String toCamelCase() {
-    return replaceAllMapped(RegExp(r'([_:].)'), (match) {
-      return match.group(0)![1].toUpperCase();
-    });
+  String toUpperFirstCase() {
+    if (isEmpty) return this;
+    if (length == 1) return toUpperCase();
+    return this[0].toUpperCase() + substring(1);
   }
 
   String ifEmpty(String Function() fn) => isEmpty ? fn() : this;
