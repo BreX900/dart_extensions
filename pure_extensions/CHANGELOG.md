@@ -1,3 +1,8 @@
+# CHANGELOG
+
+## [3.4.0]
+- Added `mapWithIndex` on Iterable
+
 ## [3.3.0]
 - Added `trySingleWhere` on Iterable
 - Added `singleWhere`, `tryFirstWhere`, `tryLastWhere`, `trySingleWhere` on Map/BuiltMap

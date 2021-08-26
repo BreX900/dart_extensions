@@ -6,9 +6,13 @@ extension StreamExtDart<T> on Stream<T> {
   /// [Stream.distinct] by [T.runtimeType]
   Stream<T> distinctRuntimeType() => distinct((bef, aft) => bef.runtimeType == aft.runtimeType);
 
-  /// Listen for changes in the value specified by [lens] and call [onStart].
+  /// Allows you to provide a function that will be executed whenever a value changes.
+
+  /// Listen for changes in the stream and call [onStart].
   /// [onData] is called, with the previous value and the current value, after a [debounceTime]
   /// and only if the value has changed does it return a result which is passed to [onFinish].
+  ///
+  /// More over, it lets you provide a function [equals] to describe when to values can be considered the same
   StreamSubscription<dynamic> listenValueChanges<R>({
     Duration debounceTime = const Duration(),
     bool Function(T previous, T current)? equals,

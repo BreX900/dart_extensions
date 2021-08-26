@@ -2,27 +2,27 @@ class JoinElementIterator<T> extends Iterator<T> {
   final Iterator<T> source;
   final T Function(int index) generator;
 
-  var index = -1;
-  bool canMove;
-  late T previousElement;
+  var _index = -1;
+  bool _canMove;
+  late T _previous;
 
-  JoinElementIterator(this.source, this.generator) : canMove = source.moveNext();
+  JoinElementIterator(this.source, this.generator) : _canMove = source.moveNext();
 
   @override
-  T get current => index.isEven ? previousElement : generator(index);
+  T get current => _index.isEven ? _previous : generator(_index);
 
   @override
   bool moveNext() {
-    index += 1;
+    _index += 1;
 
-    if (index.isEven) {
-      previousElement = source.current;
-      final previousCanMove = canMove;
-      canMove = source.moveNext();
+    if (_index.isEven) {
+      _previous = source.current;
+      final previousCanMove = _canMove;
+      _canMove = source.moveNext();
       return previousCanMove;
     }
 
-    return canMove;
+    return _canMove;
   }
 }
 

@@ -46,5 +46,23 @@ void main() {
         expect(res.toList(), [1, 0, 2, 0, 3, 0, 4]);
       });
     });
+
+    group('Iterable.mapWithIndex', () {
+      test('mapWithIndex full list', () {
+        final iterable = ['first'];
+
+        final res = iterable.mapWithIndex((e, i) => i);
+
+        expect(res.toList(), [0]);
+      });
+
+      test('mapWithIndex empty list', () {
+        final iterable = [];
+
+        final res = iterable.mapWithIndex((e, i) => i);
+
+        expect(res.toList(), []);
+      });
+    });
   });
 }

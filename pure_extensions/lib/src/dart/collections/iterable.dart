@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:pure_extensions/src/dart/collections/iterators/join_element.dart';
+import 'package:pure_extensions/src/dart/collections/iterators/map_with_index.dart';
 import 'package:pure_extensions/src/dart/collections/iterators/without_null.dart';
 import 'package:rational/rational.dart';
 
@@ -15,6 +16,10 @@ extension IterableNullExtensions<T> on Iterable<T?> {
 extension IterableExtensions<E> on Iterable<E> {
   /// returns null or if it is empty returns true.
   Iterable<E>? get nullIfEmpty => isEmpty ? null : this;
+
+  /// Returns a new lazy [Iterable] with elements that are created by
+  /// calling `f` on each element and index of this `Iterable` in iteration order.
+  Iterable<T> mapWithIndex<T>(T f(E e, int i)) => MapWithIndexIterable(this, f);
 
   /// replace the old elements contained in the map with new ones.
   Iterable<E> replaces(Map<E, E> replacements) {

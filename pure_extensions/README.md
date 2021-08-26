@@ -37,6 +37,7 @@ They are extended with the methods of the 'math' package
 
 | Command | Description |
 | ------- | ----------- |
+| mapWithIndex | Map element over function with index |
 | whereNotNull | Returns [Iterable] without null elements |
 | nullIfEmpty | returns null or if it is empty returns true. |
 | replaces | replace the old elements contained in the map with new ones. |
