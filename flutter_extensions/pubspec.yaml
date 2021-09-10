@@ -1,7 +1,6 @@
 name: flutter_extensions
 description: It adds utility extensions to the flutter classes and adds some utility classes.
-version: 3.3.0
-author: BreX900
+version: 3.4.0
 homepage: https://github.com/BreX900/dart_extensions/tree/master/flutter_extensions
 
 # flutter pub publish --dry-run
@@ -14,13 +13,13 @@ dependencies:
   flutter:
     sdk: flutter
 
-  pure_extensions: ^3.3.0
+  pure_extensions: ^3.4.0
 #  pure_extensions:
 #    path: ../pure_extensions
 
   rxdart: ^0.27.0
 
-  provider: ^5.0.0
+  provider: ^6.0.0
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,6 @@
+## [3.4.0]
+- feat: upgrade to provider: ^6.0.0
+
 ## [3.2.1]
 - Fix `ChangeableValueListener`
 
