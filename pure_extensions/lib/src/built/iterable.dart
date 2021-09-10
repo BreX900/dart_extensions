@@ -8,8 +8,10 @@ extension IterableBuiltExtensions<T> on Iterable<T> {
   }
 
   BuiltMap<int, BuiltList<T>> generateBuiltBook({int? valuesPerPage, int? numberOfPages}) {
-    if (valuesPerPage == null && numberOfPages == null) return BuiltMap.of({0: this as BuiltList<T>});
-    valuesPerPage ??= this.length ~/ numberOfPages!;
+    if (valuesPerPage == null && numberOfPages == null) {
+      return BuiltMap.of({0: this as BuiltList<T>});
+    }
+    valuesPerPage ??= length ~/ numberOfPages!;
     var book = MapBuilder<int, BuiltList<T>>();
     int pageCount = 0;
     var list = this;

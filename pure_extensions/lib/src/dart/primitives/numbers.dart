@@ -25,7 +25,7 @@ extension NumDartExtensions on num {
   num toDeg() => this * (180.0 / math.pi);
 }
 
-extension doubleDartExtensions on double {
+extension DoubleDartExtensions on double {
   Rational toRational() => Rational.parse(toString());
 
   double min(double other) => math.min<double>(this, other);
@@ -38,7 +38,7 @@ extension doubleDartExtensions on double {
   double toDeg() => this * (180.0 / math.pi);
 }
 
-extension intDartExtensions on int {
+extension IntDartExtensions on int {
   Rational toRational() => Rational.fromInt(this);
 
   int min(int other) => math.min<int>(this, other);

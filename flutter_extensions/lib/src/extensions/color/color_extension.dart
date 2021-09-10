@@ -1,8 +1,8 @@
-import 'dart:math' as Math;
+import 'dart:math' as math;
 import 'dart:ui';
 
-import 'hsl_color.dart';
-import 'util.dart';
+import 'package:flutter_extensions/src/extensions/color/hsl_color.dart';
+import 'package:flutter_extensions/src/extensions/color/util.dart';
 
 /// Extends the Color class to allow direct TinyColor manipulation nativly
 extension TinyColorExtension on Color {
@@ -23,8 +23,8 @@ extension TinyColorExtension on Color {
     final g = bound01(green.toDouble(), 255.0);
     final b = bound01(blue.toDouble(), 255.0);
 
-    final max = [r, g, b].reduce(Math.max);
-    final min = [r, g, b].reduce(Math.min);
+    final max = [r, g, b].reduce(math.max);
+    final min = [r, g, b].reduce(math.min);
     double h = 0.0;
     double s = 0.0;
     final double l = (max + min) / 2;
@@ -51,19 +51,19 @@ extension TinyColorExtension on Color {
   Color brighten([int amount = 10]) {
     return Color.fromARGB(
       alpha,
-      Math.max(0, Math.min(255, red - (255 * -(amount / 100)).round())),
-      Math.max(0, Math.min(255, green - (255 * -(amount / 100)).round())),
-      Math.max(0, Math.min(255, blue - (255 * -(amount / 100)).round())),
+      math.max(0, math.min(255, red - (255 * -(amount / 100)).round())),
+      math.max(0, math.min(255, green - (255 * -(amount / 100)).round())),
+      math.max(0, math.min(255, blue - (255 * -(amount / 100)).round())),
     );
   }
 
   /// Mix the color with pure white, from 0 to 100.
   /// Providing 0 will do nothing, providing 100 will always return white.
-  Color tint([int amount = 10]) => mix(input: Color.fromRGBO(255, 255, 255, 1.0));
+  Color tint([int amount = 10]) => mix(input: const Color.fromRGBO(255, 255, 255, 1.0));
 
   /// Mix the color with pure black, from 0 to 100.
   /// Providing 0 will do nothing, providing 100 will always return black.
-  Color shade([int amount = 10]) => mix(input: Color.fromRGBO(0, 0, 0, 1.0));
+  Color shade([int amount = 10]) => mix(input: const Color.fromRGBO(0, 0, 0, 1.0));
 
   /// Blends the color with another color a given amount, from 0 - 100, default 50.
   Color mix({required Color input, int amount = 50}) {

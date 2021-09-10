@@ -1,7 +1,6 @@
 name: pure_extensions
 description: It adds utility extensions to the dart classes and adds some utility classes, builders.
-version: 3.4.0
-author: BreX900
+version: 3.4.1
 homepage: https://github.com/BreX900/dart_extensions/tree/master/pure_extensions
 
 # flutter pub publish --dry-run
@@ -15,7 +14,7 @@ dependencies:
 
   built_value: ^8.1.0
   built_collection: ^5.1.0
-  rxdart: ^0.27.0
+  rxdart: ^0.27.2
 
   time: ^2.0.0
 
@@ -26,3 +25,5 @@ dev_dependencies:
   # flutter packages pub run build_runner watch --delete-conflicting-outputs
   build_runner:
   built_value_generator: ^8.0.5
+
+  lints:

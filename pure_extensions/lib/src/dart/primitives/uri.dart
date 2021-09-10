@@ -18,12 +18,12 @@ class UriBuilder {
   String? host;
   int? port;
   List<dynamic> _path = [];
-  Map<String, dynamic> _query = <String, dynamic>{};
+  Map<String, dynamic> queryParameters = <String, dynamic>{};
   String? fragment;
 
-  List<dynamic> get pathSegments => this._path;
+  List<dynamic> get pathSegments => _path;
   set pathSegments(Iterable<dynamic> pathSegments) {
-    this._path = pathSegments.toList();
+    _path = pathSegments.toList();
   }
 
   set path(String path) {
@@ -42,17 +42,12 @@ class UriBuilder {
     _path.addAll(rawPathSegments.map((ps) => '$ps'));
   }
 
-  Map<String, dynamic /*dynamic|Iterable<dynamic>*/ > get queryParameters => this._query;
-  set queryParameters(Map<String, dynamic /*dynamic|Iterable<dynamic>*/ > queryParameters) {
-    this._query = queryParameters;
-  }
-
   void addRawQueryParameter(dynamic key, dynamic value) {
-    _query['$key'] = value is Iterable ? value.map((v) => '$v') : '$value';
+    queryParameters['$key'] = value is Iterable ? value.map((v) => '$v') : '$value';
   }
 
   void addAllRawQueryParameters(Map<dynamic, dynamic> queryParameters) {
-    _query.addAll(queryParameters.map((key, value) {
+    queryParameters.addAll(queryParameters.map((key, value) {
       return MapEntry('$key', value is Iterable ? value.map((v) => '$v') : '$value');
     }));
   }

@@ -119,7 +119,9 @@ extension BuiltMapExt<K, V> on BuiltMap<K, V> {
   /// of the collection using the provided function.
   ///
   /// [Iterable.reduce]
-  MapEntry<K, V> reduce(MapEntry<K, V> combine(MapEntry<K, V> value, MapEntry<K, V> entry)) {
+  MapEntry<K, V> reduce(
+    MapEntry<K, V> Function(MapEntry<K, V> value, MapEntry<K, V> entry) combine,
+  ) {
     return entries.reduce(combine);
   }
 
@@ -141,7 +143,7 @@ extension BuiltMapExt<K, V> on BuiltMap<K, V> {
   /// of the map using the provided function.
   ///
   /// [Iterable.fold]
-  T fold<T>(T initialValue, T combine(T previousValue, MapEntry<K, V> entry)) {
+  T fold<T>(T initialValue, T Function(T previousValue, MapEntry<K, V> entry) combine) {
     return entries.fold(initialValue, combine);
   }
 }

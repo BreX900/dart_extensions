@@ -32,7 +32,7 @@ extension StreamExtDart<T> on Stream<T> {
     }).listen((list) => _onFinish(list[0] as T, list[1] as T, list[2] as R));
   }
 
-  Future<R> firstType<R>({R orElse()?}) {
+  Future<R> firstType<R>({R Function()? orElse}) {
     final completer = Completer<R>();
     firstWhere((v) => v is T).then((v) => completer.complete(v as R),
         onError: (exception, stackTrace) {
@@ -45,7 +45,7 @@ extension StreamExtDart<T> on Stream<T> {
     return completer.future;
   }
 
-  Future<R> firstRuntimeType<R>({R orElse()?}) {
+  Future<R> firstRuntimeType<R>({R Function()? orElse}) {
     final completer = Completer<R>();
     firstWhere((v) => v.runtimeType == T).then((v) => completer.complete(v as R),
         onError: (exception, stackTrace) {
@@ -125,11 +125,18 @@ class CompositeMapSubscription<K> {
   }
 
   /// Pauses all subscriptions added to this composite.
-  void pauseAll([Future? resumeSignal]) =>
-      _subscriptions.values.forEach((it) => it.pause(resumeSignal));
+  void pauseAll([Future? resumeSignal]) {
+    for (final it in _subscriptions.values) {
+      it.pause(resumeSignal);
+    }
+  }
 
   /// Resumes all subscriptions added to this composite.
-  void resumeAll() => _subscriptions.values.forEach((it) => it.resume());
+  void resumeAll() {
+    for (final it in _subscriptions.values) {
+      it.resume();
+    }
+  }
 
   StreamSubscription<T> putIfAbsent<T>(K key, StreamSubscription<T> Function() ifAbsent) {
     _check();

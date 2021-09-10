@@ -36,8 +36,8 @@ class TransformTween<T> extends Animatable<T> {
   TransformTween({required this.transformer});
 
   @override
-  T transform(double value) {
-    return transformer(value);
+  T transform(double t) {
+    return transformer(t);
   }
 }
 
@@ -78,11 +78,11 @@ class PathTween extends Animatable<Offset> {
   PathTween({required this.path, this.invertOffset = false});
 
   @override
-  Offset transform(double value) {
+  Offset transform(double t) {
     PathMetrics pathMetrics = path.computeMetrics();
     PathMetric pathMetric = pathMetrics.elementAt(0);
-    value = pathMetric.length * value;
-    Tangent? pos = pathMetric.getTangentForOffset(value);
+    t = pathMetric.length * t;
+    Tangent? pos = pathMetric.getTangentForOffset(t);
     return invertOffset ? -pos!.position : pos!.position;
   }
 }

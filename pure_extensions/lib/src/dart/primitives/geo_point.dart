@@ -58,7 +58,7 @@ class GeoPoint {
   }
 
   Map<String, double> toMap() {
-    return {'latitude': this.latitude, 'longitude': this.longitude};
+    return {'latitude': latitude, 'longitude': longitude};
   }
 
   @override
@@ -126,8 +126,8 @@ class GeoBounds {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'northeast': this.northeast.toMap(),
-      'southwest': this.southwest.toMap(),
+      'northeast': northeast.toMap(),
+      'southwest': southwest.toMap(),
     };
   }
 
@@ -152,7 +152,7 @@ extension IterableGeoPointDartExtension on Iterable<GeoPoint> {
 
   /// Calculate a center.
   GeoPoint geoCenter() {
-    final eb = this.externalGeoBounds();
+    final eb = externalGeoBounds();
     final p = eb.northeast + eb.southwest;
     return GeoPoint(p.latitude / 2, p.longitude / 2);
   }

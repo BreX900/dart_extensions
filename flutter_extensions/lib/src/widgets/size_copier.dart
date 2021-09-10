@@ -42,7 +42,7 @@ abstract class SizeCopierBinders {
 class SizeCopier extends StatefulWidget {
   final Widget child;
 
-  SizeCopier({Key? key, required this.child}) : super(key: key);
+  const SizeCopier({Key? key, required this.child}) : super(key: key);
 
   @override
   SizeCopierState createState() => SizeCopierState();

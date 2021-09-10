@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'util.dart';
+import 'package:flutter_extensions/src/extensions/color/util.dart';
 
 class HslColor {
   final double h;
@@ -70,7 +70,6 @@ class HslColor {
     return HslColor(h: h ?? this.h, s: s ?? this.s, l: l ?? this.l, a: a ?? this.a);
   }
 
-  String toString() {
-    return "HSL(h: $h, s: $s, l: $l, a: $a)";
-  }
+  @override
+  String toString() => "HSL(h: $h, s: $s, l: $l, a: $a)";
 }

@@ -62,12 +62,16 @@ abstract class CustomUri<PS extends Object, QP extends Object>
 
   factory CustomUri([void Function(CustomUriBuilder<PS, QP> b)? updates]) = _$CustomUri<PS, QP>;
 
+  @override
   String? get scheme;
 
+  @override
   String? get userInfo;
 
+  @override
   String? get host;
 
+  @override
   int? get port;
 
   String? get path;
@@ -78,6 +82,7 @@ abstract class CustomUri<PS extends Object, QP extends Object>
   /// [CustomUriRule.queryParameters]
   QP? get queryParameters;
 
+  @override
   String? get fragment;
 }
 
@@ -206,14 +211,14 @@ class CustomUriSerializer<T extends CustomUriRule> extends PrimitiveSerializer<T
   @override
   Object serialize(
     Serializers serializers,
-    T customUri, {
+    T object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     updateSerializers(serializers);
 
     final serialized = serializer.serialize(
       _customSerializers,
-      customUri,
+      object,
       specifiedType: specifiedType,
     );
 

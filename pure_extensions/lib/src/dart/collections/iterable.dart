@@ -19,7 +19,7 @@ extension IterableExtensions<E> on Iterable<E> {
 
   /// Returns a new lazy [Iterable] with elements that are created by
   /// calling `f` on each element and index of this `Iterable` in iteration order.
-  Iterable<T> mapWithIndex<T>(T f(E e, int i)) => MapWithIndexIterable(this, f);
+  Iterable<T> mapWithIndex<T>(T Function(E e, int i) f) => MapWithIndexIterable(this, f);
 
   /// replace the old elements contained in the map with new ones.
   Iterable<E> replaces(Map<E, E> replacements) {
@@ -161,12 +161,12 @@ extension IterableExtensions<E> on Iterable<E> {
 
   Map<int, List<E>> generateBook({int? valuesPerPage, int? numberOfPages}) {
     if (valuesPerPage == null && numberOfPages == null) return {0: this as List<E>};
-    valuesPerPage ??= this.length ~/ numberOfPages!;
+    valuesPerPage ??= length ~/ numberOfPages!;
     var book = <int, List<E>>{};
     int pageCount = 0;
     var list = this;
     while (list.isNotEmpty && (numberOfPages == null || pageCount < numberOfPages)) {
-      book[pageCount++] = this.take(valuesPerPage).toList();
+      book[pageCount++] = take(valuesPerPage).toList();
       list = list.skip(valuesPerPage);
     }
     return book;

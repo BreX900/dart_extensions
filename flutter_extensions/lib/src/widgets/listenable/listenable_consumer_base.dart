@@ -3,6 +3,7 @@ import 'package:flutter_extensions/src/widgets/listenable/listenable_consumer.da
 
 abstract class ChangeableValueConsumerRule<T extends Listenable, V>
     implements ChangeableConsumerRule<T> {
+  @override
   T? get listenable;
   V Function(T listeneble) get selector;
 }

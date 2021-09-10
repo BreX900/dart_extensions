@@ -14,29 +14,24 @@ extension ColorSchemeExt on ColorScheme {
     final Color onPrimarySurfaceColor = isDark ? onSurface : onPrimary;
 
     return ThemeData(
-      brightness: this.brightness,
+      brightness: brightness,
       primaryColor: primarySurfaceColor,
-      primaryColorBrightness:
-          ThemeData.estimateBrightnessForColor(primarySurfaceColor),
-      canvasColor: this.background,
-      accentColor: this.secondary,
-      accentColorBrightness:
-          ThemeData.estimateBrightnessForColor(this.secondary),
-      scaffoldBackgroundColor: this.background,
-      bottomAppBarColor: this.surface,
-      cardColor: this.surface,
-      dividerColor: this.onSurface.withOpacity(0.12),
-      backgroundColor: this.background,
-      dialogBackgroundColor: this.background,
-      errorColor: this.error,
+      primaryColorBrightness: ThemeData.estimateBrightnessForColor(primarySurfaceColor),
+      canvasColor: background,
+      scaffoldBackgroundColor: background,
+      bottomAppBarColor: surface,
+      cardColor: surface,
+      dividerColor: onSurface.withOpacity(0.12),
+      backgroundColor: background,
+      dialogBackgroundColor: background,
+      errorColor: error,
       textTheme: textTheme,
       indicatorColor: onPrimarySurfaceColor,
       applyElevationOverlayColor: isDark,
       colorScheme: this,
 
       /// Extra
-      buttonColor: secondary,
-      buttonTheme: buttonTheme ?? SnackBarThemeData() as ButtonThemeData?,
+      buttonTheme: buttonTheme ?? const SnackBarThemeData() as ButtonThemeData?,
       snackBarTheme: snackBarTheme,
       visualDensity: visualDensity,
     );

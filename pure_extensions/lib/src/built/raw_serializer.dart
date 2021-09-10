@@ -1,9 +1,14 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
+// ignore: implementation_imports
 import 'package:built_value/src/bool_serializer.dart';
+// ignore: implementation_imports
 import 'package:built_value/src/date_time_serializer.dart';
+// ignore: implementation_imports
 import 'package:built_value/src/double_serializer.dart';
+// ignore: implementation_imports
 import 'package:built_value/src/duration_serializer.dart';
+// ignore: implementation_imports
 import 'package:built_value/src/int_serializer.dart';
 
 /// Serializers a single value from string and to string
@@ -75,6 +80,7 @@ mixin RedirectSerializer<T> {
 }
 
 abstract class BaseRedirectSerializer<T> with RedirectSerializer<T> {
+  @override
   final Serializer<T> serializer;
 
   BaseRedirectSerializer(this.serializer);
@@ -243,12 +249,14 @@ class SerializersToSerializer<T> extends PrimitiveSerializer<T> {
   SerializersToSerializer(this.serializers);
 
   @override
-  T deserialize(Serializers _, Object serialized, {FullType specifiedType = FullType.unspecified}) {
+  T deserialize(Serializers serializers, Object serialized,
+      {FullType specifiedType = FullType.unspecified}) {
     return serializers.deserialize(serialized, specifiedType: FullType(T)) as T;
   }
 
   @override
-  Object serialize(Serializers _, T object, {FullType specifiedType = FullType.unspecified}) {
+  Object serialize(Serializers serializers, T object,
+      {FullType specifiedType = FullType.unspecified}) {
     return serializers.serialize(object!, specifiedType: FullType(T))!;
   }
 

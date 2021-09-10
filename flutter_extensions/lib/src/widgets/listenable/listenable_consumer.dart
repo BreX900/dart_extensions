@@ -23,12 +23,13 @@ class ValueListenableListener<T> extends ChangeableValueListener<ValueListenable
 
 class ChangeableValueListener<T extends Listenable, V> extends SingleChildStatefulWidget
     implements ChangeableConsumerRule<T> {
+  @override
   final T? listenable;
   final V Function(T listeneble) selector;
   final bool Function(V previous, V current)? listenWhen;
   final void Function(BuildContext context, V value) listener;
 
-  ChangeableValueListener({
+  const ChangeableValueListener({
     Key? key,
     this.listenable,
     required this.selector,
@@ -67,12 +68,14 @@ class _ChangeableValueListenerState<T extends Listenable, V>
 
 class ChangeableValueBuilder<T extends Listenable, V> extends StatefulWidget
     implements ChangeableValueConsumerRule<T, V> {
+  @override
   final T? listenable;
+  @override
   final V Function(T listeneble) selector;
   final bool Function(V previous, V current)? buildWhen;
   final Widget Function(BuildContext context, V value) builder;
 
-  ChangeableValueBuilder({
+  const ChangeableValueBuilder({
     Key? key,
     this.listenable,
     required this.selector,
@@ -100,14 +103,16 @@ class _ChangeableValueBuilderState<T extends Listenable, V>
 
 class ChangeableValueConsumer<T extends Listenable, V> extends StatefulWidget
     implements ChangeableValueConsumerRule<T, V> {
+  @override
   final T? listenable;
+  @override
   final V Function(T listenable) selector;
   final bool Function(V before, V after)? listenWhen;
   final void Function(BuildContext context, V value) listener;
   final bool Function(V before, V after)? buildWhen;
   final Widget Function(BuildContext context, V value) builder;
 
-  ChangeableValueConsumer({
+  const ChangeableValueConsumer({
     Key? key,
     this.listenable,
     required this.selector,
@@ -140,16 +145,18 @@ class _ChangeableValueConsumerState<T extends Listenable, V>
 
 class ChangeableListener<T extends Listenable> extends SingleChildStatefulWidget
     with ChangeableConsumerRule<T> {
+  @override
   final T? listenable;
   final bool Function(T listenable)? listenWhen;
   final void Function(BuildContext context, T listenable) listener;
 
   ChangeableListener({
+    Key? key,
     this.listenable,
     this.listenWhen,
     required this.listener,
     Widget? child,
-  }) : super(child: child);
+  }) : super(key: key, child: child);
 
   @override
   _ChangeableListenerState<T> createState() => _ChangeableListenerState<T>();
@@ -168,15 +175,17 @@ class _ChangeableListenerState<T extends Listenable> extends SingleChildState<Ch
 
 class ChangeableBuilder<T extends Listenable> extends StatefulWidget
     implements ChangeableConsumerRule<T> {
+  @override
   final T? listenable;
   final bool Function(T listenable)? buildWhen;
   final Widget Function(BuildContext context, T listenable) builder;
 
-  ChangeableBuilder({
+  const ChangeableBuilder({
+    Key? key,
     this.listenable,
     this.buildWhen,
     required this.builder,
-  }) : super();
+  }) : super(key: key);
 
   @override
   _ChangeableBuilderState<T> createState() => _ChangeableBuilderState<T>();
@@ -195,19 +204,21 @@ class _ChangeableBuilderState<T extends Listenable> extends State<ChangeableBuil
 
 class ChangeableConsumer<T extends Listenable> extends StatefulWidget
     implements ChangeableConsumerRule<T> {
+  @override
   final T? listenable;
   final bool Function(T listenable)? listenWhen;
   final bool Function(T listenable)? buildWhen;
   final Widget Function(BuildContext context, T listenable) listener;
   final Widget Function(BuildContext context, T listenable) builder;
 
-  ChangeableConsumer({
+  const ChangeableConsumer({
+    Key? key,
     this.listenable,
     this.listenWhen,
     this.buildWhen,
     required this.listener,
     required this.builder,
-  }) : super();
+  }) : super(key: key);
 
   @override
   _ChangeableBuilderState<T> createState() => _ChangeableBuilderState<T>();

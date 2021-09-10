@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:rxdart/rxdart.dart';
+// ignore: implementation_imports
 import 'package:rxdart/src/utils/forwarding_sink.dart';
+// ignore: implementation_imports
 import 'package:rxdart/src/utils/forwarding_stream.dart';
 
-class _OnTrackedErrorStreamSink<S> implements ForwardingSink<S, S> {
+class _OnTrackedErrorStreamSink<S> extends ForwardingSink<S, S> {
   final Stream<S> Function(Object error, StackTrace? stackTrace) _recoveryFn;
   var _inRecovery = false;
   final List<StreamSubscription<S>> _recoverySubscriptions = [];
@@ -12,14 +14,14 @@ class _OnTrackedErrorStreamSink<S> implements ForwardingSink<S, S> {
   _OnTrackedErrorStreamSink(this._recoveryFn);
 
   @override
-  void add(EventSink<S> sink, S data) {
+  void onData(S data) {
     if (!_inRecovery) {
       sink.add(data);
     }
   }
 
   @override
-  void addError(EventSink<S> sink, Object e, [StackTrace? st]) {
+  void onError(Object e, [StackTrace? st]) {
     _inRecovery = true;
 
     final recoveryStream = _recoveryFn(e, st);
@@ -37,29 +39,35 @@ class _OnTrackedErrorStreamSink<S> implements ForwardingSink<S, S> {
   }
 
   @override
-  void close(EventSink<S> sink) {
+  void onDone() {
     if (!_inRecovery) {
       sink.close();
     }
   }
 
   @override
-  FutureOr onCancel(EventSink<S> sink) {
+  void onListen() {}
+
+  @override
+  void onPause() {
+    for (final subscription in _recoverySubscriptions) {
+      subscription.pause();
+    }
+  }
+
+  @override
+  void onResume() {
+    for (final subscription in _recoverySubscriptions) {
+      subscription.resume();
+    }
+  }
+
+  @override
+  FutureOr onCancel() {
     return _recoverySubscriptions.isEmpty
         ? null
         : Future.wait<dynamic>(_recoverySubscriptions.map((subscription) => subscription.cancel()));
   }
-
-  @override
-  void onListen(EventSink<S> sink) {}
-
-  @override
-  void onPause(EventSink<S> sink, [Future? resumeSignal]) =>
-      _recoverySubscriptions.forEach((subscription) => subscription.pause(resumeSignal));
-
-  @override
-  void onResume(EventSink<S> sink) =>
-      _recoverySubscriptions.forEach((subscription) => subscription.resume());
 }
 
 /// It is similar to [OnErrorResumeStreamTransformer] but with [StackTrace]
@@ -70,7 +78,7 @@ class OnTrackedErrorResumeStreamTransformer<S> extends StreamTransformerBase<S, 
 
   @override
   Stream<S> bind(Stream<S> stream) =>
-      forwardStream(stream, _OnTrackedErrorStreamSink<S>(recoveryFn));
+      forwardStream(stream, () => _OnTrackedErrorStreamSink<S>(recoveryFn));
 }
 
 extension OnTrackedErrorExtensions<T> on Stream<T> {

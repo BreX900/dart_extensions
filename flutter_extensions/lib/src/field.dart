@@ -78,7 +78,7 @@ extension InputDecorationExt on InputDecoration {
       disabledBorder: this.disabledBorder ?? disabledBorder,
       enabledBorder: this.enabledBorder ?? enabledBorder,
       border: this.border ?? border,
-      enabled: this.enabled,
+      enabled: enabled,
       semanticCounterText: this.semanticCounterText ?? semanticCounterText,
       alignLabelWithHint: this.alignLabelWithHint ?? alignLabelWithHint,
     );
@@ -106,9 +106,9 @@ extension DataRowExt on DataRow {
   }) {
     return DataRow(
       key: this.key ?? key,
-      selected: this.selected,
+      selected: selected,
       onSelectChanged: this.onSelectChanged ?? onSelectChanged,
-      cells: this.cells,
+      cells: cells,
     );
   }
 }
@@ -126,8 +126,8 @@ extension DataCellExt on DataCell {
   DataCell completeWith({VoidCallback? onTap}) {
     return DataCell(
       child,
-      placeholder: this.placeholder,
-      showEditIcon: this.showEditIcon,
+      placeholder: placeholder,
+      showEditIcon: showEditIcon,
       onTap: this.onTap ?? onTap,
     );
   }

@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [3.4.1]
+- Update rxdart dependency
+
 ## [3.4.0]
 - Added `mapWithIndex` on Iterable
 

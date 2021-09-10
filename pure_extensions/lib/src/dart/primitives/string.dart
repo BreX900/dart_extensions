@@ -12,7 +12,7 @@ extension StringDartExtensions on String {
 
   String ifEmpty(String Function() fn) => isEmpty ? fn() : this;
 
-  bool get isBlank => this.trim().isEmpty;
+  bool get isBlank => trim().isEmpty;
 
   String ifBlank(String Function() fn) => isBlank ? fn() : this;
 

@@ -82,7 +82,7 @@ class ButtonStyleBuilder {
     Duration? animationDuration,
     bool? enableFeedback,
   }) {
-    return new ButtonStyleBuilder(
+    return ButtonStyleBuilder(
       textStyle: textStyle ?? this.textStyle,
       backgroundColor: backgroundColor ?? this.backgroundColor,
       foregroundColor: foregroundColor ?? this.foregroundColor,
