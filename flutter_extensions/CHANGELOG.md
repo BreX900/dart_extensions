@@ -1,3 +1,6 @@
+## [4.0.0]
+- feat: upgrade to pure_extensions: ^4.0.0
+
 ## [3.4.0]
 - feat: upgrade to provider: ^6.0.0
 

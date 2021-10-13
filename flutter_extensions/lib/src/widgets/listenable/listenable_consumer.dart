@@ -241,16 +241,16 @@ class ChangeableProvider<T extends ChangeNotifier> extends SingleChildStatelessW
   final Dispose<T>? dispose;
 
   ChangeableProvider({
-    required Key key,
+    Key? key,
     required this.create,
-    required Widget child,
+    Widget? child,
   })  : dispose = ((context, changeNotifier) => changeNotifier.dispose()),
         super(key: key, child: child);
 
   ChangeableProvider.value({
-    required Key key,
+    Key? key,
     required T listenable,
-    required Widget child,
+    Widget? child,
   })  : create = ((context) => listenable),
         dispose = null,
         super(key: key, child: child);

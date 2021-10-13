@@ -34,36 +34,34 @@ They are extended with the methods of the 'math' package
 
 
 ### - **Iterable< T > (BUILT)**
+See [collection](https://pub.dev/packages/collection) for many others extensions
 
 | Command | Description |
 | ------- | ----------- |
-| mapWithIndex | Map element over function with index |
-| whereNotNull | Returns [Iterable] without null elements |
 | nullIfEmpty | returns null or if it is empty returns true. |
 | replaces | replace the old elements contained in the map with new ones. |
 | whereNotContains | Returns a iterable without bad elements. |
 | joinBy  | Concatenates the elements given by function. |
 | joinElement |  Concatenates the elements. |
-| tryFirst | Returns the first element if it exists otherwise null. |
-| tryLast | Returns the last element if it exists otherwise null. |
 | containsAll | Returns true if the specified value is equal to at least one element. |
 | groupBy | Splits a list into sub-lists stored in an object, based on the result. |
 | generateMap | Generate the map by collection. |
 
 
 ##### - **Iterable< num/int/double/BigInt/Rational >**
+See [collection](https://pub.dev/packages/collection) for many others extensions
 
 | Command | Description |
 | ------- | ----------- |
-| sumAll  | Calculate the sum of all numbers in the collection |
-| subtractAll | Calculate the subtraction of all numbers in the collection |
-| divideAll | Calculate the division of all numbers in the collection |
-| multiplyAll | Calculate the multiplication of all numbers in the collection |
-| sum     | Sum [number] to all items in the collection |
-| subtract | Subtract [number] to all items in the collection |
-| divide  | Divide [number] to all items in the collection |
-| multiply | Multiply [number] to all items in the collection |
+| sum  | Calculate the sum of all numbers in the collection |
 | average | Calculate the average of all numbers in the collection |
+| subtract | Calculate the subtraction of all numbers in the collection |
+| divide | Calculate the division of all numbers in the collection |
+| multiply | Calculate the multiplication of all numbers in the collection |
+| sumAllBy     | Sum [number] to all items in the collection |
+| subtractAllBy | Subtract [number] to all items in the collection |
+| divideAllBy  | Divide [number] to all items in the collection |
+| multiplyAllBy | Multiply [number] to all items in the collection |
 
 
 ##### - **Iterable< MapEntry< K, V > > (BUILT)**
@@ -115,8 +113,7 @@ They are extended with the methods of the 'math' package
 
 
 ### - **DateTime** (DateTimeBuilder)
-
-See time package
+See [time](https://pub.dev/packages/time) for many others extensions
 
 | Command | Description
 | ------- | -----------
@@ -124,8 +121,7 @@ See time package
 
 
 ### - **Duration** (DurationBuilder)
-
-See time package
+See [time](https://pub.dev/packages/time) for many others extensions
 
 | Command | Description
 | ------- | -----------
@@ -141,7 +137,6 @@ See time package
 
 
 ### - **Stream< T >**
-
 
 | Command | Description |
 | ------- | ----------- |

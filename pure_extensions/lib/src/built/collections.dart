@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
-import 'package:pure_extensions/src/dart/collections/iterable.dart';
+import 'package:collection/collection.dart';
 
 extension BuiltListExt<T> on BuiltList<T> {
   T random({Random? random}) {
@@ -48,6 +48,12 @@ extension SetBuilderExt<T> on SetBuilder<T> {
 }
 
 extension BuiltMapExt<K, V> on BuiltMap<K, V> {
+  /// Returns a value
+  V get(K key) => this[key]!;
+
+  /// Returns a value or null if it not exist
+  V? getOrNull(K key) => this[key];
+
   /// returns a List from entries
   Iterable<T> generateIterable<T>(T Function(K key, V value) generator) {
     return entries.map((entry) => generator(entry.key, entry.value));
@@ -89,20 +95,20 @@ extension BuiltMapExt<K, V> on BuiltMap<K, V> {
 
   /// Returns the first entry that satisfies [test] otherwise null.
   /// [Iterable.firstWhere]
-  MapEntry<K, V>? tryFirstWhere(bool Function(K key, V value) test) {
-    return entries.tryFirstWhere((entry) => test(entry.key, entry.value));
+  MapEntry<K, V>? firstWhereOrNull(bool Function(K key, V value) test) {
+    return entries.firstWhereOrNull((entry) => test(entry.key, entry.value));
   }
 
   /// Returns the last entry that satisfies [test] otherwise null.
   /// [Iterable.lastWhere]
-  MapEntry<K, V>? tryLastWhere(bool Function(K key, V value) test) {
-    return entries.tryLastWhere((entry) => test(entry.key, entry.value));
+  MapEntry<K, V>? lastWhereOrNull(bool Function(K key, V value) test) {
+    return entries.lastWhereOrNull((entry) => test(entry.key, entry.value));
   }
 
   /// Returns the single element that satisfies [test].
   /// [Iterable.singleWhere]
-  MapEntry<K, V>? trySingleWhere(bool Function(K key, V value) test) {
-    return entries.trySingleWhere((entry) => test(entry.key, entry.value));
+  MapEntry<K, V>? singleWhereOrNull(bool Function(K key, V value) test) {
+    return entries.singleWhereOrNull((entry) => test(entry.key, entry.value));
   }
 
   /// Returns the first entry if it exists otherwise null.

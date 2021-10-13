@@ -1,5 +1,5 @@
 extension RegExpMatchExt on RegExpMatch {
-  String? tryNamedGroup(String name) {
+  String? namedGroupOrNull(String name) {
     try {
       return namedGroup(name);
     } catch (_) {
