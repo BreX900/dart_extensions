@@ -19,7 +19,7 @@ extension MapExtensions<K, V> on Map<K, V> {
   V get(K key) => this[key]!;
 
   /// Returns a value or null if it not exist
-  V? getOrNull(K key) => this[key];
+  V? getOrNull(K? key) => this[key];
 
   /// returns a List from entries
   Iterable<T> generateIterable<T>(T Function(K key, V value) generator) {
