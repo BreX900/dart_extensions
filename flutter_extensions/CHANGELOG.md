@@ -1,3 +1,13 @@
+## 4.0.3
+- Complete `DataCell.copyWith`, `DataCell.completeWith`, `DataRow.copyWith` and `DataRow.completeWith`
+
+## 4.0.2
+- Expose `BuildContext.showDialog` and `BuildContext.showGeneralDialog`
+
+## 4.0.1
+- Rename extensions
+- More improvements
+
 ## [4.0.0]
 - feat: upgrade to pure_extensions: ^4.0.0
 

@@ -3,7 +3,6 @@ library flutter_extensions;
 export 'package:pure_extensions/pure_extensions.dart';
 
 export 'src/animations.dart';
-export 'src/color_scheme.dart';
 export 'src/context.dart';
 export 'src/date_time.dart';
 export 'src/extensions/color/color_extension.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-extension InputDecorationExt on InputDecoration {
+extension InputDecorationFlutterExtensions on InputDecoration {
   InputDecoration completeWith({
     Widget? icon,
     String? labelText,
@@ -85,17 +85,19 @@ extension InputDecorationExt on InputDecoration {
   }
 }
 
-extension DataRowExt on DataRow {
+extension DataRowFlutterExtensions on DataRow {
   DataRow copyWith({
     LocalKey? key,
     bool? selected,
     ValueChanged<bool?>? onSelectChanged,
+    MaterialStateProperty<Color?>? color,
     List<DataCell>? cells,
   }) {
     return DataRow(
       key: key ?? this.key,
       selected: selected ?? this.selected,
       onSelectChanged: onSelectChanged ?? this.onSelectChanged,
+      color: color ?? this.color,
       cells: cells ?? this.cells,
     );
   }
@@ -103,32 +105,56 @@ extension DataRowExt on DataRow {
   DataRow completeWith({
     LocalKey? key,
     ValueChanged<bool?>? onSelectChanged,
+    MaterialStateProperty<Color?>? color,
   }) {
     return DataRow(
       key: this.key ?? key,
       selected: selected,
       onSelectChanged: this.onSelectChanged ?? onSelectChanged,
+      color: this.color ?? color,
       cells: cells,
     );
   }
 }
 
-extension DataCellExt on DataCell {
-  DataCell copyWith({bool? placeholder, bool? showEditIcon, VoidCallback? onTap}) {
+extension DataCellFlutterExtensions on DataCell {
+  DataCell copyWith({
+    bool? placeholder,
+    bool? showEditIcon,
+    VoidCallback? onTap,
+    VoidCallback? onLongPress,
+    GestureTapDownCallback? onTapDown,
+    VoidCallback? onDoubleTap,
+    VoidCallback? onTapCancel,
+  }) {
     return DataCell(
       child,
       placeholder: placeholder ?? this.placeholder,
       showEditIcon: showEditIcon ?? this.showEditIcon,
       onTap: onTap ?? this.onTap,
+      onLongPress: onLongPress ?? this.onLongPress,
+      onTapDown: onTapDown ?? this.onTapDown,
+      onDoubleTap: onDoubleTap ?? this.onDoubleTap,
+      onTapCancel: onTapCancel ?? this.onTapCancel,
     );
   }
 
-  DataCell completeWith({VoidCallback? onTap}) {
+  DataCell completeWith({
+    VoidCallback? onTap,
+    VoidCallback? onLongPress,
+    GestureTapDownCallback? onTapDown,
+    VoidCallback? onDoubleTap,
+    VoidCallback? onTapCancel,
+  }) {
     return DataCell(
       child,
       placeholder: placeholder,
       showEditIcon: showEditIcon,
       onTap: this.onTap ?? onTap,
+      onLongPress: this.onLongPress ?? onLongPress,
+      onTapDown: this.onTapDown ?? onTapDown,
+      onDoubleTap: this.onDoubleTap ?? onDoubleTap,
+      onTapCancel: this.onTapCancel ?? onTapCancel,
     );
   }
 }

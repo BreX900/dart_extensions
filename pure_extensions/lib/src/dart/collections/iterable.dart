@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:pure_extensions/src/dart/collections/iterators/join_element.dart';
 import 'package:rational/rational.dart';
 
-extension IterableExtensions<E> on Iterable<E> {
+extension IterablePureExtensions<E> on Iterable<E> {
   /// returns null or if it is empty returns true.
   Iterable<E>? get nullIfEmpty => isEmpty ? null : this;
 
@@ -81,7 +81,7 @@ extension IterableExtensions<E> on Iterable<E> {
   }
 }
 
-extension IterableNumDartExtension<T extends num> on Iterable<T> {
+extension IterableNumPureExtensions<T extends num> on Iterable<T> {
   /// Calculate the subtraction of all numbers in the collection
   T get subtract {
     if (isEmpty) return T is double ? 0.0 as T : 0 as T;
@@ -120,7 +120,7 @@ extension IterableNumDartExtension<T extends num> on Iterable<T> {
   }
 }
 
-extension IterableBigIntExtension<T extends BigInt> on Iterable<T> {
+extension IterableBigIntPureExtensions<T extends BigInt> on Iterable<T> {
   /// [IterableNumberExtension.sum]
   BigInt get sum {
     if (isEmpty) return BigInt.zero;
@@ -130,46 +130,46 @@ extension IterableBigIntExtension<T extends BigInt> on Iterable<T> {
   /// [IterableNumberExtension.average]
   Rational get average => Rational(sum) / Rational(BigInt.from(length));
 
-  /// [IterableNumDartExtension.subtract]
+  /// [IterableNumPureExtensions.subtract]
   BigInt get subtract {
     if (isEmpty) return BigInt.zero;
     return reduce((previousValue, element) => previousValue - element as T);
   }
 
-  /// [IterableNumDartExtension.divide]
+  /// [IterableNumPureExtensions.divide]
   Rational get divide {
     return map((bigInt) => Rational(bigInt)).divide;
   }
 
-  /// [IterableNumDartExtension.multiply]
+  /// [IterableNumPureExtensions.multiply]
   BigInt get multiply {
     if (isEmpty) return BigInt.zero;
     return reduce((previousValue, element) => previousValue * element as T);
   }
 
-  /// [IterableNumDartExtension.sumAllBy]
+  /// [IterableNumPureExtensions.sumAllBy]
   Iterable<T> sumAllBy(T number) {
     return map((element) => element + number as T);
   }
 
-  /// [IterableNumDartExtension.subtractAllBy]
+  /// [IterableNumPureExtensions.subtractAllBy]
   Iterable<T> subtractAllBy(T number) {
     return map((element) => element - number as T);
   }
 
-  /// [IterableNumDartExtension.divideAllBy]
+  /// [IterableNumPureExtensions.divideAllBy]
   Iterable<Rational> divideAllBy(T number) {
     final rationalNumber = Rational(number);
     return map((element) => Rational(element) / rationalNumber);
   }
 
-  /// [IterableNumDartExtension.multiplyAllBy]
+  /// [IterableNumPureExtensions.multiplyAllBy]
   Iterable<T> multiplyAllBy(T number) {
     return map((element) => element * number as T);
   }
 }
 
-extension IterableRationalExtension<T extends Rational> on Iterable<T> {
+extension IterableRationalPureExtensions<T extends Rational> on Iterable<T> {
   /// [IterableNumberExtension.sum]
   Rational get sum {
     if (isEmpty) return Rational.zero;
@@ -179,45 +179,45 @@ extension IterableRationalExtension<T extends Rational> on Iterable<T> {
   /// [IterableNumberExtension.average]
   Rational get average => sum / Rational.fromInt(length);
 
-  /// [IterableNumDartExtension.subtract]
+  /// [IterableNumPureExtensions.subtract]
   Rational get subtract {
     if (isEmpty) return Rational.zero;
     return reduce((previousValue, element) => previousValue - element as T);
   }
 
-  /// [IterableNumDartExtension.divide]
+  /// [IterableNumPureExtensions.divide]
   Rational get divide {
     return fold(Rational.zero, (previousValue, element) => previousValue / element);
   }
 
-  /// [IterableNumDartExtension.multiply]
+  /// [IterableNumPureExtensions.multiply]
   Rational get multiply {
     if (isEmpty) return Rational.zero;
     return reduce((previousValue, element) => previousValue * element as T);
   }
 
-  /// [IterableNumDartExtension.sumAllBy]
+  /// [IterableNumPureExtensions.sumAllBy]
   Iterable<T> sumAllBy(T number) {
     return map((element) => element + number as T);
   }
 
-  /// [IterableNumDartExtension.subtractAllBy]
+  /// [IterableNumPureExtensions.subtractAllBy]
   Iterable<T> subtractAllBy(T number) {
     return map((element) => element - number as T);
   }
 
-  /// [IterableNumDartExtension.divideAllBy]
+  /// [IterableNumPureExtensions.divideAllBy]
   Iterable<Rational> divideAllBy(T number) {
     return map((element) => element / number);
   }
 
-  /// [IterableNumDartExtension.multiplyAllBy]
+  /// [IterableNumPureExtensions.multiplyAllBy]
   Iterable<T> multiplyAllBy(T number) {
     return map((element) => element * number as T);
   }
 }
 
-extension IterableMapEntryExt<K, V> on Iterable<MapEntry<K, V>> {
+extension IterableMapEntryPureExtensions<K, V> on Iterable<MapEntry<K, V>> {
   /// Convert the collection of entries into a [Map].
   Map<K, V> toMap() => Map.fromEntries(this);
 
@@ -241,7 +241,7 @@ extension IterableMapEntryExt<K, V> on Iterable<MapEntry<K, V>> {
   Iterable<V> get values => map((entry) => entry.value);
 }
 
-extension IterableExtFuture<T> on Iterable<Future<T>> {
+extension IterableFuturePureExtensions<T> on Iterable<Future<T>> {
   /// [Future.wait]
   Future<List<T>> waitFutures() => Future.wait(this);
 

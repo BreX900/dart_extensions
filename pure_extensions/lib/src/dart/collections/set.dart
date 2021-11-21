@@ -1,6 +1,4 @@
-extension SetExt<T> on Set<T> {
-  void removeWhereNull() => removeWhere((value) => value == null);
-
+extension SetPureExtensions<T> on Set<T> {
   void addOrRemove(bool isAdd, T value) {
     if (isAdd) {
       add(value);

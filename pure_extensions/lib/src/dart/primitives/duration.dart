@@ -1,4 +1,4 @@
-extension DurationDartExtension on Duration {
+extension DurationPureExtensions on Duration {
   /// Human days representation (0 -> ...)
   int get days => inDays;
 

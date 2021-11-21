@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:rxdart/rxdart.dart';
 
-extension StreamExtDart<T> on Stream<T> {
+extension StreamPureExtensions<T> on Stream<T> {
   /// [Stream.distinct] by [T.runtimeType]
   Stream<T> distinctRuntimeType() => distinct((bef, aft) => bef.runtimeType == aft.runtimeType);
 
@@ -19,6 +19,8 @@ extension StreamExtDart<T> on Stream<T> {
     void Function(T previous, T current)? onStart,
     required Stream<R> Function(T previous, T current) onData,
     void Function(T previous, T current, R result)? onFinish,
+    Function? onError,
+    void Function()? onDone,
   }) {
     final _onStart = onStart ?? (T p, T c) {};
     final _onFinish = onFinish ?? ((T p, T c, R r) => r);
@@ -29,7 +31,11 @@ extension StreamExtDart<T> on Stream<T> {
         .debounceTime(debounceTime)
         .switchMap<List<dynamic>>((vls) {
       return onData(vls.first, vls.last).map((result) => <dynamic>[vls.first, vls.last, result]);
-    }).listen((list) => _onFinish(list[0] as T, list[1] as T, list[2] as R));
+    }).listen(
+      (list) => _onFinish(list[0] as T, list[1] as T, list[2] as R),
+      onError: onError,
+      onDone: onDone,
+    );
   }
 
   Future<R> firstType<R>({R Function()? orElse}) {

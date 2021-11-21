@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 
-extension MapExtensions<K, V> on Map<K, V> {
+extension MapPureExtensions<K, V> on Map<K, V> {
   String encodeToString() => jsonEncode(this);
 
   Iterable<dynamic> serialize() {
@@ -121,7 +121,7 @@ extension MapExtensions<K, V> on Map<K, V> {
   }
 }
 
-extension MapNullExtensions<K, V> on Map<K?, V?> {
+extension MapNullPureExtensions<K, V> on Map<K?, V?> {
   /// Returns [Map] without null keys and values.
   Map<K, V> whereNotNull() {
     final map = <K, V>{};

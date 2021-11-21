@@ -1,4 +1,4 @@
-extension UriDartExtension on Uri {
+extension UriPureExtensions on Uri {
   Map<String, dynamic /*String|Iterable<String>*/ > get queryParametersNormalized {
     return queryParameters.map((key, value) {
       return MapEntry(key, value.startsWith("["));

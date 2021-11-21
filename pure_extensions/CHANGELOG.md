@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 4.0.2
+- Rename extensions
+- More improvements
+
 ## 4.0.0
 - Removed deprecated methods
 - Now the collection library for iterable extensions is exported

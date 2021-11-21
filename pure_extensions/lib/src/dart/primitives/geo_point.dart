@@ -146,7 +146,7 @@ class GeoBounds {
   String toString() => 'GeoBounds(northeast: $northeast, southwest: $southwest}';
 }
 
-extension IterableGeoPointDartExtension on Iterable<GeoPoint> {
+extension IterableGeoPointPureExtensions on Iterable<GeoPoint> {
   /// Calculate the distance between geographic points.
   double geoDistance<T>() => foldWithNext(0.0, (count, p, c) => count + p.distance(c));
 

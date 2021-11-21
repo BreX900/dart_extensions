@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-extension ElevatedButtonThemeDataFlutterExtension on ElevatedButtonThemeData {
+extension ElevatedButtonThemeDataFlutterExtensions on ElevatedButtonThemeData {
   ElevatedButtonThemeData copyWith({ButtonStyle? style}) {
     return ElevatedButtonThemeData(style: style ?? this.style);
   }
 }
 
-extension TextButtonThemeDataFlutterExtension on TextButtonThemeData {
+extension TextButtonThemeDataFlutterExtensions on TextButtonThemeData {
   ElevatedButtonThemeData copyWith({ButtonStyle? style}) {
     return ElevatedButtonThemeData(style: style ?? this.style);
   }
 }
 
-extension OutlinedButtonThemeDataFlutterExtension on OutlinedButtonThemeData {
+extension OutlinedButtonThemeDataFlutterExtensions on OutlinedButtonThemeData {
   ElevatedButtonThemeData copyWith({ButtonStyle? style}) {
     return ElevatedButtonThemeData(style: style ?? this.style);
   }

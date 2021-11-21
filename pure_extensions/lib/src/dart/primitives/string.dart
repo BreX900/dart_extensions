@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:rational/rational.dart';
 
-extension StringDartExtensions on String {
+extension StringPureExtensions on String {
   /// hello_word_good => Hello_word_good
   String toUpperFirstCase() {
     if (isEmpty) return this;

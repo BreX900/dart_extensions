@@ -1,7 +1,7 @@
 import 'dart:convert' show jsonEncode;
 import 'dart:math' show Random;
 
-extension ListExt<T> on List<T> {
+extension ListPureExtensions<T> on List<T> {
   static List<E> nullGenerator<E>(E Function(int) builder, {int? itemCount}) {
     final newList = <E>[];
     E element;
@@ -22,8 +22,6 @@ extension ListExt<T> on List<T> {
   void removeAll(Iterable<T> elements) => elements.forEach(remove);
 
   String serialize() => jsonEncode(this);
-
-  void removeWhereNull() => removeWhere((value) => value == null);
 
   void addOrRemove(bool addOrRemove, T value) {
     if (addOrRemove) {

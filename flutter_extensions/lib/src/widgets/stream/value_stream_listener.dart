@@ -6,12 +6,16 @@ import 'package:provider/single_child_widget.dart';
 
 class ValueStreamListener<TValue> extends SingleChildStatefulWidget {
   final Stream<TValue>? stream;
+  final void Function(BuildContext context)? onDone;
+  final void Function(BuildContext context, Object error, StackTrace stackTrace)? onError;
   final ValueCondition<TValue>? listenWhen;
   final ValueListener<TValue> listener;
 
   const ValueStreamListener({
     Key? key,
     this.stream,
+    this.onDone,
+    this.onError,
     this.listenWhen,
     required this.listener,
     Widget? child,
@@ -51,9 +55,17 @@ class _ValueStreamListenerState<TValue> extends SingleChildState<ValueStreamList
         return !widget.listenWhen!(p, c);
       }
       return false;
-    }).listen((value) {
-      widget.listener(context, value);
-    });
+    }).listen(
+      (value) {
+        widget.listener(context, value);
+      },
+      onError: (error, stackTrace) {
+        widget.onError?.call(context, error, stackTrace);
+      },
+      onDone: () {
+        widget.onDone?.call(context);
+      },
+    );
   }
 
   @override

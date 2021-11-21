@@ -1,6 +1,6 @@
 import 'package:time/time.dart';
 
-extension DateTimeExtDart on DateTime {
+extension DateTimePureExtensions on DateTime {
   DateTime copyWithPosition({int? leading, int? middle, int? trailing}) {
     return copyWith(
       year: leading,

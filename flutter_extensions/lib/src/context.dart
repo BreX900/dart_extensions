@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as m;
 import 'package:provider/provider.dart';
 
-extension BuildContextDartExtensions on BuildContext {
+extension BuildContextFlutterExtensions on BuildContext {
   /// The [ThemeData] instance from the closest context.
   ThemeData theme() => Theme.of(this);
 
@@ -60,9 +60,28 @@ extension BuildContextDartExtensions on BuildContext {
       builder: builder,
     );
   }
+
+  Future<T?> showGeneralDialog<T>({
+    bool barrierDismissible = true,
+    Color barrierColor = Colors.black54,
+    String? barrierLabel,
+    bool useSafeArea = true,
+    bool useRootNavigator = true,
+    RouteSettings? routeSettings,
+    required WidgetBuilder builder,
+  }) {
+    return m.showGeneralDialog(
+      context: this,
+      barrierDismissible: barrierDismissible,
+      barrierColor: barrierColor,
+      useRootNavigator: useRootNavigator,
+      routeSettings: routeSettings,
+      pageBuilder: (context, _, __) => builder(context),
+    );
+  }
 }
 
-extension TargetPlatformDartExtensions on TargetPlatform {
+extension TargetPlatformFlutterExtensions on TargetPlatform {
   bool get isAndroid => this == TargetPlatform.android;
   bool get isFuchsia => this == TargetPlatform.fuchsia;
   bool get isIOS => this == TargetPlatform.iOS;
@@ -74,6 +93,17 @@ extension TargetPlatformDartExtensions on TargetPlatform {
     switch (this) {
       case TargetPlatform.android:
       case TargetPlatform.iOS:
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  bool get isDesktop {
+    switch (this) {
+      case TargetPlatform.windows:
+      case TargetPlatform.macOS:
+      case TargetPlatform.linux:
         return true;
       default:
         return false;
