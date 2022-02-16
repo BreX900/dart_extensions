@@ -1,3 +1,7 @@
+## 4.1.0
+- Improve `FixedIndexStack`
+- Add extensions to `AppLifecycleState`
+
 ## 4.0.3
 - Complete `DataCell.copyWith`, `DataCell.completeWith`, `DataRow.copyWith` and `DataRow.completeWith`
 

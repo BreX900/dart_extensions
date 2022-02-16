@@ -40,9 +40,9 @@ class DecimalRationalSerializer extends RationalSerializer {
     FullType specifiedType = FullType.unspecified,
   }) {
     if (fractionDigits != null) {
-      return object.toStringAsFixed(fractionDigits!);
+      return object.toDouble().toStringAsFixed(fractionDigits!);
     } else {
-      return object.toDecimalString();
+      return object.toDouble();
     }
   }
 }
@@ -66,7 +66,7 @@ class IntegerRationalSerializer extends RationalSerializer {
   @override
   Object serialize(Serializers serializers, Rational object,
       {FullType specifiedType = FullType.unspecified}) {
-    final str = object.toDecimalString();
+    final str = object.toDouble().toString();
     final splitted = str.split('.');
     final whole = splitted[0];
     final decimal = splitted[1];

@@ -53,11 +53,11 @@ class GeoPoint {
     return GeoPoint(latitude ?? this.latitude, longitude ?? this.longitude);
   }
 
-  factory GeoPoint.fromMap(Map<String, dynamic> map) {
+  factory GeoPoint.fromJson(Map<String, dynamic> map) {
     return GeoPoint(map['latitude'] as double, map['longitude'] as double);
   }
 
-  Map<String, double> toMap() {
+  Map<String, double> toJson() {
     return {'latitude': latitude, 'longitude': longitude};
   }
 
@@ -119,15 +119,15 @@ class GeoBounds {
 
   factory GeoBounds.fromMap(Map<String, dynamic> map) {
     return GeoBounds(
-      northeast: GeoPoint.fromMap(map['northeast']),
-      southwest: GeoPoint.fromMap(map['southwest']),
+      northeast: GeoPoint.fromJson(map['northeast']),
+      southwest: GeoPoint.fromJson(map['southwest']),
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'northeast': northeast.toMap(),
-      'southwest': southwest.toMap(),
+      'northeast': northeast.toJson(),
+      'southwest': southwest.toJson(),
     };
   }
 

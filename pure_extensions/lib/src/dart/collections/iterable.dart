@@ -28,6 +28,7 @@ extension IterablePureExtensions<E> on Iterable<E> {
   /// Concatenates the elements.
   Iterable<E> joinElement(E element) => joinBy((index) => element);
 
+  /// Returns the [index]th element or null if it not exist.
   E? elementAtOrNull(int index) {
     try {
       return elementAt(index);
@@ -38,10 +39,19 @@ extension IterablePureExtensions<E> on Iterable<E> {
 
   /// Returns true if the specified value is equal to at least one element of the given list;
   /// false otherwise
-  bool containsAll(Iterable<E> other) {
+  @Deprecated('In favour of [containsEvery]')
+  bool containsAll(Iterable<E> other) => containsEvery(other);
+
+  /// Checks whether any element of this iterable is in [other] iterable.
+  bool containsAny(Iterable<E> other) {
     if (identical(other, this)) return true;
-    if (other.length != length) return false;
-    return other.every(contains);
+    return any(other.contains);
+  }
+
+  /// Checks whether every element of this iterable is in [other] iterable.
+  bool containsEvery(Iterable<E> other) {
+    if (identical(other, this)) return true;
+    return every(other.contains);
   }
 
   /// Generate the map by collection.

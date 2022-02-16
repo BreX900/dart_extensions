@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:pure_extensions/src/dart/errors.dart';
 
 extension MapPureExtensions<K, V> on Map<K, V> {
   String encodeToString() => jsonEncode(this);
@@ -15,10 +16,13 @@ extension MapPureExtensions<K, V> on Map<K, V> {
     return list;
   }
 
-  /// Returns a value
-  V get(K key) => this[key]!;
+  /// Returns the value [key].
+  V get(K key) {
+    final value = this[key];
+    return value is V ? value : throw KeyError(key, this);
+  }
 
-  /// Returns a value or null if it not exist
+  /// Returns the value [key] or null if it not exist.
   V? getOrNull(K? key) => this[key];
 
   /// returns a List from entries

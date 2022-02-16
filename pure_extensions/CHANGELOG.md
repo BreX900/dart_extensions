@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 4.1.0
+- Added `containsAny`, `containsEvery` on Iterable
+- Added `get`, `getOrNull` on Map/BuiltMap
+- Upgrade `Rational` dependency to `^2.0.0`
+
 ## 4.0.2
 - Rename extensions
 - More improvements

@@ -40,7 +40,7 @@ extension StreamPureExtensions<T> on Stream<T> {
 
   Future<R> firstType<R>({R Function()? orElse}) {
     final completer = Completer<R>();
-    firstWhere((v) => v is T).then((v) => completer.complete(v as R),
+    firstWhere((v) => v is R).then((v) => completer.complete(v as R),
         onError: (exception, stackTrace) {
       if (exception is StateError && orElse != null) {
         completer.complete(orElse());
@@ -53,7 +53,7 @@ extension StreamPureExtensions<T> on Stream<T> {
 
   Future<R> firstRuntimeType<R>({R Function()? orElse}) {
     final completer = Completer<R>();
-    firstWhere((v) => v.runtimeType == T).then((v) => completer.complete(v as R),
+    firstWhere((v) => v.runtimeType == R).then((v) => completer.complete(v as R),
         onError: (exception, stackTrace) {
       if (exception is StateError && orElse != null) {
         completer.complete(orElse());
@@ -63,6 +63,8 @@ extension StreamPureExtensions<T> on Stream<T> {
     });
     return completer.future;
   }
+
+  Stream<T> whereNotNull() => where((event) => event != null).cast<T>();
 
   Stream<T> dumpErrorToConsoleDart() => doOnError((error, stackTrace) {
         print(error);
