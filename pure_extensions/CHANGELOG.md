@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 4.1.1
+- Fixed `whereNotNull` extension in Stream
+
 ## 4.1.0
 - Added `containsAny`, `containsEvery` on Iterable
 - Added `get`, `getOrNull` on Map/BuiltMap

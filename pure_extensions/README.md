@@ -151,7 +151,7 @@ See [time](https://pub.dev/packages/time) for many others extensions
 | distinctRuntimeType      | Stream.distinct] by [T.runtimeType].                                             |
 | distinctRuntimeType      | Stream.distinct] by [T.runtimeType].                                             |
 | listenValueChanges       | Hear how the specified value changes over time from its previous value.          |
-
+| whereNotNull             |                                                                                  |
 
 ## **Built**
 

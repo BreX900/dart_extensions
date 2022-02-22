@@ -64,8 +64,6 @@ extension StreamPureExtensions<T> on Stream<T> {
     return completer.future;
   }
 
-  Stream<T> whereNotNull() => where((event) => event != null).cast<T>();
-
   Stream<T> dumpErrorToConsoleDart() => doOnError((error, stackTrace) {
         print(error);
         print(stackTrace);
@@ -76,6 +74,10 @@ extension StreamPureExtensions<T> on Stream<T> {
 
   /// Returns a broadcast stream without wrapping it unnecessarily.
   Stream<T> asBroadcast() => isBroadcast ? this : asBroadcastStream();
+}
+
+extension NullStreamPureExtensions<T> on Stream<T?> {
+  Stream<T> whereNotNull() => where((event) => event != null).cast<T>();
 }
 
 extension FutureDartExt<T> on Future<T> {
