@@ -37,7 +37,7 @@ class _FixedIndexedStackState extends State<FixedIndexedStack> {
   @override
   void initState() {
     super.initState();
-    _indexedChildren = {};
+    _indexedChildren = {widget.children[widget.index].key!};
   }
 
   @override

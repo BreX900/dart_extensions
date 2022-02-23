@@ -1,6 +1,6 @@
 name: flutter_extensions
 description: It adds utility extensions to the flutter classes and adds some utility classes.
-version: 4.1.0
+version: 4.1.1
 homepage: https://github.com/BreX900/dart_extensions/tree/master/flutter_extensions
 
 # flutter pub publish --dry-run

@@ -1,3 +1,6 @@
+## 4.1.1
+- Fixed `FixedIndexedStack` for initial index
+
 ## 4.1.0
 - Improve `FixedIndexStack`
 - Add extensions to `AppLifecycleState`
