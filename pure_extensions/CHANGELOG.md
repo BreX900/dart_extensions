@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 4.2.0
+- Update dart to ´2.17.0´ and fix lints
+- Update dependencies
+
 ## 4.1.1
 - Fixed `whereNotNull` extension in Stream
 

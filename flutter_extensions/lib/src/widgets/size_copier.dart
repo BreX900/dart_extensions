@@ -56,7 +56,7 @@ class SizeCopierState extends State<SizeCopier> {
   }
 
   void _copySize() {
-    SchedulerBinding.instance!.addPostFrameCallback((_) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
       final box = context.findRenderObject() as RenderBox;
       Provider.of<SizeCopierController>(context, listen: false).size = box.size;
     });
@@ -99,7 +99,7 @@ class SizeCopy extends StatefulWidget {
   const SizeCopy.builder({Key? key, required this.builder}) : super(key: key);
 
   @override
-  _SizeCopyState createState() => _SizeCopyState();
+  State<SizeCopy> createState() => _SizeCopyState();
 }
 
 class _SizeCopyState extends State<SizeCopy> {

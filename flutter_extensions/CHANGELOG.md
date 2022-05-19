@@ -1,3 +1,9 @@
+# CHANGELOG
+
+## 4.2.0
+- Update flutter to ´3.0.0´ and fix lints
+- Update dependencies
+
 ## 4.1.1
 - Fixed `FixedIndexedStack` for initial index
 

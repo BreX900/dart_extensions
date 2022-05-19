@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 /// Assigns the scroll view a minimum size equal to the maximum view size
 ///

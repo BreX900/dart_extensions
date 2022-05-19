@@ -71,29 +71,29 @@ class _$MyCustomQuerySerializer implements StructuredSerializer<MyCustomQuery> {
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'string':
           result.string = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'integer':
           result.integer = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int)) as int?;
           break;
         case 'stringList':
           result.stringList.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(String)]))!
-              as BuiltList<Object>);
+              as BuiltList<Object?>);
           break;
         case 'intList':
           result.intList.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, const [const FullType(int)]))!
-              as BuiltList<Object>);
+              as BuiltList<Object?>);
           break;
       }
     }
@@ -164,7 +164,7 @@ class _$MyCustomUriSerializer implements StructuredSerializer<MyCustomUri> {
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
@@ -174,23 +174,23 @@ class _$MyCustomUriSerializer implements StructuredSerializer<MyCustomUri> {
           break;
         case 'scheme':
           result.scheme = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'userInfo':
           result.userInfo = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'host':
           result.host = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'port':
           result.port = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int)) as int?;
           break;
         case 'fragment':
           result.fragment = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -210,7 +210,7 @@ class _$MyCustomQuery extends MyCustomQuery {
   final BuiltList<int>? intList;
 
   factory _$MyCustomQuery([void Function(MyCustomQueryBuilder)? updates]) =>
-      (new MyCustomQueryBuilder()..update(updates)).build();
+      (new MyCustomQueryBuilder()..update(updates))._build();
 
   _$MyCustomQuery._({this.string, this.integer, this.stringList, this.intList})
       : super._();
@@ -299,7 +299,9 @@ class MyCustomQueryBuilder
   }
 
   @override
-  _$MyCustomQuery build() {
+  MyCustomQuery build() => _build();
+
+  _$MyCustomQuery _build() {
     _$MyCustomQuery _$result;
     try {
       _$result = _$v ??
@@ -341,7 +343,7 @@ class _$MyCustomUri extends MyCustomUri {
   final String? fragment;
 
   factory _$MyCustomUri([void Function(MyCustomUriBuilder)? updates]) =>
-      (new MyCustomUriBuilder()..update(updates)).build();
+      (new MyCustomUriBuilder()..update(updates))._build();
 
   _$MyCustomUri._(
       {this.queryParameters,
@@ -453,7 +455,9 @@ class MyCustomUriBuilder implements Builder<MyCustomUri, MyCustomUriBuilder> {
   }
 
   @override
-  _$MyCustomUri build() {
+  MyCustomUri build() => _build();
+
+  _$MyCustomUri _build() {
     _$MyCustomUri _$result;
     try {
       _$result = _$v ??
@@ -480,4 +484,4 @@ class MyCustomUriBuilder implements Builder<MyCustomUri, MyCustomUriBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

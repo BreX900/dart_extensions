@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 
 mixin WidgetsBindingObserverOnState<W extends StatefulWidget> on State<W>
     implements WidgetsBindingObserver {
-  WidgetsBinding get widgetsBinding => WidgetsBinding.instance!;
+  WidgetsBinding get widgetsBinding => WidgetsBinding.instance;
 
   @override
   void initState() {
@@ -24,7 +24,7 @@ class PhysicalSizeBuilder extends StatefulWidget {
   const PhysicalSizeBuilder({Key? key, this.buildWhen, required this.builder}) : super(key: key);
 
   @override
-  _PhysicalSizeBuilderState createState() => _PhysicalSizeBuilderState();
+  State<PhysicalSizeBuilder> createState() => _PhysicalSizeBuilderState();
 }
 
 class _PhysicalSizeBuilderState extends State<PhysicalSizeBuilder>
@@ -59,7 +59,7 @@ class DrawerBarBuilder extends StatefulWidget {
       : super(key: key);
 
   @override
-  _DrawerBarBuilderState createState() => _DrawerBarBuilderState();
+  State<DrawerBarBuilder> createState() => _DrawerBarBuilderState();
 }
 
 class _DrawerBarBuilderState extends State<DrawerBarBuilder>

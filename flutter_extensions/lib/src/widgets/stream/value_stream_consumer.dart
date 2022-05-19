@@ -23,7 +23,7 @@ class ValueStreamConsumer<TValue> extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ValueStreamConsumerState<TValue> createState() => _ValueStreamConsumerState();
+  State<ValueStreamConsumer<TValue>> createState() => _ValueStreamConsumerState();
 }
 
 class _ValueStreamConsumerState<TValue> extends State<ValueStreamConsumer<TValue>> {

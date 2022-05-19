@@ -32,7 +32,7 @@ extension IterablePureExtensions<E> on Iterable<E> {
   E? elementAtOrNull(int index) {
     try {
       return elementAt(index);
-    } on IndexError {
+    } on RangeError {
       return null;
     }
   }

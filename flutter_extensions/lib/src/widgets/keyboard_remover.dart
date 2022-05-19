@@ -13,7 +13,7 @@ class KeyboardRemover extends StatefulWidget {
   const KeyboardRemover({Key? key, required this.child}) : super(key: key);
 
   @override
-  _KeyboardRemoverState createState() => _KeyboardRemoverState();
+  State<KeyboardRemover> createState() => _KeyboardRemoverState();
 }
 
 class _KeyboardRemoverState extends State<KeyboardRemover> {

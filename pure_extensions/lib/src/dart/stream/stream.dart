@@ -22,17 +22,17 @@ extension StreamPureExtensions<T> on Stream<T> {
     Function? onError,
     void Function()? onDone,
   }) {
-    final _onStart = onStart ?? (T p, T c) {};
-    final _onFinish = onFinish ?? ((T p, T c, R r) => r);
+    final onStartFn = onStart ?? (T p, T c) {};
+    final onFinishFn = onFinish ?? ((T p, T c, R r) => r);
 
     return distinct(equals)
         .pairwise()
-        .doOnData((vls) => _onStart(vls.first, vls.last))
+        .doOnData((vls) => onStartFn(vls.first, vls.last))
         .debounceTime(debounceTime)
         .switchMap<List<dynamic>>((vls) {
       return onData(vls.first, vls.last).map((result) => <dynamic>[vls.first, vls.last, result]);
     }).listen(
-      (list) => _onFinish(list[0] as T, list[1] as T, list[2] as R),
+      (list) => onFinishFn(list[0] as T, list[1] as T, list[2] as R),
       onError: onError,
       onDone: onDone,
     );
@@ -65,7 +65,9 @@ extension StreamPureExtensions<T> on Stream<T> {
   }
 
   Stream<T> dumpErrorToConsoleDart() => doOnError((error, stackTrace) {
+        // ignore: avoid_print
         print(error);
+        // ignore: avoid_print
         print(stackTrace);
       });
 
@@ -82,7 +84,9 @@ extension NullStreamPureExtensions<T> on Stream<T?> {
 
 extension FutureDartExt<T> on Future<T> {
   Future<T> dumpErrorToConsoleDart() => catchError((error, stackTrace) {
+        // ignore: avoid_print
         print(error);
+        // ignore: avoid_print
         print(stackTrace);
       });
 }

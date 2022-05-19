@@ -22,7 +22,7 @@ class ValueStreamListener<TValue> extends SingleChildStatefulWidget {
   }) : super(key: key, child: child);
 
   @override
-  _ValueStreamListenerState<TValue> createState() => _ValueStreamListenerState();
+  SingleChildState<ValueStreamListener<TValue>> createState() => _ValueStreamListenerState();
 }
 
 class _ValueStreamListenerState<TValue> extends SingleChildState<ValueStreamListener<TValue>> {

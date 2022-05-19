@@ -39,7 +39,8 @@ class ChangeableValueListener<T extends Listenable, V> extends SingleChildStatef
   }) : super(key: key, child: child);
 
   @override
-  _ChangeableValueListenerState<T, V> createState() => _ChangeableValueListenerState<T, V>();
+  SingleChildState<ChangeableValueListener<T, V>> createState() =>
+      _ChangeableValueListenerState<T, V>();
 }
 
 class _ChangeableValueListenerState<T extends Listenable, V>
@@ -84,7 +85,7 @@ class ChangeableValueBuilder<T extends Listenable, V> extends StatefulWidget
   }) : super(key: key);
 
   @override
-  _ChangeableValueBuilderState<T, V> createState() => _ChangeableValueBuilderState<T, V>();
+  State<ChangeableValueBuilder<T, V>> createState() => _ChangeableValueBuilderState<T, V>();
 }
 
 class _ChangeableValueBuilderState<T extends Listenable, V>
@@ -123,7 +124,7 @@ class ChangeableValueConsumer<T extends Listenable, V> extends StatefulWidget
   }) : super(key: key);
 
   @override
-  _ChangeableValueConsumerState<T, V> createState() => _ChangeableValueConsumerState<T, V>();
+  State<ChangeableValueConsumer<T, V>> createState() => _ChangeableValueConsumerState<T, V>();
 }
 
 class _ChangeableValueConsumerState<T extends Listenable, V>
@@ -159,7 +160,7 @@ class ChangeableListener<T extends Listenable> extends SingleChildStatefulWidget
   }) : super(key: key, child: child);
 
   @override
-  _ChangeableListenerState<T> createState() => _ChangeableListenerState<T>();
+  SingleChildState<ChangeableListener<T>> createState() => _ChangeableListenerState<T>();
 }
 
 class _ChangeableListenerState<T extends Listenable> extends SingleChildState<ChangeableListener<T>>
@@ -188,7 +189,7 @@ class ChangeableBuilder<T extends Listenable> extends StatefulWidget
   }) : super(key: key);
 
   @override
-  _ChangeableBuilderState<T> createState() => _ChangeableBuilderState<T>();
+  State<ChangeableBuilder<T>> createState() => _ChangeableBuilderState<T>();
 }
 
 class _ChangeableBuilderState<T extends Listenable> extends State<ChangeableBuilder<T>>
@@ -221,10 +222,10 @@ class ChangeableConsumer<T extends Listenable> extends StatefulWidget
   }) : super(key: key);
 
   @override
-  _ChangeableBuilderState<T> createState() => _ChangeableBuilderState<T>();
+  State<ChangeableConsumer<T>> createState() => _ChangeableConsumerState<T>();
 }
 
-class ChangeableConsumerState<T extends Listenable> extends State<ChangeableConsumer<T>>
+class _ChangeableConsumerState<T extends Listenable> extends State<ChangeableConsumer<T>>
     with ChangeableConsumerStateMixin<ChangeableConsumer<T>, T> {
   @override
   void onListenableChanges() {

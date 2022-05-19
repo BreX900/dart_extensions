@@ -28,7 +28,7 @@ class FixedIndexedStack extends StatefulWidget {
         super(key: key);
 
   @override
-  _FixedIndexedStackState createState() => _FixedIndexedStackState();
+  State<FixedIndexedStack> createState() => _FixedIndexedStackState();
 }
 
 class _FixedIndexedStackState extends State<FixedIndexedStack> {

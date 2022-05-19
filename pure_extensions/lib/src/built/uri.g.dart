@@ -105,29 +105,29 @@ class _$CustomUriSerializer
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
         case 'scheme':
           result.scheme = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'userInfo':
           result.userInfo = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'host':
           result.host = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'port':
           result.port = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int)) as int?;
           break;
         case 'path':
           result.path = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'pathSegments':
           result.pathSegments =
@@ -139,7 +139,7 @@ class _$CustomUriSerializer
           break;
         case 'fragment':
           result.fragment = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -168,7 +168,7 @@ class _$CustomUri<PS extends Object, QP extends Object>
   final String? fragment;
 
   factory _$CustomUri([void Function(CustomUriBuilder<PS, QP>)? updates]) =>
-      (new CustomUriBuilder<PS, QP>()..update(updates)).build();
+      (new CustomUriBuilder<PS, QP>()..update(updates))._build();
 
   _$CustomUri._(
       {this.scheme,
@@ -308,7 +308,9 @@ class CustomUriBuilder<PS extends Object, QP extends Object>
   }
 
   @override
-  _$CustomUri<PS, QP> build() {
+  CustomUri<PS, QP> build() => _build();
+
+  _$CustomUri<PS, QP> _build() {
     final _$result = _$v ??
         new _$CustomUri<PS, QP>._(
             scheme: scheme,
@@ -324,4 +326,4 @@ class CustomUriBuilder<PS extends Object, QP extends Object>
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

@@ -19,7 +19,7 @@ class ValueStreamBuilder<TValue> extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ValueStreamBuilderState<TValue> createState() => _ValueStreamBuilderState();
+  State<ValueStreamBuilder<TValue>> createState() => _ValueStreamBuilderState();
 }
 
 class _ValueStreamBuilderState<TValue> extends State<ValueStreamBuilder<TValue>> {
