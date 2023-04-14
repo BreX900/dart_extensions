@@ -33,7 +33,7 @@ more methods... please complete this list...
 They are extended with the methods of the 'math' package
 
 
-### - **Iterable< T > (BUILT)**
+### - **Iterable< T >**
 See [collection](https://pub.dev/packages/collection) for many others extensions
 
 | Command          | Description                                                            |
@@ -51,7 +51,6 @@ See [collection](https://pub.dev/packages/collection) for many others extensions
 
 
 ##### - **Iterable< num/int/double/BigInt/Rational >**
-See [collection](https://pub.dev/packages/collection) for many others extensions
 
 | Command       | Description                                                   |
 |---------------|---------------------------------------------------------------|
@@ -66,7 +65,7 @@ See [collection](https://pub.dev/packages/collection) for many others extensions
 | multiplyAllBy | Multiply [number] to all items in the collection              |
 
 
-##### - **Iterable< MapEntry< K, V > > (BUILT)**
+##### - **Iterable< MapEntry< K, V > >**
 
 | Command   | Description                                     |
 |-----------|-------------------------------------------------|
@@ -95,7 +94,7 @@ See [collection](https://pub.dev/packages/collection) for many others extensions
 | externalBounds | Calculate the external corners. |
 
 
-### - **Map< K, V > (BUILT)**
+### - **Map< K, V >**
 
 | Command                                                      | Description                                                       |
 |--------------------------------------------------------------|-------------------------------------------------------------------|
@@ -117,7 +116,6 @@ See [collection](https://pub.dev/packages/collection) for many others extensions
 
 
 ### - **DateTime** (DateTimeBuilder)
-See [time](https://pub.dev/packages/time) for many others extensions
 
 | Command                   | Description |
 |---------------------------|-------------|
@@ -125,7 +123,6 @@ See [time](https://pub.dev/packages/time) for many others extensions
 
 
 ### - **Duration** (DurationBuilder)
-See [time](https://pub.dev/packages/time) for many others extensions
 
 | Command      | Description                                  |
 |--------------|----------------------------------------------|
@@ -150,22 +147,4 @@ See [time](https://pub.dev/packages/time) for many others extensions
 | onTrackedErrorReturnWith | It is similar to [Rx.OnErrorExtensions.onErrorReturnWith] but with [StackTrace]. |
 | distinctRuntimeType      | Stream.distinct] by [T.runtimeType].                                             |
 | distinctRuntimeType      | Stream.distinct] by [T.runtimeType].                                             |
-| listenValueChanges       | Hear how the specified value changes over time from its previous value.          |
 | whereNotNull             |                                                                                  |
-
-## **Built**
-
-| Class              | Description                                                               |
-|--------------------|---------------------------------------------------------------------------|
-| GeoPointSerializer | Serializer for [GeoPoint] Type                                            |
-| RationalSerializer | Serializer for the [Rational] type                                        |
-| ByPassSerializer   | Serializer that does not serialize and deserialize the specified type [T] |
-
-#### - Serializers
-
-| Command            | Description                                               |
-|--------------------|-----------------------------------------------------------|
-| serializeAll       | Serialize the collection of objects                       |
-| serializeAllWith   | Serialize the collection of objects using [Serializer].   |
-| deserializeAll     | Deserialize the collection of objects.                    |
-| deserializeAllWith | Deserialize the collection of objects using [Serializer]. |

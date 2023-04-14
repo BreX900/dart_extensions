@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 5.0.0
+- Removed package export: pure_extensions
+- fix: KeyboardRemover does not close the keyboard properly
+
 ## 4.2.0
 - Update flutter to ´3.0.0´ and fix lints
 - Update dependencies

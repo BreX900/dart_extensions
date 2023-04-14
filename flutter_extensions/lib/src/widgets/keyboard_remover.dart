@@ -6,38 +6,19 @@ import 'package:flutter/widgets.dart';
 ///   builder: (context, child) => KeyboardRemover(child: child),
 /// );
 ///
-class KeyboardRemover extends StatefulWidget {
-  /// The child
+class KeyboardRemover extends StatelessWidget {
   final Widget child;
 
-  const KeyboardRemover({Key? key, required this.child}) : super(key: key);
-
-  @override
-  State<KeyboardRemover> createState() => _KeyboardRemoverState();
-}
-
-class _KeyboardRemoverState extends State<KeyboardRemover> {
-  late FocusNode _focusPuller;
-
-  final _focusNode = FocusNode();
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _focusPuller = Focus.of(context);
-  }
-
-  /// This method close the keyboard when the user press on the screen
-  void _requestFocus() {
-    if (_focusNode.hasFocus) return;
-    _focusPuller.requestFocus(_focusNode);
-  }
+  const KeyboardRemover({
+    super.key,
+    required this.child,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: _requestFocus,
-      child: widget.child,
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: child,
     );
   }
 }

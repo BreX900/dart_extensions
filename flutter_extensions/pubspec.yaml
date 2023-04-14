@@ -1,28 +1,24 @@
 name: flutter_extensions
 description: It adds utility extensions to the flutter classes and adds some utility classes.
-version: 4.2.0
+version: 5.0.0
 homepage: https://github.com/BreX900/dart_extensions/tree/master/flutter_extensions
 
 # flutter pub publish --dry-run
 
 environment:
   sdk: '>=2.17.0 <3.0.0'
-  flutter: ">=3.0.0"
+  flutter: ">=3.7.0"
 
 dependencies:
   flutter:
     sdk: flutter
-
-  pure_extensions: ^4.2.0
-#  pure_extensions:
-#    path: ../pure_extensions
 
   rxdart: ^0.27.0
 
   provider: ^6.0.0
 
 dev_dependencies:
-  mek_lints: ^0.3.0
+  mek_lints: ^1.0.0
 
   flutter_test:
     sdk: flutter

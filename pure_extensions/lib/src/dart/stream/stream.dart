@@ -6,38 +6,6 @@ extension StreamPureExtensions<T> on Stream<T> {
   /// [Stream.distinct] by [T.runtimeType]
   Stream<T> distinctRuntimeType() => distinct((bef, aft) => bef.runtimeType == aft.runtimeType);
 
-  /// Allows you to provide a function that will be executed whenever a value changes.
-
-  /// Listen for changes in the stream and call [onStart].
-  /// [onData] is called, with the previous value and the current value, after a [debounceTime]
-  /// and only if the value has changed does it return a result which is passed to [onFinish].
-  ///
-  /// More over, it lets you provide a function [equals] to describe when to values can be considered the same
-  StreamSubscription<dynamic> listenValueChanges<R>({
-    Duration debounceTime = const Duration(),
-    bool Function(T previous, T current)? equals,
-    void Function(T previous, T current)? onStart,
-    required Stream<R> Function(T previous, T current) onData,
-    void Function(T previous, T current, R result)? onFinish,
-    Function? onError,
-    void Function()? onDone,
-  }) {
-    final onStartFn = onStart ?? (T p, T c) {};
-    final onFinishFn = onFinish ?? ((T p, T c, R r) => r);
-
-    return distinct(equals)
-        .pairwise()
-        .doOnData((vls) => onStartFn(vls.first, vls.last))
-        .debounceTime(debounceTime)
-        .switchMap<List<dynamic>>((vls) {
-      return onData(vls.first, vls.last).map((result) => <dynamic>[vls.first, vls.last, result]);
-    }).listen(
-      (list) => onFinishFn(list[0] as T, list[1] as T, list[2] as R),
-      onError: onError,
-      onDone: onDone,
-    );
-  }
-
   Future<R> firstType<R>({R Function()? orElse}) {
     final completer = Completer<R>();
     firstWhere((v) => v is R).then((v) => completer.complete(v as R),

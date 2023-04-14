@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pure_extensions/pure_extensions.dart';
 
 extension DateTimeFlutterExtensions on DateTime {
   /// Convert it ot [TimeOfDay]

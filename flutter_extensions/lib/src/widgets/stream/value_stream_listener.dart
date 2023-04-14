@@ -38,7 +38,7 @@ class _ValueStreamListenerState<TValue> extends SingleChildState<ValueStreamList
   void didUpdateWidget(covariant ValueStreamListener<TValue> oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.stream != oldWidget.stream) {
-      _sub?.cancel();
+      unawaited(_sub?.cancel());
       _listenStream();
     }
   }
@@ -46,7 +46,7 @@ class _ValueStreamListenerState<TValue> extends SingleChildState<ValueStreamList
   @override
   void dispose() {
     super.dispose();
-    _sub?.cancel();
+    unawaited(_sub?.cancel());
   }
 
   void _listenStream() {

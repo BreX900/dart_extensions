@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 5.0.0
+- Removed export of packages: time, recase, collection
+- Removed export of extensions: path, built_value, built_collection
+
 ## 4.2.0
 - Update dart to ´2.17.0´ and fix lints
 - Update dependencies

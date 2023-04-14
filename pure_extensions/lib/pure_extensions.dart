@@ -1,10 +1,5 @@
 library pure_extensions;
 
-export 'package:collection/src/iterable_extensions.dart';
-export 'package:rational/rational.dart';
-export 'package:recase/recase.dart';
-export 'package:time/time.dart';
-
 export 'src/dart/collections/iterable.dart';
 export 'src/dart/collections/list.dart';
 export 'src/dart/collections/map.dart';
